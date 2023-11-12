@@ -51,7 +51,7 @@ https://github.com/michelpl/stock-api.git
 Enter in repository folder
 
 ```bash
-cd hiring-challenge
+cd moneys
 ```
 
 Create the .env file
