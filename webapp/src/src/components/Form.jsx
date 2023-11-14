@@ -1,4 +1,4 @@
-import {Alert, Button, Link, Paper, TextField} from "@mui/material";
+import {Alert, Button, Link, ListSubheader, Paper, TextField} from "@mui/material";
 import React, {useState} from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import ListItemText from "@mui/material/ListItemText";
@@ -15,6 +15,7 @@ export default function Form({ todoHandler }) {
 
     const [description, setDescription] = useState(0);
     const [amount, setAmount] = useState(0);
+    
     const [count, setCount] = React.useState(0);
 
     const getFiis = async () => {
@@ -34,30 +35,41 @@ export default function Form({ todoHandler }) {
 
     const [list, setList] = useState(getFiis);
     const [inputValue, setInputValue] = React.useState('');
+    const [totalAmount, setTotalAmount] =  React.useState(0);
+    
+    const sumTotalAmount = (newList) => {
+        console.log(newList);
+        var totalAmount = 0;
+        newList.forEach(function(expense) {
+            totalAmount += parseFloat(expense.amount);
+        })
+        console.log("TOTAL AMOUNT: " + totalAmount);
+        setTotalAmount(totalAmount.toFixed(2));
+    }
 
     const getLocalStorage = () => {
-        var local = localStorage.getItem('expenses');
-        if (local) {
-            return JSON.parse(local);
+        var localData = localStorage.getItem('expenses');
+        if (localData) {
+            sumTotalAmount(JSON.parse(localData));
+            return JSON.parse(localData);
         }
-
         return [];
     }
 
     const [expenses, setExpenses] = useState(getLocalStorage);
 
     const saveExpenses = () => {
-        var counter = count + 1
         const newItem = {
             'id': Math.floor(Math.random() * 100000000),
-            'count': counter,
+
             'description': description,
             'amount': amount
         };
-        console.log(newItem);
-        localStorage.setItem("expenses", JSON.stringify([...expenses, newItem]));
-        setExpenses([...expenses, newItem]);
-        setCount(counter)
+        let newList = [...expenses, newItem];
+        localStorage.setItem("expenses", JSON.stringify(newList));
+        
+        setExpenses(newList);
+        sumTotalAmount(newList);
     };
 
     const deleteTodo = (id) => {
@@ -66,10 +78,12 @@ export default function Form({ todoHandler }) {
         var counter = count
         setCount(counter -1)
         localStorage.setItem("expenses", JSON.stringify(filtered));
+        sumTotalAmount(filtered);
     };
 
     const deleteAll = () => {
         setExpenses([]);
+        setTotalAmount(0);
         localStorage.setItem("expenses", JSON.stringify([]));
     };
 
@@ -105,38 +119,48 @@ export default function Form({ todoHandler }) {
                 <Button fullWidth={true} variant="contained" onClick={saveExpenses} >Salvar</Button>
             </div>
             <div>
-                <List>
-                <ListItem
-                    <Divider />
+            <List>
+                <ListItemButton>
+                    <ListItemText sx={{ marginLeft: '15' }}  primary={ "ID" } />
+                    <ListItemText sx={{ marginLeft: '15' }}  primary={ "Descrição" } />
+                    <ListItemText sx={{ textAlign: 'right' }}  primary={ "Valor" } />
+                    <ListItemText sx={{ textAlign: 'right' }}  primary={ "Ações" } />
+                </ListItemButton>
+                <Divider />
                     {
-                        expenses.map((item) => (
-                            <ListItem
-                                key={item.id}
-                                disablePadding
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(item.id)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                }
-                            >
+                        expenses.map((item, order) => (
+                        <ListItem
+                            key={item.id}
+                            disablePadding
+                            secondaryAction={
+                                <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(item.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            }
+                        >
                         <ListItemButton role={undefined}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': item.id }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText sx={{ marginLeft: '15' }} id={item.count} primary={ item.count } />
-                            <ListItemText sx={{ marginLeft: '15' }} id={item.description} primary={ item.description } />
-                            <ListItemText sx={{ marginLeft: '15' }} id={item.amount} primary={ item.amount } />
-
+                                <ListItemIcon>
+                                    <Checkbox
+                                        edge="start"
+                                        tabIndex={-1}
+                                        disableRipple
+                                        inputProps={{ 'aria-labelledby': item.id }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText sx={{ marginLeft: '15' }} id={ order } primary={ order } />
+                                <ListItemText sx={{ marginLeft: '15' }} id={item.description} primary={ item.description } />
+                                <ListItemText sx={{ marginLeft: '15' }} id={item.amount} primary={ item.amount } />
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    <Paper>
+                        <p>Valor das saídas: R$ { totalAmount }</p>
+                    </Paper>
                 </List>
             </div>
         </Paper>
     );
 }
+
+
+
