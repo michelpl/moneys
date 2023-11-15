@@ -1,28 +1,27 @@
 import Form from "../components/Form"
 import UpdateStockData from "../components/UpdateStockData"
-import React, {useState} from "react";
-import {Button, Paper} from "@mui/material";
-import List from "../components/StockList";
+import React, { useState } from "react";
+import { Button, Paper } from "@mui/material";
+import DataTable from "../components/Expenses";
 import Box from "@mui/material/Box";
 
 export default function Home() {
-    const [todos, setTodos] = useState([]);
 
-    const todoHandler = (todo) => {
-        setTodos([...todos, todo])
+    const getExpensesData = () => {
+        return [
+            { id: 1, description: 'Desc 1', amount: '2333' },
+            { id: 2, description: 'Desc 1', amount: '2333' }
+          ];  
     }
 
-    const setResult = (result) => {
-
-    }
+    const [expensesData, setExpensesData] = useState(getExpensesData);
 
     return (
         <div>
-            <div className="">
-                <Form
-                    todoHandler={ todoHandler }
-                />
-            </div>            
+            <Box sx={{ padding: 2 }} >
+                <h2>Saídas</h2>
+            </Box>
+            <DataTable />
         </div>
     );
 }
