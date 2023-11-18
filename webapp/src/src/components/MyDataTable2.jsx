@@ -20,53 +20,21 @@ import {
     randomId,
     randomArrayItem,
 } from '@mui/x-data-grid-generator';
+import { backdropClasses } from '@mui/material';
 
 const roles = ['Market', 'Finance', 'Development'];
 const randomRole = () => {
     return randomArrayItem(roles);
 };
 
-const initialRows = [
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 25,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 36,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 19,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 28,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 23,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-];
+const initialRows = [];
 
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
 
+    const dataHandle = (rows) => {
+        setRows(rows);
+    }
     const handleClick = () => {
         const id = randomId();
         setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
@@ -79,21 +47,17 @@ function EditToolbar(props) {
     return (
         <GridToolbarContainer>
             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                ADICIONAR
+                Add record
             </Button>
         </GridToolbarContainer>
     );
 }
 
-export default function MyDataTable2({initialRows, model}) {
+export default function FullFeaturedCrudGrid(modelName = { modelName }) {
     const [rows, setRows] = React.useState(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState({});
-    const [modelName, setModelName] = React.useState(model);
-
-    const handleData = (data) => {
-        setRows(data);
-    }
-
+    const { dataKey, setDataKey } = React.useState(modelName);
+    
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
             event.defaultMuiPrevented = true;
@@ -109,7 +73,7 @@ export default function MyDataTable2({initialRows, model}) {
     };
 
     const handleDeleteClick = (id) => () => {
-        handleData(rows.filter((row) => row.id !== id));
+        setRows(rows.filter((row) => row.id !== id));
     };
 
     const handleCancelClick = (id) => () => {
@@ -120,13 +84,13 @@ export default function MyDataTable2({initialRows, model}) {
 
         const editedRow = rows.find((row) => row.id === id);
         if (editedRow.isNew) {
-            handleData(rows.filter((row) => row.id !== id));
+            setRows(rows.filter((row) => row.id !== id));
         }
     };
 
     const processRowUpdate = (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
-        handleData(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         return updatedRow;
     };
 
@@ -135,20 +99,10 @@ export default function MyDataTable2({initialRows, model}) {
     };
 
     const columns = [
-        { 
-            field: 'id', 
-            headerName: 'id', 
-            editable: false 
-        },
-        { 
-            field: 'name', 
-            headerName: 'Name', 
-            width: 180, 
-            editable: true 
-        },
+        { field: 'description', headerName: 'Descrição', width: 180, editable: true },
         {
-            field: 'age',
-            headerName: 'Age',
+            field: 'amount',
+            headerName: 'Valor',
             type: 'number',
             width: 80,
             align: 'left',
@@ -156,15 +110,15 @@ export default function MyDataTable2({initialRows, model}) {
             editable: true,
         },
         {
-            field: 'joinDate',
-            headerName: 'Join date',
+            field: 'dueDate',
+            headerName: 'Vencimento',
             type: 'date',
             width: 180,
             editable: true,
         },
         {
-            field: 'role',
-            headerName: 'Department',
+            field: 'category',
+            headerName: 'Categoria',
             width: 220,
             editable: true,
             type: 'singleSelect',
@@ -222,7 +176,6 @@ export default function MyDataTable2({initialRows, model}) {
         <Box
             sx={{
                 height: 500,
-                backgroundColor: 'white',
                 width: '100%',
                 '& .actions': {
                     color: 'text.secondary',
@@ -233,6 +186,10 @@ export default function MyDataTable2({initialRows, model}) {
             }}
         >
             <DataGrid
+                sx={{
+                    height: 500,
+                    backgroundColor: 'white'
+                }}
                 rows={rows}
                 columns={columns}
                 editMode="row"
@@ -247,11 +204,10 @@ export default function MyDataTable2({initialRows, model}) {
                     toolbar: { setRows, setRowModesModel },
                 }}
             />
-            <DataPersistence 
-                data={rows} 
-                key={modelName}
-            />
+            <DataPersistence
+                key={dataKey}
+                data={rows}
+            ></DataPersistence>
         </Box>
-        
     );
 }
