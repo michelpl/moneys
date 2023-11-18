@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from "react";
 import { Image } from "@mui/icons-material";
-import MyDataTable from './MyDataTable';
+import MyDataTable2 from './MyDataTable2.jsx';
 import { ButtonBase, TextField } from '@mui/material';
 
 
@@ -36,8 +36,9 @@ export default function Expenses() {
     const [rows, setRows] = useState(getLocalStorage);
 
     const saveExpenses = () => {
+        var id = rows.length + 1;
         const newItem = {
-            'id': Math.floor(Math.random() * 100000000),
+            'id': id,
             'description': description,
             'amount': amount
         };
@@ -48,48 +49,44 @@ export default function Expenses() {
         //sumTotalAmount(newList);
     };
 
-    const deleteAll = () => {
-        setRows([]);
-        setTotalAmount(0);
-        localStorage.setItem("rows", JSON.stringify([]));
+    const randomRole = () => {
+        return ['Market'];
     };
 
-    return (
+    const randomCreatedDate = () => {
+        return new Date();
+    };
+    
+    const initialRows = [
+        {
+            id: 123,
+            name: "wsdfsdfsdf",
+            age: 25,
+            joinDate: randomCreatedDate(),
+            role: randomRole(),
+        },
+        {
+            id: 456,
+            name: "wsdfsdfsdf",
+            age: 36,
+            joinDate: randomCreatedDate(),
+            role: randomRole(),
+        },
+        {
+            id: 3345,
+            name: "wsdfsdfsdf",
+            age: 19,
+            joinDate: randomCreatedDate(),
+            role: randomRole(),
+        },
 
+    ];
+    return (
         <div>
-            <MyDataTable rows={rows} />
-            <Box minHeight={300} sx={{ width: '100%', backgroundColor: 'white' }} >
-                <TextField
-                    type="text"
-                    sx={{ marginLeft: '15' }}
-                    id="description"
-                    label="Descrição"
-                    minRows="550"
-                    onChange={
-                        (e) => { setDescription(e.target.value); }
-                    }
-                >
-                </TextField>
-                <TextField
-                    style={{ marginBottom: 10, marginLeft: 15 }}
-                    id="amount"
-                    type="number"
-                    min="0.00"
-                    label="Valor"
-                    onChange={
-                        (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
-                    }
-                    onKeyUp={
-                        (e) => {
-                            if (e.key == "Enter") {
-                                saveExpenses()
-                            }
-                        }
-                    }
-                >
-                </TextField>
-                <ButtonBase style={{backgroundColor: "red" }} onClick={deleteAll} >Deletar tudo</ButtonBase>
-            </Box>
+            <MyDataTable2 
+                initialRows={initialRows}
+                model={'expenses'}
+             />
         </div>
     );
 }
