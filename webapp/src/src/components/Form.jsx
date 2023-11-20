@@ -11,7 +11,7 @@ import List from "@mui/material/List";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function Form({ todoHandler }) {
+export default function Form() {
 
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState(0);

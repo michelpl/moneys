@@ -34,10 +34,14 @@ function EditToolbar(props) {
 
     const dataHandle = (rows) => {
         setRows(rows);
+        console.log('Funcao handleData ', rows);
+    }
+    const teste = (rows) =>{
+        console.log(rows);
     }
     const handleClick = () => {
         const id = randomId();
-        setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+        dataHandle((oldRows) => [...oldRows, { id, description: '', amount: '', isNew: true }]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
             [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
@@ -54,9 +58,18 @@ function EditToolbar(props) {
 }
 
 export default function FullFeaturedCrudGrid(modelName = { modelName }) {
-    const [rows, setRows] = React.useState(initialRows);
+    const getData = () => {
+        return [
+            {id: 1, description: 'sfsdfsdf'}
+        ]
+    }
+    const [rows, setRows] = React.useState(getData);
     const [rowModesModel, setRowModesModel] = React.useState({});
     const { dataKey, setDataKey } = React.useState(modelName);
+
+    const teste = () => {
+        console.log(rows);
+    }
     
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -66,14 +79,17 @@ export default function FullFeaturedCrudGrid(modelName = { modelName }) {
 
     const handleEditClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+        teste({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
 
     const handleSaveClick = (id) => () => {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+        teste();
     };
 
     const handleDeleteClick = (id) => () => {
         setRows(rows.filter((row) => row.id !== id));
+        teste();
     };
 
     const handleCancelClick = (id) => () => {
@@ -81,6 +97,11 @@ export default function FullFeaturedCrudGrid(modelName = { modelName }) {
             ...rowModesModel,
             [id]: { mode: GridRowModes.View, ignoreModifications: true },
         });
+
+        teste({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+        })
 
         const editedRow = rows.find((row) => row.id === id);
         if (editedRow.isNew) {
@@ -96,6 +117,7 @@ export default function FullFeaturedCrudGrid(modelName = { modelName }) {
 
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
+        teste(newRowModesModel);
     };
 
     const columns = [
