@@ -1,6 +1,6 @@
 
 
-import MyDataTable from "../components/MyDataTable2";
+import MyDataTable from "../components/MyDataTable";
 import Totals from "../components/Totals";
 import { useState } from "react";
 
@@ -11,10 +11,10 @@ export default function Home() {
     const childToParent = (childdata) => {
       //setData(childdata);
       console.log(childdata);
-      if (childdata.model == 'budget') {
+      if (childdata.model === 'budget') {
         setBudget(childdata);
       }
-      if (childdata.model == 'expenses') {
+      if (childdata.model === 'expenses') {
         setExpenses(childdata);
       }
     }

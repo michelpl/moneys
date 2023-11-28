@@ -1,11 +1,20 @@
 import * as React from 'react';
-import { Box } from '@mui/material/Box';
-import { TextField, Paper, ListItem, ListItemText, Checkbox, ListItemIcon, ListItemButton, Divider, IconButton, List } from '@mui/material';
+import { TextField, Paper, IconButton } from '@mui/material';
 import { useState } from "react";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
-export default function MyDataTable({data}) {
+export default function MyDataTable({ data, childToParent}) {
     const [description, setDescription] = useState('');
-    const [name, setName] = React.useState(data);
+    const [model] = React.useState(data);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
 
@@ -15,10 +24,18 @@ export default function MyDataTable({data}) {
             totalAmount += parseFloat(expense.amount);
         })
         setTotalAmount(totalAmount.toFixed(2));
+        childToParent(
+            {
+                'model':  model.name,
+                'amount': totalAmount
+            }
+        );
+
+        localStorage.setItem(model.name + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
     }
 
     const getLocalStorage = () => {
-        var localData = localStorage.getItem('expenses');
+        var localData = localStorage.getItem(model.name);
 
         if (localData) {
             sumTotalAmount(JSON.parse(localData));
@@ -27,106 +44,102 @@ export default function MyDataTable({data}) {
         return [];
     }
 
-    const [expenses, setExpenses] = useState(getLocalStorage);
+    const [rows, setRows] = useState(getLocalStorage);
 
-    const saveExpenses = () => {
+    const saveData = () => {
         const newItem = {
             'id': Math.floor(Math.random() * 100000000),
             'description': description,
             'amount': amount
         };
-        let newList = [...expenses, newItem];
-        localStorage.setItem("expenses", JSON.stringify(newList));
-        setExpenses(newList);
+        let newList = [...rows, newItem];
+        localStorage.setItem(model.name, JSON.stringify(newList));
+        setRows(newList);
         sumTotalAmount(newList);
     };
 
     const deleteTodo = (id) => {
-        const filtered = expenses.filter((item) => item.id !== id);
-        setExpenses(filtered);
-        localStorage.setItem("expenses", JSON.stringify(filtered));
+        console.log(id);
+        const filtered = rows.filter((item) => item.id !== id);
+        setRows(filtered);
+        localStorage.setItem(model.name, JSON.stringify(filtered));
         sumTotalAmount(filtered);
     };
 
     return (
-        <Paper style={{ padding: 15, alignContent: "center", verticalAlign: "center" }}>
-            <h3>{name}</h3>
-            <div>
-                <List>
-                    <ListItemButton>
-                        <ListItemText sx={{ marginLeft: '15' }} primary={"Id"} />
-                        <ListItemText sx={{ marginLeft: '15' }} primary={"Descrição"} />
-                        <ListItemText sx={{ textAlign: 'right' }} primary={"Valor"} />
-                        <ListItemText sx={{ textAlign: 'right' }} primary={"Ações"} />
-                    </ListItemButton>
-                    <Divider />
-                    {
-                        expenses.map((item, order) => (
-                            <ListItem
-                                key={item.id}
-                                disablePadding
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="delete" onClick={() => deleteTodo(item.id)}>
-                                        <p>Deletar</p>
+        <TableContainer component={Paper} sx={{ marginBottom: 10 }}>
+            <h3>{model.label}</h3>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="left">Id</TableCell>
+                        <TableCell align="left">Descrição</TableCell>
+                        <TableCell align="right">Valor</TableCell>
+                        <TableCell align="right">Ações</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row, order) => (
+                        <TableRow
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
+                            <TableCell align="left">{row.description}</TableCell>
+                            <TableCell align="right">R$ {row.amount}</TableCell>
+                            <TableCell align="right">
+                                <Tooltip title="Delete">
+                                    <IconButton aria-label="delete"
+                                        edge="end" onClick={() => deleteTodo(row.id)}
+                                    >
+                                        <DeleteIcon />
                                     </IconButton>
-                                }
-                            >
-                                <ListItemButton role={undefined}>
-                                    <ListItemIcon>
-                                        <Checkbox
-                                            edge="start"
-                                            tabIndex={-1}
-                                            disableRipple
-                                            inputProps={{ 'aria-labelledby': item.id }}
-                                        />
-                                    </ListItemIcon>
-                                    <ListItemText id={order + 1} primary={ order + 1} /> 
-                                    <ListItemText 
-                                        sx={{ textAlign: 'left' }}
-                                        id={item.description} 
-                                        primary={item.description} 
-                                    />
-                                    <ListItemText style={{ alignContent: "right" }} sx={{ marginLeft: '15' }} id={item.amount} primary={"R$ " + item.amount} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    <ListItem>
-                        <ListItemButton role={undefined}>
-                            <TextField
-                                type="text"
-                                sx={{ marginLeft: '15' }}
-                                id="description"
-                                label="Descrição"
-                                minRows="550"
-                                onChange={
-                                    (e) => { setDescription(e.target.value); }
-                                }
-                            >
-                            </TextField>
-                            <TextField
-                                id="amount"
-                                type="number"
-                                min="0.00"
-                                label="Valor"
-                                onChange={
-                                    (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
-                                }
-                                onKeyUp={
-                                    (e) => {
-                                        if (e.key == "Enter") {
-                                            saveExpenses()
-                                        }
-                                    }
-                                }
-                            >
-                            </TextField>
-                        </ListItemButton>
-                    </ListItem>
-                    <Paper>
-                        <p>Total: R$ {totalAmount}</p>
-                    </Paper>
-                </List>
+                                </Tooltip>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            <div id='botomActions'
+                align="left"
+                style={{ padding: '5px', marginTop: '15px' }}
+            >
+                <TextField
+                    align="left"
+                    type="text"
+                    id="description"
+                    label="Descrição"
+                    minRows="550"
+                    onChange={
+                        (e) => { setDescription(e.target.value); }
+                    }
+                >
+                </TextField>
+                <TextField
+                    style={{ marginLeft: '15px' }}
+                    id="amount"
+                    type="number"
+                    min="0.00"
+                    label="Valor"
+                    onChange={
+                        (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                    }
+                    onKeyUp={
+                        (e) => {
+                            if (e.key === "Enter") {
+                                saveData()
+                            }
+                        }
+                    }
+                >
+                </TextField>
+                <Card sx={{ width: '100%', marginTop: '15px' }} >
+                    <CardContent className='bottomCard'>
+                        <p className='p1'>Total: R$ { totalAmount }</p>
+                        <p className='p2'>Número de registros: { rows.length }</p>
+                    </CardContent>
+                </Card>
             </div>
-        </Paper>
+        </TableContainer>
     );
-}
+}                    
