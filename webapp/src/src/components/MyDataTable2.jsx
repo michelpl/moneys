@@ -1,235 +1,145 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
-import DataPersistence from './DataPersistence';
-import {
-    GridRowModes,
-    DataGrid,
-    GridToolbarContainer,
-    GridActionsCellItem,
-    GridRowEditStopReasons,
-} from '@mui/x-data-grid';
-import {
-    randomCreatedDate,
-    randomTraderName,
-    randomId,
-    randomArrayItem,
-} from '@mui/x-data-grid-generator';
-import { backdropClasses } from '@mui/material';
+import { TextField, Paper, IconButton, Button } from '@mui/material';
+import { useState } from "react";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-    return randomArrayItem(roles);
-};
+export default function MyDataTable({ data, childToParent}) {
+    const [description, setDescription] = useState('');
+    const [model] = React.useState(data);
+    const [amount, setAmount] = useState(0);
+    const [totalAmount, setTotalAmount] = React.useState(0);
 
-const initialRows = [];
-
-function EditToolbar(props) {
-    const { setRows, setRowModesModel } = props;
-
-    const dataHandle = (rows) => {
-        setRows(rows);
-        console.log('Funcao handleData ', rows);
-    }
-    const teste = (rows) =>{
-        console.log(rows);
-    }
-    const handleClick = () => {
-        const id = randomId();
-        dataHandle((oldRows) => [...oldRows, { id, description: '', amount: '', isNew: true }]);
-        setRowModesModel((oldModel) => ({
-            ...oldModel,
-            [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-        }));
-    };
-
-    return (
-        <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                Add record
-            </Button>
-        </GridToolbarContainer>
-    );
-}
-
-export default function FullFeaturedCrudGrid(modelName = { modelName }) {
-    const getData = () => {
-        return [
-            {id: 1, description: 'sfsdfsdf'}
-        ]
-    }
-    const [rows, setRows] = React.useState(getData);
-    const [rowModesModel, setRowModesModel] = React.useState({});
-    const { dataKey, setDataKey } = React.useState(modelName);
-
-    const teste = () => {
-        console.log(rows);
-    }
-    
-    const handleRowEditStop = (params, event) => {
-        if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-            event.defaultMuiPrevented = true;
-        }
-    };
-
-    const handleEditClick = (id) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-        teste({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-    };
-
-    const handleSaveClick = (id) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-        teste();
-    };
-
-    const handleDeleteClick = (id) => () => {
-        setRows(rows.filter((row) => row.id !== id));
-        teste();
-    };
-
-    const handleCancelClick = (id) => () => {
-        setRowModesModel({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.View, ignoreModifications: true },
-        });
-
-        teste({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    const sumTotalAmount = (newList) => {
+        var totalAmount = 0;
+        newList.forEach(function (expense) {
+            totalAmount += parseFloat(expense.amount);
         })
+        setTotalAmount(totalAmount.toFixed(2));
+        childToParent(
+            {
+                'model':  model.name,
+                'amount': totalAmount
+            }
+        );
 
-        const editedRow = rows.find((row) => row.id === id);
-        if (editedRow.isNew) {
-            setRows(rows.filter((row) => row.id !== id));
+        localStorage.setItem(model.name + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
+    }
+
+    const getLocalStorage = () => {
+        var localData = localStorage.getItem(model.name);
+
+        if (localData) {
+            sumTotalAmount(JSON.parse(localData));
+            return JSON.parse(localData);
         }
+        return [];
+    }
+
+    const [rows, setRows] = useState(getLocalStorage);
+
+    const saveData = () => {
+        const newItem = {
+            'id': Math.floor(Math.random() * 100000000),
+            'description': description,
+            'amount': amount
+        };
+        let newList = [...rows, newItem];
+        localStorage.setItem(model.name, JSON.stringify(newList));
+        setRows(newList);
+        sumTotalAmount(newList);
     };
 
-    const processRowUpdate = (newRow) => {
-        const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        return updatedRow;
+    const deleteTodo = (id) => {
+        console.log(id);
+        const filtered = rows.filter((item) => item.id !== id);
+        setRows(filtered);
+        localStorage.setItem(model.name, JSON.stringify(filtered));
+        sumTotalAmount(filtered);
     };
-
-    const handleRowModesModelChange = (newRowModesModel) => {
-        setRowModesModel(newRowModesModel);
-        teste(newRowModesModel);
-    };
-
-    const columns = [
-        { field: 'description', headerName: 'Descrição', width: 180, editable: true },
-        {
-            field: 'amount',
-            headerName: 'Valor',
-            type: 'number',
-            width: 80,
-            align: 'left',
-            headerAlign: 'left',
-            editable: true,
-        },
-        {
-            field: 'dueDate',
-            headerName: 'Vencimento',
-            type: 'date',
-            width: 180,
-            editable: true,
-        },
-        {
-            field: 'category',
-            headerName: 'Categoria',
-            width: 220,
-            editable: true,
-            type: 'singleSelect',
-            valueOptions: ['Market', 'Finance', 'Development'],
-        },
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Actions',
-            width: 100,
-            cellClassName: 'actions',
-            getActions: ({ id }) => {
-                const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-                if (isInEditMode) {
-                    return [
-                        <GridActionsCellItem
-                            icon={<SaveIcon />}
-                            label="Save"
-                            sx={{
-                                color: 'primary.main',
-                            }}
-                            onClick={handleSaveClick(id)}
-                        />,
-                        <GridActionsCellItem
-                            icon={<CancelIcon />}
-                            label="Cancel"
-                            className="textPrimary"
-                            onClick={handleCancelClick(id)}
-                            color="inherit"
-                        />,
-                    ];
-                }
-
-                return [
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        color="inherit"
-                    />,
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        onClick={handleDeleteClick(id)}
-                        color="inherit"
-                    />,
-                ];
-            },
-        },
-    ];
 
     return (
-        <Box
-            sx={{
-                height: 500,
-                width: '100%',
-                '& .actions': {
-                    color: 'text.secondary',
-                },
-                '& .textPrimary': {
-                    color: 'text.primary',
-                },
-            }}
-        >
-            <DataGrid
-                sx={{
-                    height: 500,
-                    backgroundColor: 'white'
-                }}
-                rows={rows}
-                columns={columns}
-                editMode="row"
-                rowModesModel={rowModesModel}
-                onRowModesModelChange={handleRowModesModelChange}
-                onRowEditStop={handleRowEditStop}
-                processRowUpdate={processRowUpdate}
-                slots={{
-                    toolbar: EditToolbar,
-                }}
-                slotProps={{
-                    toolbar: { setRows, setRowModesModel },
-                }}
-            />
-            <DataPersistence
-                key={dataKey}
-                data={rows}
-            ></DataPersistence>
-        </Box>
+        <TableContainer component={Paper} sx={{ marginBottom: 10 }}>
+            <h3>{model.label}</h3>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="left">Id</TableCell>
+                        <TableCell align="left">Descrição</TableCell>
+                        <TableCell align="right">Valor</TableCell>
+                        <TableCell align="right">Ações</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row, order) => (
+                        <TableRow
+                            key={row.id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
+                            <TableCell align="left">{row.description}</TableCell>
+                            <TableCell align="right">R$ {row.amount}</TableCell>
+                            <TableCell align="right">
+                                <Tooltip title="Delete">
+                                    <IconButton aria-label="delete"
+                                        edge="end" onClick={() => deleteTodo(row.id)}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            <div id='botomActions'
+                align="left"
+                style={{ padding: '5px', marginTop: '15px' }}
+            >
+                <TextField
+                    align="left"
+                    type="text"
+                    id="description"
+                    label="Descrição"
+                    minRows="550"
+                    onChange={
+                        (e) => { setDescription(e.target.value); }
+                    }
+                >
+                </TextField>
+                <TextField
+                    style={{ marginLeft: '15px' }}
+                    id="amount"
+                    type="number"
+                    min="0.00"
+                    label="Valor"
+                    onChange={
+                        (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                    }
+                    onKeyUp={
+                        (e) => {
+                            if (e.key == "Enter") {
+                                saveData()
+                            }
+                        }
+                    }
+                >
+                </TextField>
+                <Card sx={{ width: '100%', marginTop: '15px' }} >
+                    <CardContent className='bottomCard'>
+                        <p className='p1'>Total: R$ { totalAmount }</p>
+                        <p className='p2'>Número de registros: { rows.length }</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </TableContainer>
     );
-}
+}                    

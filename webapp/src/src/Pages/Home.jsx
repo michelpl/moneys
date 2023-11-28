@@ -1,27 +1,30 @@
-import Form from "../components/Form"
-import UpdateStockData from "../components/UpdateStockData"
-import React, { useState } from "react";
-import { Button, Paper } from "@mui/material";
-import Expenses from "../components/Expenses";
-import Box from "@mui/material/Box";
+
+
+import MyDataTable from "../components/MyDataTable2";
+import Totals from "../components/Totals";
+import { useState } from "react";
 
 export default function Home() {
-
-    const getExpensesData = () => {
-        return [
-            { id: 1, description: 'Desc 1', amount: '2333' },
-            { id: 2, description: 'Desc 1', amount: '2333' }
-          ];  
+    const [budget, setBudget] = useState(0);
+    const [expenses, setExpenses] = useState(0);
+  
+    const childToParent = (childdata) => {
+      //setData(childdata);
+      console.log(childdata);
+      if (childdata.model == 'budget') {
+        setBudget(childdata);
+      }
+      if (childdata.model == 'expenses') {
+        setExpenses(childdata);
+      }
     }
-
-    const [expensesData, setExpensesData] = useState(getExpensesData);
-
+  
     return (
         <div>
-            <Box sx={{ padding: 2 }} >
-                <h2>Saídas</h2>
-            </Box>
-            <Expenses />
+            <MyDataTable data={{'name': 'budget', 'label': 'Entradas'}} childToParent={childToParent}/>
+            <MyDataTable data={{'name': 'expenses', 'label': 'Saídas'}}  childToParent={childToParent}/>
+
+            <Totals budget={budget} expenses={expenses} />
         </div>
     );
 }
