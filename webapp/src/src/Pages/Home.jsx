@@ -8,22 +8,19 @@ export default function Home() {
     const [budget, setBudget] = useState(0);
     const [expenses, setExpenses] = useState(0);
   
-    const childToParent = (childdata) => {
-      //setData(childdata);
-      console.log(childdata);
-      if (childdata.model === 'budget') {
-        setBudget(childdata);
+    const totalAmountToParent = (totalAmount) => {
+      if (totalAmount.model === 'budget') {
+        setBudget(totalAmount.amount);
       }
-      if (childdata.model === 'expenses') {
-        setExpenses(childdata);
+      if (totalAmount.model === 'expenses') {
+        setExpenses(totalAmount.amount);
       }
     }
   
     return (
         <div>
-            <MyDataTable data={{'name': 'budget', 'label': 'Entradas'}} childToParent={childToParent}/>
-            <MyDataTable data={{'name': 'expenses', 'label': 'Saídas'}}  childToParent={childToParent}/>
-
+            <MyDataTable data={{'name': 'budget', 'label': 'Entradas'}} totalAmountToParent={totalAmountToParent}/>
+            <MyDataTable data={{'name': 'expenses', 'label': 'Saídas'}}  totalAmountToParent={totalAmountToParent}/>
             <Totals budget={budget} expenses={expenses} />
         </div>
     );

@@ -78,3 +78,23 @@ p, ul li {
 .MuiBox-root {
  margin-bottom: 15px;
 }
+
+.nubank {
+  background-color: #9B02D5!important;
+  color: #fff!important;
+}
+
+.rico {
+  background-color: #FF5200;
+  color: #9B02D5;
+}
+
+.gastosVariaveis {
+  background-color: #c739a2;
+  color: #9B02D5;
+}
+
+.gastosFixos {
+  background-color: #c7a839;
+  color: #9B02D5;
+}
