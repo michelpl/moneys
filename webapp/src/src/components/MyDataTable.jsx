@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import FaceIcon from '@mui/icons-material/MonetizationOn';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
@@ -131,7 +132,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             >
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 align="left"
                                 type="text"
@@ -144,7 +145,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                             >
                             </TextField>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                             <TextField
                                 id="amount"
                                 type="number"
@@ -164,8 +165,18 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                             >
                             </TextField>
                         </Grid>
-                        <Grid item xs={3}>
-                            <MyCategories categoryList={categoryList} />
+                        <Grid item xs={2}>
+                            <MyCategories categoryList={categoryList} saveData={saveData} />
+                        </Grid>
+                        <Grid item xs={2} >
+                            <Tooltip title="Salvar">
+                                    <IconButton aria-label="save"
+                                        onClick={() => saveData()}
+                                        sx={{padding: '0', marginTop: '0'}}
+                                    >
+                                        <AddCircleIcon fontSize='large' />
+                                    </IconButton>
+                            </Tooltip>
                         </Grid>
                     </Grid>
                 </Box>
