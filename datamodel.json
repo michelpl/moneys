@@ -1,0 +1,23 @@
+{
+    "userId":1,
+    "year": 2023,
+    "months": [
+        {
+            "id": 1,       
+            "data": [
+                {
+                    "name": "expenses",
+                    "label": "Saídas",
+                    "operation": "-",
+                    "inputs": [
+                        {
+                            "id": 4534534534534,
+                            "description": "Lorem ipsim",
+                            "amount": 2500.00
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

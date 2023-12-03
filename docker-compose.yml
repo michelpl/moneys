@@ -2,14 +2,37 @@ version: "3.9"
 
 services:
   webapp:
-      container_name: webapp
-      build: ./webapp
-      ports:
-        - "3000:3000"
-      networks:
-        - app-network
-      volumes:
-        - ./webapp/src:/app:rw
+    container_name: webapp
+    build: ./webapp
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./webapp/src:/app:rw
+  db:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - ./dbdata:/data/db
+  webapi:
+    container_name: webapi
+    deploy:
+      mode: replicated
+    depends_on:
+      - db
+    build: ./webapi
+    ports:
+      - "8000:80"
+    networks:
+      - app-network
+    volumes:
+      - ./webapi/src:/var/www/html:rw
 #Docker Networks
 networks:
   app-network:
@@ -18,3 +41,5 @@ networks:
 #Docker volumes
 volumes:
   webappsrc:
+  webapisrc:
+  dbdata:

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextField, Paper, IconButton } from '@mui/material';
+import { TextField, Paper, IconButton, Divider } from '@mui/material';
 import { useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -33,16 +33,16 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         setTotalAmount(totalAmount.toFixed(2));
         totalAmountToParent(
             {
-                'model': model.name,
+                'model': model.modelName,
                 'amount': totalAmount
             }
         );
 
-        localStorage.setItem(model.name + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
+        localStorage.setItem(model.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
     }
 
     const getLocalStorage = () => {
-        var localData = localStorage.getItem(model.name);
+        var localData = localStorage.getItem(model.modelName);
 
         if (localData) {
             sumTotalAmount(JSON.parse(localData));
@@ -77,117 +77,121 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     };
 
     return (
-        <TableContainer component={Paper} sx={{ marginBottom: 10 }}>
-            <h3>{model.label}</h3>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="left">Id</TableCell>
-                        <TableCell align="left">Descrição</TableCell>
-                        <TableCell align="right">Valor</TableCell>
-                        <TableCell align="left">Categorias</TableCell>
-                        <TableCell align="right">Ações</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row, order) => (
-                        <TableRow
-                            key={row.id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
-                            <TableCell align="left">{row.description}</TableCell>
-                            <TableCell align="right">R$ {row.amount}</TableCell>
-                            <TableCell className='categoryTableCell'>
+        <Box>
+            <TableContainer component={Paper} sx={{ marginBottom: 2 }}>
+                <h3>{model.label}</h3>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="left">Id</TableCell>
+                            <TableCell align="left">Descrição</TableCell>
+                            <TableCell align="right">Valor</TableCell>
+                            <TableCell align="left">Categorias</TableCell>
+                            <TableCell align="right">Ações</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row, order) => (
+                            <TableRow
+                                key={row.id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
+                                <TableCell align="left">{row.description}</TableCell>
+                                <TableCell align="right">R$ {row.amount}</TableCell>
+                                <TableCell className='categoryTableCell'>
                                     {row.categories.map((data, order) => {
                                         let icon;
                                         icon = <FaceIcon />;
                                         return (
-                                                <Chip
-                                                    key={order}
-                                                    color='primary'
-                                                    icon={icon}
-                                                    label={data.label}
-                                                    sx={{ marginRight: '5px', backgroundColor: data.color }}
-                                                />
+                                            <Chip
+                                                key={order}
+                                                color='primary'
+                                                icon={icon}
+                                                label={data.label}
+                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                            />
                                         );
                                     })}
-                            </TableCell>
-                            <TableCell align="right">
-                                <Tooltip title="Delete">
-                                    <IconButton aria-label="delete"
-                                        edge="end" onClick={() => deleteTodo(row.id)}
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            <div id='botomActions'
-                align="left"
-                style={{ padding: '5px', marginTop: '15px' }}
-            >
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={2}>
-                            <TextField
-                                align="left"
-                                type="text"
-                                id="description"
-                                label="Descrição"
-                                width='100%'
-                                onChange={
-                                    (e) => { setDescription(e.target.value); }
-                                }
-                            >
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <TextField
-                                id="amount"
-                                type="number"
-                                min="0.00"
-                                label="Valor"
-                                width='100%'
-                                onChange={
-                                    (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
-                                }
-                                onKeyUp={
-                                    (e) => {
-                                        if (e.key === "Enter") {
-                                            saveData()
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Tooltip title="Delete">
+                                        <IconButton aria-label="delete"
+                                            edge="end" onClick={() => deleteTodo(row.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                <Divider />
+                <div id='botomActions'
+                    align="left"
+                    style={{ padding: '5px', marginTop: '15px' }}
+                >
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={2}>
+                                <TextField
+                                    align="left"
+                                    type="text"
+                                    id="description"
+                                    label="Descrição"
+                                    width='100%'
+                                    onChange={
+                                        (e) => { setDescription(e.target.value); }
+                                    }
+                                >
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <TextField
+                                    id="amount"
+                                    type="number"
+                                    min="0.00"
+                                    label="Valor"
+                                    width='100%'
+                                    onChange={
+                                        (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                                    }
+                                    onKeyUp={
+                                        (e) => {
+                                            if (e.key === "Enter") {
+                                                saveData()
+                                            }
                                         }
                                     }
-                                }
-                            >
-                            </TextField>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <MyCategories categoryList={categoryList} saveData={saveData} />
-                        </Grid>
-                        <Grid item xs={2} >
-                            <Tooltip title="Salvar">
+                                >
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <MyCategories categoryList={categoryList} saveData={saveData} />
+                            </Grid>
+                            <Grid item xs={2} >
+                                <Tooltip title="Salvar">
                                     <IconButton aria-label="save"
                                         onClick={() => saveData()}
-                                        sx={{padding: '0', marginTop: '0'}}
+                                        sx={{ padding: '0', marginTop: '0' }}
                                     >
                                         <AddCircleIcon fontSize='large' />
                                     </IconButton>
-                            </Tooltip>
+                                </Tooltip>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
+                    </Box>
 
-                <Card sx={{ width: '100%', marginTop: '15px' }} >
-                    <CardContent className='bottomCard'>
-                        <p className='p1'>Total: R$ {totalAmount}</p>
-                        <p className='p2'>Número de registros: {rows.length}</p>
-                    </CardContent>
-                </Card>
-            </div>
-        </TableContainer>
+                    <Card sx={{ width: '100%', marginTop: '15px' }} >
+                        <CardContent className='bottomCard'>
+                            <p className='p1'>Total: R$ {totalAmount}</p>
+                            <p className='p2'>Número de registros: {rows.length}</p>
+                        </CardContent>
+                    </Card>
+                </div>
+            </TableContainer>
+
+        </Box>
     );
 }
