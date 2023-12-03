@@ -10,10 +10,6 @@ RUN apt -yqq install unzip
 RUN apt -yqq install libpng-dev
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libldap2-dev 
 
-## Dependencies
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-install mysqli
-
 #Cron
 RUN apt-get install -y cron
 
@@ -34,13 +30,10 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-RUN composer
+
 ## MongoDb
-#RUN pecl install mongodb
-
-##Laravel
-#RUN composer create-project laravel/laravel moneys
-
+RUN pecl install mongodb
+RUN echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
 ##Zsh
 RUN apt-get install zsh -y

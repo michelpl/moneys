@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +34,14 @@ return [
     */
 
     'connections' => [
+
+        'connections' => [
+            'mongodb' => [
+                  'driver' => 'mongodb',
+                  'dsn' => env('DB_URI', 'mongodb+srv://root:root@<atlas-cluster-uri>/moneys?retryWrites=true&w=majority'),
+                  'database' => 'moneys'
+            ]
+        ],
 
         'sqlite' => [
             'driver' => 'sqlite',

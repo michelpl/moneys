@@ -9,9 +9,7 @@ install:
 	docker-compose build --no-cache
 	docker-compose up -d
 	docker-compose exec webapi composer update -vvv
-	docker-compose exec webapi php artisan migrate:fresh
-	docker-compose exec webapp npm install
-	make seed
+	docker-compose exec composer require mongodb/laravel-mongodb ^4.0.0
 
 importdata:
 	docker-compose exec db mysql -u root -p$(MYSQL_PASSWORD) hcdb.stocks < ./stocks.sql;
