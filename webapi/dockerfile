@@ -3,12 +3,20 @@ RUN apt -yqq update
 
 WORKDIR /var/www/html
 
+# Install extensions
+RUN apt-get install -y autoconf pkg-config libssl-dev git unzip libzip-dev zlib1g-dev && \
+    pecl install mongodb && docker-php-ext-enable mongodb && \
+    pecl install xdebug && docker-php-ext-enable xdebug && \
+    docker-php-ext-install -j$(nproc) zip
+
+# Create php.ini
+RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 ## Libraries
 RUN apt -yqq install libxml2-dev
-RUN apt -yqq install zlib1g-dev
-RUN apt -yqq install unzip
 RUN apt -yqq install libpng-dev
-RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libldap2-dev 
+RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libldap2-dev
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 
 #Cron
 RUN apt-get install -y cron
@@ -30,10 +38,6 @@ RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e21205b207c3ff031
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
-
-## MongoDb
-RUN pecl install mongodb
-RUN echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini
 
 ##Zsh
 RUN apt-get install zsh -y

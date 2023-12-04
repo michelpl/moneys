@@ -37,6 +37,8 @@ permissions:
 
 permissions-webapi:
 	sudo find webapi/src/ -type d -exec chmod 775 {} \;
+	sudo find webapi/src/bootstrap/cache -type d -exec chmod 775 {} \;
+	sudo find webapi/src/ -type f -exec chmod 664 {} \;
 	sudo find webapi/src/ -type f -exec chmod 664 {} \;
 	sudo chown -R www-data:${USER} webapi/src
 
