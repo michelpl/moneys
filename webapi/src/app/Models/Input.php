@@ -18,6 +18,7 @@ class Input extends Model
         'obs',
         'value',
         'value_type',
-        'year'
+        'year',
+        'categories'
     ];
 }

@@ -2,36 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInputRequest;
-use App\Http\Requests\UpdateInputRequest;
 use App\Models\Input;
+use Illuminate\Http\Client\Response;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class InputController extends Controller
 {
-    private $with;
-
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function list(string $id = ''): Collection
     {
         return Input::all();
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInputRequest $request)
+    public function create(Request $request): array
     {
-        //
+        Input::create($request->all());
+        return $request->all();
     }
 
     /**
@@ -39,7 +31,7 @@ class InputController extends Controller
      */
     public function show(Input $input)
     {
-        //
+        return 1;
     }
 
     /**
@@ -53,7 +45,7 @@ class InputController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInputRequest $request, Input $input)
+    public function update(Request $request, Input $input)
     {
         //
     }
@@ -61,8 +53,9 @@ class InputController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Input $input)
+    public function delete(string $id): void
     {
-        //
+        $post = Input::find($id);
+        $post->delete();
     }
 }
