@@ -17,6 +17,11 @@ class InputController extends Controller
         return Input::all();
     }
 
+    public function find(string $id = '')
+    {
+        return Input::find($id)->first();
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -24,14 +29,6 @@ class InputController extends Controller
     {
         Input::create($request->all());
         return $request->all();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Input $input)
-    {
-        return 1;
     }
 
     /**
@@ -55,7 +52,9 @@ class InputController extends Controller
      */
     public function delete(string $id): void
     {
-        $post = Input::find($id);
-        $post->delete();
+        $input = Input::find($id);
+        if ($input) {
+            $input->delete();
+        }
     }
 }

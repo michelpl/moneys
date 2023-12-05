@@ -14,6 +14,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - ./dbdata:/data/db
+  webapp:
+    container_name: webapp
+    build: ./webapp
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./webapp/src:/app:rw
   webapi:
     container_name: webapi
     deploy:

@@ -19,7 +19,7 @@ mysql:
 
 run:
 	docker-compose up -d
-	## docker-compose exec webapp npm start
+	docker-compose exec webapp npm start
 
 stop:
 	docker-compose down

@@ -25,6 +25,27 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
 
+    const getData = async () => {
+        const result = fetch('http://localhost:8000/api/input')
+            .then(response => response.json())
+            .then(json => mapData(json))
+    }
+
+    const mapData = async (result) => {
+        console.log(111);
+        console.log(result);
+        // let newList = [];
+        //
+        // result.map((row) => {
+        //     newList.push({ label: row.slug, id: row.id, fiiClass: row.class  })
+        // });
+        //
+        // setList(newList);
+        // return newList;
+    }
+
+    const [list, setList] = useState(getData);
+
     const sumTotalAmount = (newList) => {
         var totalAmount = 0;
         newList.forEach(function (expense) {

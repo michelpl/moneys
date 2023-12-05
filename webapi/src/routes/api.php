@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/input')->group(function () {
     Route::get('/', [InputController::class, 'list']);
-    Route::get('/{id}', [InputController::class, 'list']);
+    Route::get('/{id}', [InputController::class, 'find']);
     Route::post('/', [InputController::class, 'create']);
     Route::delete('/{id}', [InputController::class, 'delete']);
     Route::put('/{id}', [InputController::class, 'update']);
