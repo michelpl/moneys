@@ -12,9 +12,22 @@ class InputController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function list(string $id = ''): Collection
+    public function list(Request $request)
     {
-        return Input::all();
+        if (empty($request->query('user_id')) || empty($request->query('year'))) {
+            return [];
+        }
+
+        return Input::where(
+            [
+                'user_id' => (int) $request->query('user_id'),
+                'year' => (int) $request->query('year'),
+                'month' => (int) $request->query('month'),
+                'model' => $request->query('model')
+            ]
+        )
+            ->orderBy('model, month, updated_at')
+            ->get();
     }
 
     public function find(string $id = '')

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextField, Paper, IconButton, Divider } from '@mui/material';
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -21,30 +21,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
     const [categories, setCategories] = useState([]);
-    const [model] = React.useState(data);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
-
-    const getData = async () => {
-        const result = fetch('http://localhost:8000/api/input')
-            .then(response => response.json())
-            .then(json => mapData(json))
-    }
-
-    const mapData = async (result) => {
-        console.log(111);
-        console.log(result);
-        // let newList = [];
-        //
-        // result.map((row) => {
-        //     newList.push({ label: row.slug, id: row.id, fiiClass: row.class  })
-        // });
-        //
-        // setList(newList);
-        // return newList;
-    }
-
-    const [list, setList] = useState(getData);
 
     const sumTotalAmount = (newList) => {
         var totalAmount = 0;
@@ -54,16 +32,39 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         setTotalAmount(totalAmount.toFixed(2));
         totalAmountToParent(
             {
-                'model': model.modelName,
+                'model': data.modelName,
                 'amount': totalAmount
             }
         );
 
-        localStorage.setItem(model.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
+        localStorage.setItem(data.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
     }
 
+    const [rows, setRows] = React.useState([]);
+
+    useEffect(() => {
+        var uri = 'http://localhost:8000/api/input?user_id=' + data.userId + '&year=' + data.year + '&month='  + data.month + '&model='  + data.modelName;
+        fetch(uri)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setRows(data)
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+        //console.log(data.rows);
+
+        // const filtered = posts.filter((item) => item.id != 1);
+        // if (filtered.length > 0) {
+        //     //setRows(filtered);
+        //     setRows(filtered);
+        // }
+
+    }, []);
+
     const getLocalStorage = () => {
-        var localData = localStorage.getItem(model.modelName);
+        var localData = localStorage.getItem(data.modelName);
 
         if (localData) {
             sumTotalAmount(JSON.parse(localData));
@@ -75,7 +76,6 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const categoryList = (categoryList) => {
         setCategories(categoryList);
     }
-    const [rows, setRows] = useState(getLocalStorage);
 
     const saveData = () => {
         const newItem = {
@@ -85,7 +85,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             'categories': categories
         };
         let newList = [...rows, newItem];
-        localStorage.setItem(model.name, JSON.stringify(newList));
+        localStorage.setItem(data.name, JSON.stringify(newList));
         setRows(newList);
         sumTotalAmount(newList);
     };
@@ -93,14 +93,14 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const deleteTodo = (id) => {
         const filtered = rows.filter((item) => item.id !== id);
         setRows(filtered);
-        localStorage.setItem(model.name, JSON.stringify(filtered));
+        localStorage.setItem(data.name, JSON.stringify(filtered));
         sumTotalAmount(filtered);
     };
 
     return (
         <Box>
             <TableContainer component={Paper} sx={{ marginBottom: 2 }}>
-                <h3>{model.label}</h3>
+                <h3>{data.label}</h3>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -128,9 +128,8 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                             <Chip
                                                 key={order}
                                                 color='primary'
-                                                icon={icon}
-                                                label={data.label}
-                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                                label={data}
+                                                sx={{ marginRight: '5px', backgroundColor: "#555" }}
                                             />
                                         );
                                     })}
@@ -212,7 +211,6 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                     </Card>
                 </div>
             </TableContainer>
-
         </Box>
     );
 }

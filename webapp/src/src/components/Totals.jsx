@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import {useState} from "react";
 
 export default function Totals({ budget, expenses }) {
     return (
