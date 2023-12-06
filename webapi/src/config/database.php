@@ -37,13 +37,8 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', 'db'),
-            'port' => env('DB_PORT', 27017),
-            'database' => env('DB_DATABASE', 'moneysdb'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', 'root'),
-            'options' => [
-            ],
+            'dsn' => env('DB_URI', 'mongodb://root:example@mongo:27017'),
+            'database' => 'moneysdb',
         ],
 
         'sqlite' => [

@@ -15,7 +15,6 @@ import MyCategories from './Tags';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
-import FaceIcon from '@mui/icons-material/';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
@@ -23,12 +22,13 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
+    const apiUrl = 'https://zany-winner-jwj4g4gvr72ppv5-8000.app.github.dev/api';
 
-    const sumTotalAmount = (newList) => {
+    function sumTotalAmount(newList) {
         var totalAmount = 0;
         newList.forEach(function (expense) {
             totalAmount += parseFloat(expense.value);
-        })
+        });
         setTotalAmount(totalAmount.toFixed(2));
         totalAmountToParent(
             {
@@ -43,7 +43,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [rows, setRows] = React.useState([]);
 
     useEffect(() => {
-        var uri = 'http://localhost:8000/api/input?user_id=' + data.userId + '&year=' + data.year + '&month='  + data.month + '&model='  + data.modelName;
+        var uri = apiUrl + '/input?user_id=' + data.userId + '&year=' + data.year + '&month='  + data.month + '&model='  + data.modelName;
         fetch(uri)
             .then((response) => response.json())
             .then((data) => {
@@ -60,7 +60,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     }
 
     const createItem = async (item) => {
-        var uri = 'http://localhost:8000/api/input';
+        var uri = apiUrl + '/input';
         fetch(uri, {
             method: 'POST',
             mode: 'cors',
@@ -76,7 +76,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     }
 
     const deleteItem = async (id) => {
-        let uri = 'http://localhost:8000/api/input/' + id;
+        let uri = apiUrl + '/input/' + id;
         fetch(uri, {
             method: 'DELETE',
             mode: 'cors',
@@ -145,7 +145,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                         let icon;
                                         console.log(data.icon)
                                         if (data.icon !== null && data.icon !== '') {
-                                            icon = <FaceIcon />;
+                                            icon = <AddCircleIcon />;
                                             return (
                                                 <Chip
                                                     icon = { icon }
