@@ -38,10 +38,11 @@ class InputController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function create(Request $request): array
+    public function create(Request $request)
     {
+        //print_r($request);
         Input::create($request->all());
-        return $request->all();
+        //return $request->all();
     }
 
     /**

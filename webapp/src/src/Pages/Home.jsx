@@ -1,6 +1,6 @@
 import MyDataTable from "../components/MyDataTable";
 import Totals from "../components/Totals";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useState} from "react";
 import MyTopBar from '../components/MyTopBar'
 import {Box} from "@mui/material";
 import {render} from "@testing-library/react";

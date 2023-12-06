@@ -27,7 +27,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const sumTotalAmount = (newList) => {
         var totalAmount = 0;
         newList.forEach(function (expense) {
-            totalAmount += parseFloat(expense.amount);
+            totalAmount += parseFloat(expense.value);
         })
         setTotalAmount(totalAmount.toFixed(2));
         totalAmountToParent(
@@ -48,7 +48,8 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                setRows(data)
+                setRows(data);
+                sumTotalAmount(data);
             })
             .catch((err) => {
                 console.log(err.message);
@@ -77,17 +78,38 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         setCategories(categoryList);
     }
 
+    const createNewItem = async (item) => {
+        var uri = 'http://localhost:8000/api/input';
+        fetch(uri, {
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(item)
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+
     const saveData = () => {
         const newItem = {
             'id': Math.floor(Math.random() * 100000000),
+            'user_id': data.userId,
             'description': description,
-            'amount': amount,
+            'value': amount,
+            'model': data.modelName,
+            'month': data.month,
+            'year': parseInt(data.year),
             'categories': categories
         };
         let newList = [...rows, newItem];
-        localStorage.setItem(data.name, JSON.stringify(newList));
+        //localStorage.setItem(data.name, JSON.stringify(newList));
         setRows(newList);
         sumTotalAmount(newList);
+        createNewItem(newItem);
     };
 
     const deleteTodo = (id) => {
@@ -119,16 +141,16 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                             >
                                 <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
                                 <TableCell align="left">{row.description}</TableCell>
-                                <TableCell align="right">R$ {row.amount}</TableCell>
+                                <TableCell align="right">R$ {row.value}</TableCell>
                                 <TableCell className='categoryTableCell'>
                                     {row.categories.map((data, order) => {
                                         let icon;
                                         icon = <FaceIcon />;
                                         return (
                                             <Chip
-                                                key={order}
+
                                                 color='primary'
-                                                label={data}
+                                                label="CATEGORIA"
                                                 sx={{ marginRight: '5px', backgroundColor: "#555" }}
                                             />
                                         );
