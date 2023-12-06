@@ -78,13 +78,28 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         setCategories(categoryList);
     }
 
-    const createNewItem = async (item) => {
+    const createItem = async (item) => {
         var uri = 'http://localhost:8000/api/input';
         fetch(uri, {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item)
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }
+
+    const deleteItem = async (id) => {
+        var uri = 'http://localhost:8000/api/input/' + id;
+        fetch(uri, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
         }).then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -109,14 +124,16 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         //localStorage.setItem(data.name, JSON.stringify(newList));
         setRows(newList);
         sumTotalAmount(newList);
-        createNewItem(newItem);
+        createItem(newItem);
     };
 
-    const deleteTodo = (id) => {
-        const filtered = rows.filter((item) => item.id !== id);
-        setRows(filtered);
-        localStorage.setItem(data.name, JSON.stringify(filtered));
-        sumTotalAmount(filtered);
+    const deleteData = (id) => {
+        //const filtered = rows.filter((item) => item.id !== id);
+        //setRows(filtered);
+        console.log(id);
+        //localStorage.setItem(data.name, JSON.stringify(filtered));
+        deleteItem(id);
+        //sumTotalAmount(filtered);
     };
 
     return (
@@ -136,7 +153,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                     <TableBody>
                         {rows.map((row, order) => (
                             <TableRow
-                                key={row.id}
+                                key={row._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
@@ -148,7 +165,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                         icon = <FaceIcon />;
                                         return (
                                             <Chip
-
+                                                key={ order }
                                                 color='primary'
                                                 label="CATEGORIA"
                                                 sx={{ marginRight: '5px', backgroundColor: "#555" }}
@@ -158,11 +175,11 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 </TableCell>
                                 <TableCell align="right">
                                     <Tooltip title="Delete">
-                                        <IconButton aria-label="delete"
-                                            edge="end" onClick={() => deleteTodo(row.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
+
+                                            <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+
                                     </Tooltip>
                                 </TableCell>
                             </TableRow>

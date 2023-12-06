@@ -40,9 +40,7 @@ class InputController extends Controller
      */
     public function create(Request $request)
     {
-        //print_r($request);
         Input::create($request->all());
-        //return $request->all();
     }
 
     /**
