@@ -16,9 +16,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
+    const [toggleClass, setToggleClass] = useState('');
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
@@ -49,6 +51,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             .then((data) => {
                 setRows(data);
                 sumTotalAmount(data);
+                setToggleClass('hide');
             })
             .catch((err) => {
                 console.log(err.message);
@@ -132,6 +135,23 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        <TableRow className={'loading-skeleton ' + toggleClass }>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                        </TableRow>
                         {rows.map((row, order) => (
                             <TableRow
                                 key={row._id}

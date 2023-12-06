@@ -98,3 +98,7 @@ p, ul li {
   background-color: #c7a839;
   color: #9B02D5;
 }
+
+.hide {
+  display: none!important;
+}
