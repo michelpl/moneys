@@ -33,8 +33,8 @@ export default function Tags({categoryList, saveData}) {
 }
 
 const categories = [
-  { id: 123, label: 'Nubank', color: '#9B02D5' },
-  { id: 456, label: 'Rico', color: '#FF5200' },
-  { id: 777, label: 'Gastos fixos', color: '#c7a839' },
-  { id: 777, label: 'Gastos variáveis', color: '#c739a2' }
+  { id: 'nubank', label: 'Nubank', color: '#820AD1', icon: '' },
+  { id: 'rico', label: 'Rico', color: '#FE5200', icon: '' },
+  { id: 'gastos-fixos', label: 'Gastos fixos', color: '#c7a839', icon: 'FaceIcon' },
+  { id: 'gastos-variaveis', label: 'Gastos variáveis', color: '#c739a2', icon: '' }
 ];

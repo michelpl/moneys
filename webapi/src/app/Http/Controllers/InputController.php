@@ -41,6 +41,7 @@ class InputController extends Controller
     public function create(Request $request)
     {
         Input::create($request->all());
+        return $request->all();
     }
 
     /**
@@ -62,11 +63,14 @@ class InputController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(string $id): void
+    public function delete(string $id): false | string
     {
         $input = Input::find($id);
         if ($input) {
             $input->delete();
+            return json_encode($id);
         }
+
+        return json_encode([]);
     }
 }

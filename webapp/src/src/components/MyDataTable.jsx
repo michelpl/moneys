@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextField, Paper, IconButton, Divider } from '@mui/material';
+import {TextField, Paper, IconButton, Divider, Avatar} from '@mui/material';
 import {useEffect, useState} from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,7 +15,7 @@ import MyCategories from './Tags';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
-import FaceIcon from '@mui/icons-material/MonetizationOn';
+import FaceIcon from '@mui/icons-material/';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
@@ -47,32 +47,13 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         fetch(uri)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setRows(data);
                 sumTotalAmount(data);
             })
             .catch((err) => {
                 console.log(err.message);
             });
-        //console.log(data.rows);
-
-        // const filtered = posts.filter((item) => item.id != 1);
-        // if (filtered.length > 0) {
-        //     //setRows(filtered);
-        //     setRows(filtered);
-        // }
-
     }, []);
-
-    const getLocalStorage = () => {
-        var localData = localStorage.getItem(data.modelName);
-
-        if (localData) {
-            sumTotalAmount(JSON.parse(localData));
-            return JSON.parse(localData);
-        }
-        return [];
-    }
 
     const categoryList = (categoryList) => {
         setCategories(categoryList);
@@ -95,7 +76,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     }
 
     const deleteItem = async (id) => {
-        var uri = 'http://localhost:8000/api/input/' + id;
+        let uri = 'http://localhost:8000/api/input/' + id;
         fetch(uri, {
             method: 'DELETE',
             mode: 'cors',
@@ -111,7 +92,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
 
     const saveData = () => {
         const newItem = {
-            'id': Math.floor(Math.random() * 100000000),
+            '_id': Math.floor(Math.random() * 100000000),
             'user_id': data.userId,
             'description': description,
             'value': amount,
@@ -121,19 +102,19 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             'categories': categories
         };
         let newList = [...rows, newItem];
-        //localStorage.setItem(data.name, JSON.stringify(newList));
+
         setRows(newList);
         sumTotalAmount(newList);
         createItem(newItem);
     };
 
     const deleteData = (id) => {
-        //const filtered = rows.filter((item) => item.id !== id);
-        //setRows(filtered);
+        const filtered = rows.filter((item) => item._id !== id);
+        setRows(filtered);
         console.log(id);
-        //localStorage.setItem(data.name, JSON.stringify(filtered));
+        console.log(filtered);
         deleteItem(id);
-        //sumTotalAmount(filtered);
+        sumTotalAmount(filtered);
     };
 
     return (
@@ -158,28 +139,44 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                             >
                                 <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
                                 <TableCell align="left">{row.description}</TableCell>
-                                <TableCell align="right">R$ {row.value}</TableCell>
+                                <TableCell align="right">R$ {parseFloat(row.value).toFixed(2) }</TableCell>
                                 <TableCell className='categoryTableCell'>
                                     {row.categories.map((data, order) => {
                                         let icon;
-                                        icon = <FaceIcon />;
-                                        return (
-                                            <Chip
-                                                key={ order }
-                                                color='primary'
-                                                label="CATEGORIA"
-                                                sx={{ marginRight: '5px', backgroundColor: "#555" }}
-                                            />
-                                        );
+                                        console.log(data.icon)
+                                        if (data.icon !== null && data.icon !== '') {
+                                            icon = <FaceIcon />;
+                                            return (
+                                                <Chip
+                                                    icon = { icon }
+                                                    key={ order }
+                                                    color='primary'
+                                                    label={ data.label }
+                                                    sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                                />
+                                            );
+                                        } else {
+                                            let avatar;
+                                            avatar = <Avatar src={"/logos/" + data.id + ".png"}/>
+                                            return (
+                                                <Chip
+                                                    avatar={ avatar }
+                                                    key={ order }
+                                                    color='primary'
+                                                    label={ data.label }
+                                                    sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                                />
+                                            );
+                                        }
+
+
                                     })}
                                 </TableCell>
                                 <TableCell align="right">
                                     <Tooltip title="Delete">
-
-                                            <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
-                                                <DeleteIcon />
-                                            </IconButton>
-
+                                        <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </Tooltip>
                                 </TableCell>
                             </TableRow>
