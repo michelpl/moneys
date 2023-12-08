@@ -1,7 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -28,7 +27,7 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme({
@@ -38,6 +37,21 @@ const defaultTheme = createTheme({
 });
 
 export default function Home() {
+  const cards = [
+    'dezembro',
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro'
+  ];
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -54,7 +68,7 @@ export default function Home() {
                   bgcolor: '#1F2128'
                 }}
       >
-        {/* Hero unit */}
+
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -85,7 +99,7 @@ export default function Home() {
             <Stack
               sx={{ pt: 4 }}
               direction="row"
-              spacing={2}
+              spacing='2'
               justifyContent="center"
             >
               <Button variant="contained">Main call to action</Button>
@@ -94,44 +108,18 @@ export default function Home() {
           </Container>
         </Box>
         <Container sx={{ py: 8 }}>
-          {/* End hero unit */}
+
           <Grid container spacing={4}>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
-            <Grid item key={1} xs={12} sm={6} md={4} lg={4}>
-              <MonthCard />
-            </Grid>
+            {
+              
+              cards.map((month, order) => {
+                return (
+                  <Grid item key={order} xs={12} sm={6} md={4} lg={4}>
+                      <MonthCard month={month} />
+                  </Grid>
+                )
+              })
+            }
           </Grid>
         </Container>
       </Paper>

@@ -1,5 +1,5 @@
 import './App.css';
-import Home from "./Pages/Month";
+import Home from "./Pages/Home";
 
 function App() {
   return (

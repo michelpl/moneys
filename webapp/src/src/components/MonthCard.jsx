@@ -5,7 +5,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -17,6 +16,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MonthCardPropertiesList from './MonthCardPropertiesList';
 import TodayIcon from '@mui/icons-material/Today';
 import { Button } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,19 +29,13 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function MonthCard() {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+export default function MonthCard({month, data}) {
   return (
     <Card>
-      <CardHeader sx={{ fontWeight: 400 }}
+      <CardHeader style={{textTransform: 'capitalize'}}
         avatar={
-          <Avatar sx={{ bgcolor: '#7364DB' }} aria-label="recipe">
-            D
+          <Avatar sx={{ bgcolor: '#7364DB' }} aria-label="month">
+            { month.substring(1,0).toUpperCase() }
           </Avatar>
         }
         action={
@@ -49,13 +43,18 @@ export default function MonthCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Dezembro"
+        title={ month }
       />
       <CardContent>
-        <MonthCardPropertiesList />
+        <MonthCardPropertiesList data={ data } />
       </CardContent>
       <CardActions>
-        <Button size="small">Editar</Button>
+        <IconButton aria-label="Editar">
+          <OpenInNewIcon />
+        </IconButton>
+        <IconButton aria-label="Exportar">
+          <ShareIcon />
+        </IconButton>
       </CardActions>
     </Card>
   );
