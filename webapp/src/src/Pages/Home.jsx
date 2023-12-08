@@ -15,28 +15,6 @@ import { Paper } from '@mui/material';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import MyTopBar from '../components/MyTopBar'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  }
-});
-
 export default function Home() {
   const cards = [
     { id: 1, name: 'janeiro' },
@@ -56,87 +34,66 @@ export default function Home() {
   const year = '2023';
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <AppBar position="relative">
-        <MyTopBar  title={ 'Moneys' } subtitle = { 'Home' }></MyTopBar>
-      </AppBar>
-      <Paper
+
+    <Paper
+      sx={{
+        bgcolor: '#1F2128'
+      }}
+    >
+      <Box
         sx={{
-          bgcolor: '#1F2128'
+          bgcolor: 'background.paper',
+          pt: 8,
+          pb: 6,
         }}
       >
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Home
-              <a href={'/month'}>Your Name</a>
-            </Typography>
-            <Typography
-              component="h3"
-              variant="h4"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              2023
-            </Typography>
-           
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing='2'
-              justifyContent="center"
-            >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
-            </Stack>
-          </Container>
-        </Box>
-        <Container sx={{ py: 8 }}>
+        <Container maxWidth="sm">
+          <Typography
+            component="h1"
+            variant="h2"
+            align="center"
+            color="text.primary"
+            gutterBottom
+          >
+            Home
+          </Typography>
+          <Typography
+            component="h3"
+            variant="h4"
+            align="center"
+            color="text.primary"
+            gutterBottom
+          >
+            2023
+          </Typography>
 
-          <Grid container spacing={4}>
-            {
-              
-              cards.map((month, order) => {
-                return (
-                  <Grid item key={order} xs={12} sm={6} md={4} lg={4}>
-                      <MonthCard month={month} year={ year } />
-                  </Grid>
-                )
-              })
-            }
-          </Grid>
+          <Stack
+            sx={{ pt: 4 }}
+            direction="row"
+            spacing='2'
+            justifyContent="center"
+          >
+            <Button variant="contained">Main call to action</Button>
+            <Button variant="outlined">Secondary action</Button>
+          </Stack>
         </Container>
-      </Paper>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
       </Box>
-      {/* End footer */}
-    </ThemeProvider>
+      <Container sx={{ py: 8 }}>
+
+        <Grid container spacing={4}>
+          {
+
+            cards.map((month, order) => {
+              return (
+                <Grid item key={order} xs={12} sm={6} md={4} lg={4}>
+                  <MonthCard month={month} year={year} />
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+      </Container>
+    </Paper>
+
   );
 }

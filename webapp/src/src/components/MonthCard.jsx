@@ -56,6 +56,7 @@ export default function MonthCard({ month, year, data }) {
         <IconButton aria-label="Editar" href='#'>
           <ShareIcon />
         </IconButton>
+        <Link to={'/month/' + year + '/' + month.id }>GO!</Link>
       </CardActions>
     </Card>
   );

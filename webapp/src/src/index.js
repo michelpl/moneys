@@ -5,11 +5,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import "./index.css";
+import "./App.css";
 
 import Root from './Pages/Root'
 import Month from './Pages/Month'
 import Contact from './Pages/Contact'
+import Home from "./Pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +18,16 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: "contacts/:contactId",
-        element: <Contact />,
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "month/:year/:month",
+        element: <Month />,
       },
     ],
   },
