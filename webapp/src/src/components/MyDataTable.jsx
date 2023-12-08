@@ -152,6 +152,40 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 <Skeleton variant="rounded" width={'500'} height={60} />
                             </TableCell>
                         </TableRow>
+                        <TableRow className={'loading-skeleton ' + toggleClass }>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow className={'loading-skeleton ' + toggleClass }>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                            <TableCell>
+                                <Skeleton variant="rounded" width={'500'} height={60} />
+                            </TableCell>
+                        </TableRow>
                         {rows.map((row, order) => (
                             <TableRow
                                 key={row._id}
