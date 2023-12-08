@@ -17,6 +17,7 @@ import MonthCardPropertiesList from './MonthCardPropertiesList';
 import TodayIcon from '@mui/icons-material/Today';
 import { Button } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Link } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,13 +30,13 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function MonthCard({month, data}) {
+export default function MonthCard({ month, year, data }) {
   return (
     <Card>
-      <CardHeader style={{textTransform: 'capitalize'}}
+      <CardHeader style={{ textTransform: 'capitalize' }}
         avatar={
           <Avatar sx={{ bgcolor: '#7364DB' }} aria-label="month">
-            { month.substring(1,0).toUpperCase() }
+            {month.name.substring(1, 0).toUpperCase()}
           </Avatar>
         }
         action={
@@ -43,16 +44,16 @@ export default function MonthCard({month, data}) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={ month }
+        title={month.name}
       />
       <CardContent>
-        <MonthCardPropertiesList data={ data } />
+        <MonthCardPropertiesList data={data} />
       </CardContent>
       <CardActions>
-        <IconButton aria-label="Editar">
+        <IconButton aria-label="Editar" href={ '/month&id=' + month.id + '&year=' + year }>
           <OpenInNewIcon />
         </IconButton>
-        <IconButton aria-label="Exportar">
+        <IconButton aria-label="Editar" href='#'>
           <ShareIcon />
         </IconButton>
       </CardActions>

@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MonthCard from '../components/MonthCard';
 import { Paper } from '@mui/material';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
+import MyTopBar from '../components/MyTopBar'
 
 function Copyright() {
   return (
@@ -38,37 +39,33 @@ const defaultTheme = createTheme({
 
 export default function Home() {
   const cards = [
-    'dezembro',
-    'janeiro',
-    'fevereiro',
-    'março',
-    'abril',
-    'maio',
-    'junho',
-    'julho',
-    'agosto',
-    'setembro',
-    'outubro',
-    'novembro'
-  ];
+    { id: 1, name: 'janeiro' },
+    { id: 2, name: 'fevereiro' },
+    { id: 3, name: 'março' },
+    { id: 4, name: 'abril' },
+    { id: 5, name: 'maio' },
+    { id: 6, name: 'junho' },
+    { id: 7, name: 'julho' },
+    { id: 8, name: 'agosto' },
+    { id: 9, name: 'setembro' },
+    { id: 10, name: 'outubro' },
+    { id: 11, name: 'novembro' },
+    { id: 12, name: 'dezembro' }
+  ]
+
+  const year = '2023';
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <AppBar position="relative">
-        <Toolbar>
-          <RequestPageIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Moneys | Home
-          </Typography>
-        </Toolbar>
+        <MyTopBar  title={ 'Moneys' } subtitle = { 'Home' }></MyTopBar>
       </AppBar>
       <Paper
-                sx={{
-                  bgcolor: '#1F2128'
-                }}
+        sx={{
+          bgcolor: '#1F2128'
+        }}
       >
-
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -85,6 +82,7 @@ export default function Home() {
               gutterBottom
             >
               Home
+              <a href={'/month'}>Your Name</a>
             </Typography>
             <Typography
               component="h3"
@@ -115,7 +113,7 @@ export default function Home() {
               cards.map((month, order) => {
                 return (
                   <Grid item key={order} xs={12} sm={6} md={4} lg={4}>
-                      <MonthCard month={month} />
+                      <MonthCard month={month} year={ year } />
                   </Grid>
                 )
               })

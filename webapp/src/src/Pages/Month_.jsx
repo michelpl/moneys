@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import MyTopBar from '../components/MyTopBar'
 import {Box} from "@mui/material";
 
-export default function Home() {
+export default function Month() {
     const [month] = useState({
         id: 12,
         label: 'Dezembro'
