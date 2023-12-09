@@ -1,26 +1,9 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-
-import CssBaseline from '@mui/material/CssBaseline';
-
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import RequestPageIcon from '@mui/icons-material/RequestPage';
 import MyDataTable from "../components/MyDataTable";
 import Totals from "../components/Totals";
-import { useEffect, useState } from "react";
-import { Box } from '@mui/material';
+import { useState } from "react";
 import { useParams } from 'react-router-dom';
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  }
-});
 
 export default function Month() {
 

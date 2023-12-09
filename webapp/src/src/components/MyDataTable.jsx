@@ -244,7 +244,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                 >
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={2}>
+                            <Grid>
                                 <TextField
                                     align="left"
                                     type="text"
@@ -257,7 +257,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 >
                                 </TextField>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item>
                                 <TextField
                                     id="amount"
                                     type="number"
@@ -277,10 +277,10 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 >
                                 </TextField>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item>
                                 <MyCategories categoryList={categoryList} saveData={saveData} />
                             </Grid>
-                            <Grid item xs={2} >
+                            <Grid item >
                                 <Tooltip title="Salvar">
                                     <IconButton aria-label="save"
                                         onClick={() => saveData()}

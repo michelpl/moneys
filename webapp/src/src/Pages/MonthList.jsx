@@ -9,7 +9,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MonthCard from '../components/MonthCard';
 import { Paper } from '@mui/material';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
@@ -47,7 +46,7 @@ export default function MonthList() {
     >
       <Container sx={{ py: 8 }}>
         <Grid container spacing={4}>
-          <Grid xs={12} textAlign={'center'}>
+          <Grid item xs={12} textAlign={'center'}>
             <h3>Orçamento mensal { HeaderView() }</h3>
           </Grid>
         
