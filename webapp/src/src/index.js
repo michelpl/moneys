@@ -11,6 +11,7 @@ import Root from './Pages/Root'
 import Month from './Pages/Month'
 import Contact from './Pages/Contact'
 import Home from "./Pages/Home";
+import MonthList from "./Pages/MonthList";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+      {
+        path: "year/:year",
+        element: <MonthList />,
       },
       {
         path: "month/:year/:month",

@@ -13,10 +13,7 @@ import MyDataTable from "../components/MyDataTable";
 import Totals from "../components/Totals";
 import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
-
 import { useParams } from 'react-router-dom';
-
-
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme({

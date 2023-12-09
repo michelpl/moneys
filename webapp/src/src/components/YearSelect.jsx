@@ -6,13 +6,6 @@ import Select from '@mui/material/Select';
 import { Link } from 'react-router-dom';
 
 export default function SelectSmall() {
-    const getCurrentYear = () => {
-        var currentYear = new Date().getFullYear();
-        return currentYear;
-    }
-    
-    const [year, setAge] = React.useState(getCurrentYear);
-
     const getYears = () => {
         let options = [];
         for (var i = 2020; i < 2030; i++) {
@@ -20,37 +13,37 @@ export default function SelectSmall() {
         }
         return options;
     };
+    const [yearsList] = React.useState(getYears());
 
-    const [years, setYears] = React.useState(getYears());
+  const [year, setYear] = React.useState('');
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+  const handleChange = (event) => {
+    setYear(event.target.value);
+  };
 
-    return (
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-select-small-label">Ano</InputLabel>
-            <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={year}
-                label="Ano"
-                onChange={handleChange}
-            >
-                <MenuItem value="">
-                    <em>{ getCurrentYear() }</em>
+  return (
+    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      <InputLabel id="demo-select-small-label">Ano</InputLabel>
+      <Select
+        labelId="demo-select-small-label"
+        id="demo-select-small"
+        value={year}
+        label="Ano"
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>Selecione</em>
+        </MenuItem>
+        {
+            yearsList.map((year) => {
+                return (
+                <MenuItem value={year}>
+                    <Link to={'year/' + year } >{year}</Link>
                 </MenuItem>
-                {
-
-                    years.map((year) => {
-                        return (
-                            <Link to={year}>
-                                <MenuItem value={year}>{year}</MenuItem>
-                            </Link>
-                        )
-                    })
-                }
-            </Select>
-        </FormControl>
-    );
+                )
+            })
+        }
+      </Select>
+    </FormControl>
+  );
 }

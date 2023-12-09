@@ -44,7 +44,7 @@ export default function MonthCard({ month, year, data }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={month.name}
+        title={month.name + ' (' + year + ')'}
       />
       <CardContent>
         <MonthCardPropertiesList data={data} />
