@@ -22,7 +22,6 @@ const defaultTheme = createTheme({
   }
 });
 
-
 export default function Month() {
 
   const months = [
@@ -77,15 +76,8 @@ export default function Month() {
       setExpenses(totalAmount.amount);
     }
   }
-
-
-
   return (
     <Container maxWidth="99%" sx={{ marginTop: 5 }}>
-      {
-
-        
-      }
       <MyDataTable
         data={ HeaderView({name: 'budget', label: 'Entradas' }) }
         totalAmountToParent={totalAmountToParent}

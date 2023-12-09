@@ -34,7 +34,6 @@ export default function Home() {
   const year = '2023';
 
   return (
-
     <Paper
       sx={{
         bgcolor: '#1F2128'
