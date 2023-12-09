@@ -45,7 +45,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [rows, setRows] = React.useState([]);
 
     useEffect(() => {
-        var uri = apiUrl + '/input?user_id=' + data.userId + '&year=' + data.year + '&month='  + data.month + '&model='  + data.modelName;
+        var uri = apiUrl + '/input?user_id=' + data.userId + '&year=' + parseInt(data.year) + '&month='  + parseInt(data.month) + '&model='  + data.modelName;
         fetch(uri)
             .then((response) => response.json())
             .then((data) => {
@@ -98,9 +98,9 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             '_id': Math.floor(Math.random() * 100000000),
             'user_id': data.userId,
             'description': description,
-            'value': amount,
+            'value': parseFloat(amount),
             'model': data.modelName,
-            'month': data.month,
+            'month': parseInt(data.month),
             'year': parseInt(data.year),
             'categories': categories
         };

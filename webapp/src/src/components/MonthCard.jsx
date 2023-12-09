@@ -50,13 +50,7 @@ export default function MonthCard({ month, year, data }) {
         <MonthCardPropertiesList data={data} />
       </CardContent>
       <CardActions>
-        <IconButton aria-label="Editar" href={ '/month&id=' + month.id + '&year=' + year }>
-          <OpenInNewIcon />
-        </IconButton>
-        <IconButton aria-label="Editar" href='#'>
-          <ShareIcon />
-        </IconButton>
-        <Link to={'/month/' + year + '/' + month.id }>GO!</Link>
+        <Link to={'/month/' + year + '/' + month.id }><OpenInNewIcon /></Link>
       </CardActions>
     </Card>
   );

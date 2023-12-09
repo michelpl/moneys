@@ -29,6 +29,11 @@ class InputController extends Controller
             ->orderBy('model, month, updated_at')
             ->get();
     }
+    
+    public function all()
+    {
+        return Input::all();
+    }
 
     public function find(string $id = '')
     {
