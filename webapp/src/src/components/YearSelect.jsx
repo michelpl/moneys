@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function SelectSmall() {
     const getYears = () => {
         let options = [];
-        for (var i = 2020; i < 2030; i++) {
+        for (var i = 2023; i <= 2030; i++) {
             options.push(i);
         }
         return options;
@@ -31,15 +31,13 @@ export default function SelectSmall() {
         label="Ano"
         onChange={handleChange}
       >
-        <MenuItem value="">
-          <em>Selecione</em>
-        </MenuItem>
         {
             yearsList.map((year) => {
-                return (
-                <MenuItem key={ year }  value={ year }>
-                    <Link to={'year/' + year } >{year}</Link>
+                return (<Link to={'year/' + year } >
+                <MenuItem key={ year }  value={ year } >
+                  { year }
                 </MenuItem>
+                </Link>
                 )
             })
         }
