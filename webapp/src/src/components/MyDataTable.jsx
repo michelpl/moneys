@@ -71,7 +71,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             body: JSON.stringify(item)
         }).then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                
             })
             .catch((err) => {
                 console.log(err.message);
@@ -86,7 +86,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             headers: { 'Content-Type': 'application/json' },
         }).then((response) => response.json())
             .then((data) => {
-                console.log(data);
+
             })
             .catch((err) => {
                 console.log(err.message);
@@ -114,8 +114,6 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const deleteData = (id) => {
         const filtered = rows.filter((item) => item._id !== id);
         setRows(filtered);
-        console.log(id);
-        console.log(filtered);
         deleteItem(id);
         sumTotalAmount(filtered);
     };
@@ -197,7 +195,6 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 <TableCell className='categoryTableCell'>
                                     {row.categories.map((data, order) => {
                                         let icon;
-                                        console.log(data.icon)
                                         if (data.icon !== null && data.icon !== '') {
                                             icon = <AddCircleIcon />;
                                             return (
@@ -244,7 +241,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                 >
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
-                            <Grid>
+                            <Grid item xs={2}>
                                 <TextField
                                     align="left"
                                     type="text"
@@ -257,7 +254,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 >
                                 </TextField>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={2}>
                                 <TextField
                                     id="amount"
                                     type="number"
@@ -277,10 +274,10 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 >
                                 </TextField>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={2}>
                                 <MyCategories categoryList={categoryList} saveData={saveData} />
                             </Grid>
-                            <Grid item >
+                            <Grid item xs={2} >
                                 <Tooltip title="Salvar">
                                     <IconButton aria-label="save"
                                         onClick={() => saveData()}

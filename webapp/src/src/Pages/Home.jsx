@@ -15,23 +15,6 @@ import RequestPageIcon from '@mui/icons-material/RequestPage';
 import MyTopBar from '../components/MyTopBar'
 
 export default function Home() {
-  const cards = [
-    { id: 1, name: 'janeiro' },
-    { id: 2, name: 'fevereiro' },
-    { id: 3, name: 'março' },
-    { id: 4, name: 'abril' },
-    { id: 5, name: 'maio' },
-    { id: 6, name: 'junho' },
-    { id: 7, name: 'julho' },
-    { id: 8, name: 'agosto' },
-    { id: 9, name: 'setembro' },
-    { id: 10, name: 'outubro' },
-    { id: 11, name: 'novembro' },
-    { id: 12, name: 'dezembro' }
-  ]
-
-  const year = '2023';
-
   return (
     <Paper
       sx={{
@@ -40,16 +23,7 @@ export default function Home() {
     >
       <Container sx={{ py: 8 }}>
         <Grid container spacing={4}>
-          {
-
-            cards.map((month, order) => {
-              return (
-                <Grid item key={order} xs={12} sm={6} md={4} lg={4}>
-                  <MonthCard month={month} year={year} />
-                </Grid>
-              )
-            })
-          }
+          <h2>Home</h2>
         </Grid>
       </Container>
     </Paper>
