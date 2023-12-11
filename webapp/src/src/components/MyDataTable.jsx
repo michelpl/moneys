@@ -24,7 +24,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
-    const apiUrl = 'https://zany-winner-jwj4g4gvr72ppv5-8000.app.github.dev/api';
+    const apiUrl = 'http://localhost:8000/api';
 
     function sumTotalAmount(newList) {
         var totalAmount = 0;

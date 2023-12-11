@@ -1,18 +1,12 @@
 import { Outlet, Link } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MonthCard from '../components/MonthCard';
-import { Paper } from '@mui/material';
-import RequestPageIcon from '@mui/icons-material/RequestPage';
 import MyTopBar from '../components/MyTopBar'
+import AppTheme from "../config/AppTheme";
+import { Button } from "@mui/material";
 
 function Copyright() {
     return (
@@ -26,13 +20,7 @@ function Copyright() {
       </Typography>
     );
   }
-
-  // TODO remove, this demo shouldn't need to reset the theme.
-  const defaultTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    }
-  });
+  const defaultTheme = createTheme(AppTheme());
 
 export default function Root() {
     return (

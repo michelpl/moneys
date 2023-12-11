@@ -9,7 +9,7 @@ import "./App.css";
 
 import Root from './Pages/Root'
 import Month from './Pages/Month'
-import Contact from './Pages/Contact'
+import ThemePage from './Pages/ThemePage'
 import Home from "./Pages/Home";
 import MonthList from "./Pages/MonthList";
 
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "month/:year/:month",
         element: <Month />,
+      },
+      {
+        path: "theme",
+        element: <ThemePage />,
       },
     ],
   },

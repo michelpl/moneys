@@ -33,11 +33,10 @@ export default function SelectSmall() {
       >
         {
             yearsList.map((year) => {
-                return (<Link to={'year/' + year } >
-                <MenuItem key={ year }  value={ year } >
-                  { year }
+                return (
+                <MenuItem key={ year }  value={ year }>
+                    <Link to={'year/' + year } >{ year }</Link>
                 </MenuItem>
-                </Link>
                 )
             })
         }

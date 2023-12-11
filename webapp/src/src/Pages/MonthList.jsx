@@ -35,8 +35,6 @@ export default function MonthList() {
     const location = useParams();
     return location.year;
   }
-
-
   return (
 
     <Paper
