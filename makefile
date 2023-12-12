@@ -51,8 +51,11 @@ permissions-webapp:
 	sudo find webapp/src/public/ -type f -exec chmod 664 {} \;
 	sudo chown -R root:${USER} webapp/src/public/
 
-bash:
+bash-api:
 	docker-compose exec webapi bash
+
+bash-webapp:
+	docker-compose exec webapp /bin/ash
 
 artisan:
 	docker-compose exec webapi php artisan

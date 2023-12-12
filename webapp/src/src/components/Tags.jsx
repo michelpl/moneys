@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 export default function Tags({categoryList, saveData}) {
   return (
     <Autocomplete
-      width='100%'
+      width='100'
       multiple
       id="tags-outlined"
       options={categories}
