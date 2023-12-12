@@ -1,12 +1,6 @@
 import * as React from 'react';
-import {TextField, Paper, IconButton, Divider, Avatar} from '@mui/material';
-import {useEffect, useState} from "react";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { TextField, Paper, IconButton, Divider, Avatar, Container, Typography, Stack, Autocomplete } from '@mui/material';
+import { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
@@ -17,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Skeleton from '@mui/material/Skeleton';
+import { styled } from '@mui/material/styles';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
@@ -39,13 +34,13 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             }
         );
 
-        localStorage.setItem(data.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
+        //localStorage.setItem(data.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
     }
 
     const [rows, setRows] = React.useState([]);
 
     useEffect(() => {
-        var uri = apiUrl + '/input?user_id=' + data.userId + '&year=' + parseInt(data.year) + '&month='  + parseInt(data.month) + '&model='  + data.modelName;
+        var uri = apiUrl + '/input?user_id=' + data.userId + '&year=' + parseInt(data.year) + '&month=' + parseInt(data.month) + '&model=' + data.modelName;
         fetch(uri)
             .then((response) => response.json())
             .then((data) => {
@@ -71,7 +66,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             body: JSON.stringify(item)
         }).then((response) => response.json())
             .then((data) => {
-                
+
             })
             .catch((err) => {
                 console.log(err.message);
@@ -117,187 +112,146 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         deleteItem(id);
         sumTotalAmount(filtered);
     };
+    const Item = styled(Box)(({ theme }) => ({
+        ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    }));
 
     return (
-        <Box>
-            <TableContainer component={Paper} sx={{ marginBottom: 2 }}>
-                <h3>{data.label}</h3>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="left">Id</TableCell>
-                            <TableCell align="left">Descrição</TableCell>
-                            <TableCell align="right">Valor</TableCell>
-                            <TableCell align="left">Categorias</TableCell>
-                            <TableCell align="right">Ações</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow className={'loading-skeleton ' + toggleClass }>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow className={'loading-skeleton ' + toggleClass }>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow className={'loading-skeleton ' + toggleClass }>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                            <TableCell>
-                                <Skeleton variant="rounded" width={'500'} height={60} />
-                            </TableCell>
-                        </TableRow>
-                        {rows.map((row, order) => (
-                            <TableRow
-                                key={row._id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row" align="left">{order + 1}</TableCell>
-                                <TableCell align="left">{row.description}</TableCell>
-                                <TableCell align="right">R$ {parseFloat(row.value).toFixed(2) }</TableCell>
-                                <TableCell className='categoryTableCell'>
-                                    {row.categories.map((data, order) => {
-                                        let icon;
-                                        if (data.icon !== null && data.icon !== '') {
-                                            icon = <AddCircleIcon />;
-                                            return (
-                                                <Chip
-                                                    icon = { icon }
-                                                    key={ order }
-                                                    color='primary'
-                                                    label={ data.label }
-                                                    sx={{ marginRight: '5px', backgroundColor: data.color }}
-                                                />
-                                            );
-                                        } else {
-                                            let avatar;
-                                            avatar = <Avatar src={"/logos/" + data.id + ".png"}/>
-                                            return (
-                                                <Chip
-                                                    avatar={ avatar }
-                                                    key={ order }
-                                                    color='primary'
-                                                    label={ data.label }
-                                                    sx={{ marginRight: '5px', backgroundColor: data.color }}
-                                                />
-                                            );
-                                        }
-
-
-                                    })}
-                                </TableCell>
-                                <TableCell align="right">
-                                    <Tooltip title="Delete">
-                                        <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Divider />
-                <div id='botomActions'
-                    align="left"
-                    style={{ padding: '5px', marginTop: '15px' }}
-                >
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={2}>
-                                <TextField
-                                    align="left"
-                                    type="text"
-                                    id="description"
-                                    label="Descrição"
-                                    width='100%'
-                                    onChange={
-                                        (e) => { setDescription(e.target.value); }
+        <Paper>
+            <Typography variant="h3" align='center'>
+                {data.modelLabel}
+            </Typography>
+            <Grid container padding={1}>
+                <Grid item xs={1}>
+                    <Item>Id</Item>
+                </Grid>
+                <Grid item xs={4}>
+                    <Item>Descrição</Item>
+                </Grid>
+                <Grid item xs={2}>
+                    <Item>Valor</Item>
+                </Grid>
+                <Grid item xs={4}>
+                    <Item>Categorias</Item>
+                </Grid>
+                <Grid item xs={1}>
+                    <Item align='center'>Ações</Item>
+                </Grid>
+            </Grid>
+            {rows.map((row, order) => (
+                    <Grid container>
+                        <Grid xs={1}>
+                            <Item>{order + 1}</Item>
+                        </Grid>
+                        <Grid xs={4}>
+                            <Item>{row.description}</Item>
+                        </Grid>
+                        <Grid xs={2}>
+                            <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
+                        </Grid>
+                        <Grid xs={4}>
+                            <Item>
+                                {row.categories.map((data, order) => {
+                                    let icon;
+                                    if (data.icon !== null && data.icon !== '') {
+                                        icon = <AddCircleIcon />;
+                                        return (
+                                            <Chip
+                                                icon={icon}
+                                                key={order}
+                                                color='primary'
+                                                label={data.label}
+                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                            />
+                                        );
+                                    } else {
+                                        let avatar;
+                                        avatar = <Avatar src={"/logos/" + data.id + ".png"} />
+                                        return (
+                                            <Chip
+                                                avatar={avatar}
+                                                key={order}
+                                                color='primary'
+                                                label={data.label}
+                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                            />
+                                        );
                                     }
-                                >
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <TextField
-                                    id="amount"
-                                    type="number"
-                                    min="0.00"
-                                    label="Valor"
-                                    width='100%'
-                                    onChange={
-                                        (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
-                                    }
-                                    onKeyUp={
-                                        (e) => {
-                                            if (e.key === "Enter") {
-                                                saveData()
-                                            }
-                                        }
-                                    }
-                                >
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <MyCategories categoryList={categoryList} saveData={saveData} />
-                            </Grid>
-                            <Grid item xs={2} >
-                                <Tooltip title="Salvar">
-                                    <IconButton aria-label="save"
-                                        onClick={() => saveData()}
-                                        sx={{ padding: '0', marginTop: '0' }}
-                                    >
-                                        <AddCircleIcon fontSize='large' />
+                                })}
+                            </Item>
+                        </Grid>
+                        <Grid xs={1}>
+                            <Item align='right'>
+                                <Tooltip title="Delete">
+                                    <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
+                                        <DeleteIcon />
                                     </IconButton>
                                 </Tooltip>
-                            </Grid>
+                            </Item>
                         </Grid>
-                    </Box>
+                        <Grid xs={12}>
+                            <Divider />
+                        </Grid>
+                    </Grid>
+                ))}
+            <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={2}
+            >
 
-                    <Card sx={{ width: '100%', marginTop: '15px' }} >
-                        <CardContent className='bottomCard'>
-                            <p className='p1'>Total: R$ {totalAmount}</p>
-                            <p className='p2'>Número de registros: {rows.length}</p>
-                        </CardContent>
-                    </Card>
-                </div>
-            </TableContainer>
-        </Box>
+                    <TextField
+                        label="Descrição"
+                        onChange={
+                            (e) => { setDescription(e.target.value); }
+                        }
+                    >
+
+                    </TextField>
+
+                    <TextField
+                        id="amount"
+                        type="number"
+                        min="0.00"
+                        label="Valor"
+                        width='100%'
+                        onChange={
+                            (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                        }
+                        onKeyUp={
+                            (e) => {
+                                if (e.key === "Enter") {
+                                    saveData()
+                                }
+                            }
+                        }
+                    >
+                    </TextField>
+                    <MyCategories></MyCategories>
+                    <Tooltip title="Salvar">
+                        <IconButton aria-label="save"
+                            onClick={() => saveData()}
+                            sx={{ padding: '0', marginTop: '0' }}
+                        >
+                            <AddCircleIcon fontSize='large' />
+                        </IconButton>
+                    </Tooltip>
+                    
+            </Stack>
+        </Paper >
     );
 }
+
+
+
+const categories = [
+    { id: 'nubank', label: 'Nubank', color: '#820AD1', icon: '' },
+    { id: 'rico', label: 'Rico', color: '#FE5200', icon: '' },
+    { id: 'gastos-fixos', label: 'Gastos fixos', color: '#c7a839', icon: 'FaceIcon' },
+    { id: 'gastos-variaveis', label: 'Gastos variáveis', color: '#c739a2', icon: '' }
+  ];
+  
