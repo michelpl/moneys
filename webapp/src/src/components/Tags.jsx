@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 
 export default function Tags({categoryList, saveData}) {
   return (
-    <Stack spacing={3} sx={{ minWidth: 320 }}>
+    <Stack spacing={3} sx={{ minWidth: '100%' }}>
       <Autocomplete
         multiple
         id="tags-outlined"

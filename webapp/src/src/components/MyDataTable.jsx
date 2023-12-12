@@ -12,6 +12,13 @@ import Chip from '@mui/material/Chip';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Skeleton from '@mui/material/Skeleton';
 import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
@@ -34,7 +41,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             }
         );
 
-        //localStorage.setItem(data.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
+        localStorage.setItem(data.modelName + 'TotalAmount', JSON.stringify(totalAmount.toFixed(2)));
     }
 
     const [rows, setRows] = React.useState([]);
@@ -120,39 +127,49 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     }));
 
     return (
-        <Paper>
-            <Typography variant="h3" align='center'>
-                {data.modelLabel}
-            </Typography>
-            <Grid container padding={1}>
-                <Grid item xs={1}>
-                    <Item>Id</Item>
+        <Paper component="main">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'left',
+                    padding: 2
+                }}
+            >
+                <Typography variant="h5" align='center'>
+                    {data.modelLabel}
+                </Typography>
+                <Grid container padding={1}>
+                    <Grid item xs={1}>
+                        <Item>Id</Item>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Item>Descrição</Item>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <Item>Valor</Item>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Item>Categorias</Item>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Item align='center'>Ações</Item>
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <Item>Descrição</Item>
-                </Grid>
-                <Grid item xs={2}>
-                    <Item>Valor</Item>
-                </Grid>
-                <Grid item xs={4}>
-                    <Item>Categorias</Item>
-                </Grid>
-                <Grid item xs={1}>
-                    <Item align='center'>Ações</Item>
-                </Grid>
-            </Grid>
-            {rows.map((row, order) => (
+                {rows.map((row, order) => (
                     <Grid container>
-                        <Grid xs={1}>
+                        <Grid item key={ order } xs={1}>
                             <Item>{order + 1}</Item>
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid item key={ order } xs={4}>
                             <Item>{row.description}</Item>
                         </Grid>
-                        <Grid xs={2}>
+                        <Grid item key={ order } xs={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid item key={ order } xs={4} alignContent={'left'}>
                             <Item>
                                 {row.categories.map((data, order) => {
                                     let icon;
@@ -183,7 +200,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 })}
                             </Item>
                         </Grid>
-                        <Grid xs={1}>
+                        <Grid item xs={1}>
                             <Item align='right'>
                                 <Tooltip title="Delete">
                                     <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
@@ -192,56 +209,70 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 </Tooltip>
                             </Item>
                         </Grid>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <Divider />
                         </Grid>
                     </Grid>
                 ))}
-            <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={2}
-            >
-
-                    <TextField
-                        label="Descrição"
-                        onChange={
-                            (e) => { setDescription(e.target.value); }
-                        }
-                    >
-
-                    </TextField>
-
-                    <TextField
-                        id="amount"
-                        type="number"
-                        min="0.00"
-                        label="Valor"
-                        width='100%'
-                        onChange={
-                            (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
-                        }
-                        onKeyUp={
-                            (e) => {
-                                if (e.key === "Enter") {
-                                    saveData()
+                <Box component="form" noValidate sx={{ mt: 3 }}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={3}>
+                            <TextField
+                                name="description"
+                                required
+                                fullWidth
+                                label="Descrição"
+                                autoFocus
+                                onBlur={
+                                    (e) => { setDescription(e.target.value); }
                                 }
-                            }
-                        }
-                    >
-                    </TextField>
-                    <MyCategories categoryList={categoryList} saveData={saveData} />
-                    <Tooltip title="Salvar">
-                        <IconButton aria-label="save"
-                            onClick={() => saveData()}
-                            sx={{ padding: '0', marginTop: '0' }}
-                        >
-                            <AddCircleIcon fontSize='large' />
-                        </IconButton>
-                    </Tooltip>
-                    
-            </Stack>
-        </Paper >
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={1}>
+                            <TextField
+                                required
+                                fullWidth
+                                type='number'
+                                id="amount"
+                                label="Valor"
+                                name="amount"
+                                onChange={
+                                    (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                                }
+                                onKeyUp={
+                                    (e) => {
+                                        if (e.key === "Enter") {
+                                            saveData()
+                                        }
+                                    }
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
+                            <MyCategories categoryList={categoryList} saveData={saveData} />
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
+                            <Tooltip title="Salvar">
+                                <IconButton aria-label="save"
+                                    onClick={() => saveData()}
+                                >
+                                    <AddCircleIcon fontSize='large' />
+                                </IconButton>
+                            </Tooltip>
+                        </Grid>
+                    </Grid>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Card>
+                                <CardContent className='bottomCard'>
+                                    <p className='p1'>Total: R$ {totalAmount}</p>
+                                    <p className='p2'>Número de registros: {rows.length}</p>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Box>
+        </Paper>
     );
 }
