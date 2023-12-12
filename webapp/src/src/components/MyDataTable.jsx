@@ -231,7 +231,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         }
                     >
                     </TextField>
-                    <MyCategories></MyCategories>
+                    <MyCategories categoryList={categoryList} saveData={saveData} />
                     <Tooltip title="Salvar">
                         <IconButton aria-label="save"
                             onClick={() => saveData()}
@@ -245,13 +245,3 @@ export default function MyDataTable({ data, totalAmountToParent }) {
         </Paper >
     );
 }
-
-
-
-const categories = [
-    { id: 'nubank', label: 'Nubank', color: '#820AD1', icon: '' },
-    { id: 'rico', label: 'Rico', color: '#FE5200', icon: '' },
-    { id: 'gastos-fixos', label: 'Gastos fixos', color: '#c7a839', icon: 'FaceIcon' },
-    { id: 'gastos-variaveis', label: 'Gastos variáveis', color: '#c739a2', icon: '' }
-  ];
-  

@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
-export default function Tags() {
+export default function Tags({categoryList, saveData}) {
   return (
     <Stack spacing={3} sx={{ minWidth: 320 }}>
       <Autocomplete
@@ -13,6 +13,16 @@ export default function Tags() {
         options={categories}
         getOptionLabel={(option) => option.label}
         filterSelectedOptions
+        onChange={(event, newValue) => {
+          categoryList(newValue);
+        }}
+        onKeyUp={
+          (e) => {
+              if (e.key === "Enter") {
+                  saveData()
+              }
+          }
+        }
         renderInput={(params) => (
           <TextField
             {...params}
