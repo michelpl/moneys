@@ -11,11 +11,6 @@ a, a:visited, link {
     font-weight: bold;
   }
 
-  .MuiButtonBase-root {
-    margin: 15px 0 !important;
-  }
-
-
   ul {
     list-style: none;
   }
