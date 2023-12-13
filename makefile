@@ -68,5 +68,8 @@ seed:
 make npm:
 	docker-compose exec webapp npm
 
+make npm-build:
+	docker-compose exec webapp npm run build
+
 make npm-start:
 	docker-compose exec webapp npm start
