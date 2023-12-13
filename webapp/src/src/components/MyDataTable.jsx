@@ -141,7 +141,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                     {data.modelLabel}
                 </Typography>
                 <Grid container padding={1}>
-                    <Grid item xs={1}>
+                    <Grid item xs={12} md={1}>
                         <Item>Id</Item>
                     </Grid>
                     <Grid item xs={4}>
@@ -159,16 +159,16 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                 </Grid>
                 {rows.map((row, order) => (
                     <Grid container key={ 'row-' + order }>
-                        <Grid item key={ 'cel-id-' + order } xs={1}>
+                        <Grid item key={ 'cel-id-' + order } xs={12} md={12} >
                             <Item>{order + 1}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-description-' + order } xs={4}>
+                        <Grid item key={ 'cel-description-' + order } xs={12} md={4}>
                             <Item>{row.description}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-amount-' + order } xs={2}>
+                        <Grid item key={ 'cel-amount-' + order } xs={12} md={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-categories-' + order } xs={4} alignContent={'left'}>
+                        <Grid item key={ 'cel-categories-' + order } xs={12} md={4} alignContent={'left'}>
                             <Item>
                                 {row.categories.map((data, order) => {
                                     let icon;
@@ -199,7 +199,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 })}
                             </Item>
                         </Grid>
-                        <Grid item key={ 'cel-actions-' + order } xs={1}>
+                        <Grid item key={ 'cel-actions-' + order } xs={12} md={1}>
                             <Item align='right'>
                                 <Tooltip title="Delete">
                                     <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
@@ -227,7 +227,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={ 'amount-input' }  xs={12} sm={1}>
+                        <Grid item key={ 'amount-input' }  xs={12} sm={3} md={2} lg={1}>
                             <TextField
                                 required
                                 fullWidth
@@ -247,7 +247,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={ 'castegory-input' }  xs={12} sm={3}>
+                        <Grid item key={ 'castegory-input' }  xs={12} sm={3} md={2} >
                             <MyCategories categoryList={categoryList} saveData={saveData} />
                         </Grid>
                         <Grid item  key={ 'save-button' } xs={12} sm={3}>
