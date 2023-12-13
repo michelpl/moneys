@@ -158,17 +158,17 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                     </Grid>
                 </Grid>
                 {rows.map((row, order) => (
-                    <Grid container>
-                        <Grid item key={ order } xs={1}>
+                    <Grid container key={ 'row-' + order }>
+                        <Grid item key={ 'cel-id-' + order } xs={1}>
                             <Item>{order + 1}</Item>
                         </Grid>
-                        <Grid item key={ order } xs={4}>
+                        <Grid item key={ 'cel-description-' + order } xs={4}>
                             <Item>{row.description}</Item>
                         </Grid>
-                        <Grid item key={ order } xs={2}>
+                        <Grid item key={ 'cel-amount-' + order } xs={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
                         </Grid>
-                        <Grid item key={ order } xs={4} alignContent={'left'}>
+                        <Grid item key={ 'cel-categories-' + order } xs={4} alignContent={'left'}>
                             <Item>
                                 {row.categories.map((data, order) => {
                                     let icon;
@@ -177,7 +177,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                         return (
                                             <Chip
                                                 icon={icon}
-                                                key={order}
+                                                key={ 'chip-' + order }
                                                 color='primary'
                                                 label={data.label}
                                                 sx={{ marginRight: '5px', backgroundColor: data.color }}
@@ -189,7 +189,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                         return (
                                             <Chip
                                                 avatar={avatar}
-                                                key={order}
+                                                key={ 'chip-' + order}
                                                 color='primary'
                                                 label={data.label}
                                                 sx={{ marginRight: '5px', backgroundColor: data.color }}
@@ -199,7 +199,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 })}
                             </Item>
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item key={ 'cel-actions-' + order } xs={1}>
                             <Item align='right'>
                                 <Tooltip title="Delete">
                                     <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
@@ -208,14 +208,14 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 </Tooltip>
                             </Item>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item key={ 'cel-divider-' + order } xs={12}>
                             <Divider />
                         </Grid>
                     </Grid>
                 ))}
                 <Box component="form" noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={3}>
+                        <Grid item key={ 'description-input' } xs={12} sm={3}>
                             <TextField
                                 name="description"
                                 required
@@ -227,7 +227,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item xs={12} sm={1}>
+                        <Grid item key={ 'amount-input' }  xs={12} sm={1}>
                             <TextField
                                 required
                                 fullWidth
@@ -247,10 +247,10 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item xs={12} sm={3}>
+                        <Grid item key={ 'castegory-input' }  xs={12} sm={3}>
                             <MyCategories categoryList={categoryList} saveData={saveData} />
                         </Grid>
-                        <Grid item xs={12} sm={3}>
+                        <Grid item  key={ 'save-button' } xs={12} sm={3}>
                             <Tooltip title="Salvar">
                                 <IconButton aria-label="save"
                                     onClick={() => saveData()}
@@ -261,7 +261,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={12}>
+                        <Grid item key={ 'total-amount-grid' } xs={12}>
                             <Card>
                                 <CardContent className='bottomCard'>
                                     <p className='p1'>Total: R$ {totalAmount}</p>
