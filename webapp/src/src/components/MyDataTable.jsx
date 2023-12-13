@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextField, Paper, IconButton, Divider, Avatar, Container, Typography, Stack, Autocomplete } from '@mui/material';
+import { TextField, Paper, IconButton, Divider, Avatar, Typography } from '@mui/material';
 import { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
@@ -9,16 +9,11 @@ import MyCategories from './Tags';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
+import AddCardIcon from '@mui/icons-material/AddCard';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Skeleton from '@mui/material/Skeleton';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
@@ -154,30 +149,32 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         <Item>Categorias</Item>
                     </Grid>
                     <Grid item xs={1}>
-                        <Item align='center'>Ações</Item>
+                        <Item align='center'>Ações
+                        </Item>
                     </Grid>
+
                 </Grid>
                 {rows.map((row, order) => (
-                    <Grid container key={ 'row-' + order }>
-                        <Grid item key={ 'cel-id-' + order } xs={12} md={12} >
+                    <Grid container key={'row-' + order}>
+                        <Grid item key={'cel-id-' + order} xs={12} md={12} >
                             <Item>{order + 1}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-description-' + order } xs={12} md={4}>
+                        <Grid item key={'cel-description-' + order} xs={12} md={4}>
                             <Item>{row.description}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-amount-' + order } xs={12} md={2}>
+                        <Grid item key={'cel-amount-' + order} xs={12} md={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
                         </Grid>
-                        <Grid item key={ 'cel-categories-' + order } xs={12} md={4} alignContent={'left'}>
+                        <Grid item key={'cel-categories-' + order} xs={12} md={4} alignContent={'left'}>
                             <Item>
                                 {row.categories.map((data, order) => {
                                     let icon;
                                     if (data.icon !== null && data.icon !== '') {
-                                        icon = <AddCircleIcon />;
+                                        icon = <AddCardIcon />;
                                         return (
                                             <Chip
                                                 icon={icon}
-                                                key={ 'chip-' + order }
+                                                key={'chip-' + order}
                                                 color='primary'
                                                 label={data.label}
                                                 sx={{ marginRight: '5px', backgroundColor: data.color }}
@@ -189,7 +186,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                         return (
                                             <Chip
                                                 avatar={avatar}
-                                                key={ 'chip-' + order}
+                                                key={'chip-' + order}
                                                 color='primary'
                                                 label={data.label}
                                                 sx={{ marginRight: '5px', backgroundColor: data.color }}
@@ -199,7 +196,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 })}
                             </Item>
                         </Grid>
-                        <Grid item key={ 'cel-actions-' + order } xs={12} md={1}>
+                        <Grid item key={'cel-actions-' + order} xs={12} md={1}>
                             <Item align='right'>
                                 <Tooltip title="Delete">
                                     <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
@@ -208,14 +205,19 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 </Tooltip>
                             </Item>
                         </Grid>
-                        <Grid item key={ 'cel-divider-' + order } xs={12}>
+                        <Grid item key={'cel-divider-' + order} xs={12}>
                             <Divider />
                         </Grid>
+
                     </Grid>
                 ))}
+                <Grid item xs={12} className={'loading-skeleton ' + toggleClass }>
+                    <Skeleton variant="rounded" width={'98%'} sx={{marginTop: 2}} height={25} />
+                    <Skeleton variant="rounded" width={'98%'} sx={{marginTop: 2}} height={25} />
+                </Grid>
                 <Box component="form" noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item key={ 'description-input' } xs={12} sm={3}>
+                        <Grid item key={'description-input'} xs={12} sm={3}>
                             <TextField
                                 name="description"
                                 required
@@ -227,7 +229,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={ 'amount-input' }  xs={12} sm={3} md={2} lg={1}>
+                        <Grid item key={'amount-input'} xs={12} sm={3} md={2} lg={1}>
                             <TextField
                                 required
                                 fullWidth
@@ -247,10 +249,10 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={ 'castegory-input' }  xs={12} sm={3} md={2} >
+                        <Grid item key={'castegory-input'} xs={12} sm={3} md={2} >
                             <MyCategories categoryList={categoryList} saveData={saveData} />
                         </Grid>
-                        <Grid item  key={ 'save-button' } xs={12} sm={3}>
+                        <Grid item key={'save-button'} xs={12} sm={3}>
                             <Tooltip title="Salvar">
                                 <IconButton aria-label="save"
                                     onClick={() => saveData()}
@@ -261,7 +263,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item key={ 'total-amount-grid' } xs={12}>
+                        <Grid item key={'total-amount-grid'} xs={12}>
                             <Card>
                                 <CardContent className='bottomCard'>
                                     <p className='p1'>Total: R$ {totalAmount}</p>
