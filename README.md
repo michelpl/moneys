@@ -96,7 +96,7 @@ docker-compose exec webapi php artisan schedule:run
 
 ## The Hiring Challenge API will be avaliable on
 ```bash
-http://localhost:8000/api/V1
+http://ec2-34-202-165-60.compute-1.amazonaws.com:8000/api/V1
 ```
 
 ## 🧑‍💻 Consuming the API

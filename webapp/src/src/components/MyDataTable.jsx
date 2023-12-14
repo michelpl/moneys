@@ -21,7 +21,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
     const [totalAmount, setTotalAmount] = React.useState(0);
-    const apiUrl = 'http://localhost:8000/api';
+    const apiUrl = 'http://ec2-34-202-165-60.compute-1.amazonaws.com:8000/api';
 
     function sumTotalAmount(newList) {
         var totalAmount = 0;
