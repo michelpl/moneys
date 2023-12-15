@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -34,9 +33,13 @@ export default function Tags({categoryList, saveData}) {
   );
 }
 
+
 const categories = [
   { id: 'nubank', label: 'Nubank', color: '#820AD1', icon: '' },
   { id: 'rico', label: 'Rico', color: '#FE5200', icon: '' },
-  { id: 'gastos-fixos', label: 'Gastos fixos', color: '#c7a839', icon: '' },
-  { id: 'gastos-variaveis', label: 'Gastos variáveis', color: '#c739a2', icon: '' }
+  { id: 'gastos-fixos', label: 'Gastos fixos', color: '#E23738', icon: 'DescriptionIcon' },
+  { id: 'gastos-variaveis', label: 'Gastos variáveis', color: '#7747CA', icon: 'PaidIcon'},
+  { id: 'supermercado', label: 'Supermercado', color: '#c739a2', icon: 'ShoppingCartIcon' },
+  { id: 'farmacia', label: 'Farmácia', color: '#FB7BB8', icon: 'MedicationIcon' },
+  { id: 'sacolao', label: 'Sacolão', color: '#50D1B2', icon: 'EggIcon'},
 ];

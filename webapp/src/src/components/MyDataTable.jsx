@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { TextField, Paper, IconButton, Divider, Avatar, Typography } from '@mui/material';
 import { useEffect, useState } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,11 +8,12 @@ import MyCategories from './Tags';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
-import AddCardIcon from '@mui/icons-material/AddCard';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Skeleton from '@mui/material/Skeleton';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DynamicComponent from './DynamicComponent';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
@@ -167,13 +167,13 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                         <Grid item key={'cel-categories-' + order} xs={12} md={4} alignContent={'left'}>
                             <Item>
+
                                 {row.categories.map((data, order) => {
-                                    let icon;
-                                    if (data.icon !== null && data.icon !== '') {
-                                        icon = <AddCardIcon />;
+                                    var iconName = data.icon
+                                    if (iconName !== null && iconName !== '' && iconName != 'undefined') {
                                         return (
                                             <Chip
-                                                icon={icon}
+                                                icon={<DynamicComponent component={ iconName } />}
                                                 key={'chip-' + order}
                                                 color='primary'
                                                 label={data.label}
@@ -211,9 +211,9 @@ export default function MyDataTable({ data, totalAmountToParent }) {
 
                     </Grid>
                 ))}
-                <Grid item xs={12} className={'loading-skeleton ' + toggleClass }>
-                    <Skeleton variant="rounded" width={'98%'} sx={{marginTop: 2}} height={25} />
-                    <Skeleton variant="rounded" width={'98%'} sx={{marginTop: 2}} height={25} />
+                <Grid item xs={12} className={'loading-skeleton ' + toggleClass}>
+                    <Skeleton variant="rounded" width={'98%'} sx={{ marginTop: 2 }} height={25} />
+                    <Skeleton variant="rounded" width={'98%'} sx={{ marginTop: 2 }} height={25} />
                 </Grid>
                 <Box component="form" noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
