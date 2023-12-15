@@ -36,7 +36,6 @@ export default function MonthList() {
     return location.year;
   }
   return (
-
     <Paper
       sx={{
         bgcolor: '#1F2128'

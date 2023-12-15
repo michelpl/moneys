@@ -33,12 +33,14 @@ export default function Month() {
     }
   );
   const [budget, setBudget] = useState(0);
+  const [tithe, setTithe] = useState(0);
   const [expenses, setExpenses] = useState(0);
+
 
   function HeaderView(model) {
     const location = useParams();
     const filtered = months.filter((item) => item.id == location.month); 
-    document.title = 'Moneys | ' + location.month ;
+    document.title = 'Moneys';
     var data = {
       modelName: model.name,
       modelLabel: model.label,
@@ -53,6 +55,9 @@ export default function Month() {
     if (totalAmount.model === 'budget') {
       setBudget(totalAmount.amount);
     }
+    if (totalAmount.model === 'tithe') {
+      setTithe(totalAmount.amount);
+    }
     if (totalAmount.model === 'expenses') {
       setExpenses(totalAmount.amount);
     }
@@ -64,10 +69,14 @@ export default function Month() {
         totalAmountToParent={totalAmountToParent}
       />
       <MyDataTable
+        data={ HeaderView({name: 'tithe', label: 'Dízimos e ofertas' }) }
+        totalAmountToParent={totalAmountToParent}
+      />
+      <MyDataTable
         data={ HeaderView({name: 'expenses', label: 'Saídas' }) }
         totalAmountToParent={totalAmountToParent}
       />
-      <Totals budget={budget} expenses={expenses} />
+      <Totals budget={budget} expenses={expenses} tithe={ tithe } />
     </Container>
   );
 }
