@@ -32,10 +32,8 @@ export default function Month() {
       name: 'Michel'
     }
   );
-  const [year, setYear] = useState('2023');
   const [budget, setBudget] = useState(0);
   const [expenses, setExpenses] = useState(0);
-
 
   function HeaderView(model) {
     const location = useParams();

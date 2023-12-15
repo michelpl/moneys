@@ -16,17 +16,26 @@ import MyTopBar from '../components/MyTopBar'
 
 export default function Home() {
   return (
-    <Paper
-      sx={{
-        bgcolor: '#1F2128'
-      }}
-    >
-      <Container sx={{ py: 8 }}>
-        <Grid container spacing={4}>
-          <h2>Home</h2>
-        </Grid>
-      </Container>
-    </Paper>
+
+
+    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid xs={12}>
+        <Paper
+          sx={{
+            bgcolor: '#1F2128',
+            textAlign: 'center'
+          }}
+        >
+          
+          <Grid xs={12}>
+            <h2>Home</h2>
+          </Grid>
+          <Grid xs={12}>
+            <h3>Filtre por um ano no canto superior direito</h3>
+          </Grid>
+        </Paper>
+      </Grid>
+    </Grid >
 
   );
 }
