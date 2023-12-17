@@ -8,11 +8,21 @@ export default function AppTheme() {
                 main: '#7364DB',
                 light: '#42a5f5',
                 dark: '#1565c0',
-                contrastText: '#fff',
+                contrastText: '#64646f',
+                text: {
+                    primary: '#eae1e1'
+                },
                 background: {
-                    body: "#fff"
+                    body: "#000"
                 }
             },
+            success: {
+                main: '#50D1B2'
+            },
+            text: {
+                primary: "#eae1e1",
+                secondary: "#8b8b93"
+            }
 
         },
         breakpoints: {

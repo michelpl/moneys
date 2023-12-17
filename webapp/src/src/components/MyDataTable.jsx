@@ -14,12 +14,15 @@ import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DynamicComponent from './DynamicComponent';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function MyDataTable({ data, totalAmountToParent }) {
     const [description, setDescription] = useState('');
     const [toggleClass, setToggleClass] = useState('');
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
+    const [dueDate, setDueDate] = useState('');
+    const [comments, setComments] = useState('');
     const [totalAmount, setTotalAmount] = React.useState(0);
     const apiUrl = 'http://3.88.14.53:8000/api';
 
@@ -96,6 +99,8 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             'user_id': data.userId,
             'description': description,
             'value': parseFloat(amount),
+            'comments': comments,
+            'dueDate': dueDate,
             'model': data.modelName,
             'month': parseInt(data.month),
             'year': parseInt(data.year),
@@ -136,16 +141,22 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                     {data.modelLabel}
                 </Typography>
                 <Grid container padding={1}>
-                    <Grid item xs={12} md={1}>
+                    <Grid item xs={1} md={1}>
                         <Item>Id</Item>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <Item>Descrição</Item>
                     </Grid>
                     <Grid item xs={2}>
                         <Item>Valor</Item>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
+                        <Item>Vencimento</Item>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Item>Categorias</Item>
+                    </Grid>
+                    <Grid item xs={3}>
                         <Item>Categorias</Item>
                     </Grid>
                     <Grid item xs={1}>
@@ -156,16 +167,19 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                 </Grid>
                 {rows.map((row, order) => (
                     <Grid container key={'row-' + order}>
-                        <Grid item key={'cel-id-' + order} xs={12} md={12} >
+                        <Grid item key={'cel-id-' + order} xs={1} md={1} >
                             <Item>{order + 1}</Item>
                         </Grid>
-                        <Grid item key={'cel-description-' + order} xs={12} md={4}>
+                        <Grid item key={'cel-description-' + order} xs={3}>
                             <Item>{row.description}</Item>
                         </Grid>
-                        <Grid item key={'cel-amount-' + order} xs={12} md={2}>
+                        <Grid item key={'cel-amount-' + order} xs={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
                         </Grid>
-                        <Grid item key={'cel-categories-' + order} xs={12} md={4} alignContent={'left'}>
+                        <Grid item key={'cel-due-date-' + order} xs={2}>
+                            <Item>{row.dueDate}</Item>
+                        </Grid>
+                        <Grid item key={'cel-categories-' + order} xs={3} alignContent={'left'}>
                             <Item>
 
                                 {row.categories.map((data, order) => {
@@ -173,23 +187,23 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                     if (iconName !== null && iconName !== '' && iconName != 'undefined') {
                                         return (
                                             <Chip
-                                                icon={<DynamicComponent component={ iconName } />}
+                                                icon={<DynamicComponent component={iconName} />}
                                                 key={'chip-' + order}
-                                                color='primary'
+
                                                 label={data.label}
-                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                                sx={{ marginRight: '5px', backgroundColor: data.backgroundColor, color: data.color }}
                                             />
                                         );
                                     } else {
                                         let avatar;
-                                        avatar = <Avatar src={"/logos/" + data.id + ".png"} />
+                                        avatar = <Avatar sx={{ backgroundColor: data.backgroundColor }} src={"/logos/" + data.id + ".png"} />
                                         return (
                                             <Chip
                                                 avatar={avatar}
                                                 key={'chip-' + order}
-                                                color='primary'
+
                                                 label={data.label}
-                                                sx={{ marginRight: '5px', backgroundColor: data.color }}
+                                                sx={{ marginRight: '5px', backgroundColor: data.backgroundColor, color: data.color }}
                                             />
                                         );
                                     }
@@ -198,6 +212,11 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                         <Grid item key={'cel-actions-' + order} xs={12} md={1}>
                             <Item align='right'>
+                                <Tooltip title={ row.comments }>
+                                    <IconButton edge="end" aria-label="info">
+                                        <InfoIcon />
+                                    </IconButton>
+                                </Tooltip>
                                 <Tooltip title="Delete">
                                     <IconButton edge="end" aria-label="delete" onClick={() => deleteData(row._id)}>
                                         <DeleteIcon />
@@ -205,6 +224,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 </Tooltip>
                             </Item>
                         </Grid>
+
                         <Grid item key={'cel-divider-' + order} xs={12}>
                             <Divider />
                         </Grid>
@@ -217,25 +237,24 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                 </Grid>
                 <Box component="form" noValidate sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
-                        <Grid item key={'description-input'} xs={12} sm={3}>
+                        <Grid item key={'description-input'} xs={3}>
                             <TextField
                                 name="description"
                                 required
                                 fullWidth
                                 label="Descrição"
-                                autoFocus
                                 onBlur={
                                     (e) => { setDescription(e.target.value); }
                                 }
                             />
                         </Grid>
-                        <Grid item key={'amount-input'} xs={12} sm={3} md={2} lg={1}>
+                        <Grid item key={'amount-input'} xs={2}>
                             <TextField
                                 required
                                 fullWidth
                                 type='number'
                                 id="amount"
-                                label="Valor"
+                                label="Valor destinado"
                                 name="amount"
                                 onChange={
                                     (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
@@ -249,10 +268,30 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={'castegory-input'} xs={12} sm={3} md={2} >
+                        <Grid item key={'due-date-input'} xs={2}>
+                            <TextField
+                                required
+                                fullWidth
+                                type='date'
+                                id="due-date"
+                                label="Vencimento"
+                                name="due-date"
+                                onChange={
+                                    (e) => { setDueDate(e.target.value); }
+                                }
+                                onKeyUp={
+                                    (e) => {
+                                        if (e.key === "Enter") {
+                                            saveData()
+                                        }
+                                    }
+                                }
+                            />
+                        </Grid>
+                        <Grid item key={'castegory-input'} xs={4} >
                             <MyCategories categoryList={categoryList} saveData={saveData} />
                         </Grid>
-                        <Grid item key={'save-button'} xs={12} sm={3}>
+                        <Grid item key={'save-button'} xs={1}>
                             <Tooltip title="Salvar">
                                 <IconButton aria-label="save"
                                     onClick={() => saveData()}
@@ -260,6 +299,16 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                     <AddCircleIcon fontSize='large' />
                                 </IconButton>
                             </Tooltip>
+                        </Grid>
+                        <Grid item key={'comments-input'} xs={11}>
+                            <TextField
+                                name="comments"
+                                fullWidth
+                                label="Comentários"
+                                onBlur={
+                                    (e) => { setComments(e.target.value); }
+                                }
+                            />
                         </Grid>
                     </Grid>
                     <Grid container>

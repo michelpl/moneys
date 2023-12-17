@@ -1,11 +1,17 @@
-  .update {
+body {
+  background-color: #000000;
+}
+
+.update {
     margin: 50px 0;
   }
 
-a, a:visited, link {
-  color: #7364DB!important;
-  text-decoration: none!important;
-}
+  a,
+  a:visited,
+  link {
+    color: #7364DB !important;
+    text-decoration: none !important;
+  }
 
   .css-10hburv-MuiTypography-root .bold {
     font-weight: bold;

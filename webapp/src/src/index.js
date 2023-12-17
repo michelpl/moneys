@@ -12,6 +12,7 @@ import Month from './Pages/Month'
 import ThemePage from './Pages/ThemePage'
 import Home from "./Pages/Home";
 import MonthList from "./Pages/MonthList";
+import New from "./Pages/New";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         path: "theme",
         element: <ThemePage />,
       },
+      {
+        path: "new",
+        element: <New />
+      }
     ],
   },
 ]);
