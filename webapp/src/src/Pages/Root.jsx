@@ -6,48 +6,47 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MyTopBar from '../components/MyTopBar'
 import AppTheme from "../config/AppTheme";
-import { Button } from "@mui/material";
 
 function Copyright() {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-  const defaultTheme = createTheme(AppTheme());
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+const defaultTheme = createTheme(AppTheme());
 
 export default function Root() {
-    return (
-        <>
-            <ThemeProvider theme={defaultTheme}>
-                <CssBaseline />
-                <AppBar position="relative">
-                    <MyTopBar title={'Moneys'} subtitle={'Home'}></MyTopBar>
-                </AppBar>
-                <Outlet />
-                {/* Footer */}
-                <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-                    <Typography variant="h6" align="center" gutterBottom>
-                        Footer
-                    </Typography>
-                    <Typography
-                        variant="subtitle1"
-                        align="center"
-                        color="text.secondary"
-                        component="p"
-                    >
-                        Something here to give the footer a purpose!
-                    </Typography>
-                    <Copyright />
-                </Box>
-                {/* End footer */}
-            </ThemeProvider>
-        </>
-    );
+  return (
+    <>
+      <ThemeProvider theme={defaultTheme}>
+        <CssBaseline />
+        <AppBar position="relative">
+          <MyTopBar title={'Moneys'} subtitle={'Home'}></MyTopBar>
+        </AppBar>
+        <Outlet />
+        {/* Footer */}
+        <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+          <Typography variant="h6" align="center" gutterBottom>
+            Footer
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            align="center"
+            color="text.secondary"
+            component="p"
+          >
+            Something here to give the footer a purpose!
+          </Typography>
+          <Copyright />
+        </Box>
+        {/* End footer */}
+      </ThemeProvider>
+    </>
+  );
 }

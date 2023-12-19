@@ -35,6 +35,7 @@ export default function Month() {
   const [budget, setBudget] = useState(0);
   const [tithe, setTithe] = useState(0);
   const [expenses, setExpenses] = useState(0);
+  const [budgetWithoutDiscounts, setBudgetWithoutDiscounts] = useState(0);
 
 
   function HeaderView(model) {
@@ -61,11 +62,18 @@ export default function Month() {
     if (totalAmount.model === 'expenses') {
       setExpenses(totalAmount.amount);
     }
+    if (totalAmount.model === 'busget-without-discounts') {
+      setBudgetWithoutDiscounts(totalAmount.amount);
+    }
   }
   return (
     <Container maxWidth="99%" sx={{ marginTop: 5 }}>
       <MyDataTable
         data={ HeaderView({name: 'budget', label: 'Entradas' }) }
+        totalAmountToParent={totalAmountToParent}
+      />
+      <MyDataTable
+        data={ HeaderView({name: 'budget-without-discounts', label: 'Entradas sem descontos' }) }
         totalAmountToParent={totalAmountToParent}
       />
       <MyDataTable
@@ -76,7 +84,7 @@ export default function Month() {
         data={ HeaderView({name: 'expenses', label: 'Saídas' }) }
         totalAmountToParent={totalAmountToParent}
       />
-      <Totals budget={budget} expenses={expenses} tithe={ tithe } />
+      <Totals budget={budget} expenses={expenses} tithe={ tithe }  budgetWithoutDiscounts={ budgetWithoutDiscounts } />
     </Container>
   );
 }

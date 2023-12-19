@@ -21,21 +21,27 @@ export default function MyDataTable({ data, totalAmountToParent }) {
     const [toggleClass, setToggleClass] = useState('');
     const [categories, setCategories] = useState([]);
     const [amount, setAmount] = useState(0);
+    const [paidAmount, setPaidAmount] = useState(0);
     const [dueDate, setDueDate] = useState('');
     const [comments, setComments] = useState('');
     const [totalAmount, setTotalAmount] = React.useState(0);
+    const [totalPaidAmount, setTotalPaidAmount] = React.useState(0);
     const apiUrl = 'http://3.88.14.53:8000/api';
 
     function sumTotalAmount(newList) {
         var totalAmount = 0;
+        var totalPaidAmount = 0;
         newList.forEach(function (expense) {
             totalAmount += parseFloat(expense.value);
+            totalPaidAmount += parseFloat(expense.paidAmount);
         });
         setTotalAmount(totalAmount.toFixed(2));
+        setTotalPaidAmount(totalPaidAmount.toFixed(2));
         totalAmountToParent(
             {
                 'model': data.modelName,
-                'amount': totalAmount
+                'amount': totalAmount,
+                'paidAmount': totalPaidAmount
             }
         );
 
@@ -99,6 +105,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
             'user_id': data.userId,
             'description': description,
             'value': parseFloat(amount),
+            'paidAmount': parseFloat(paidAmount),
             'comments': comments,
             'dueDate': dueDate,
             'model': data.modelName,
@@ -151,6 +158,9 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         <Item>Valor</Item>
                     </Grid>
                     <Grid item xs={2}>
+                        <Item>Valor pago</Item>
+                    </Grid>
+                    <Grid item xs={2}>
                         <Item>Vencimento</Item>
                     </Grid>
                     <Grid item xs={3}>
@@ -175,6 +185,9 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                         <Grid item key={'cel-amount-' + order} xs={2}>
                             <Item>R$ {parseFloat(row.value).toFixed(2)}</Item>
+                        </Grid>
+                        <Grid item key={'cel-paid-amount-' + order} xs={2}>
+                            <Item>R$ {parseFloat(row.paidAmount).toFixed(2)}</Item>
                         </Grid>
                         <Grid item key={'cel-due-date-' + order} xs={2}>
                             <Item>{row.dueDate}</Item>
@@ -212,7 +225,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                         </Grid>
                         <Grid item key={'cel-actions-' + order} xs={12} md={1}>
                             <Item align='right'>
-                                <Tooltip title={ row.comments }>
+                                <Tooltip title={row.comments}>
                                     <IconButton edge="end" aria-label="info">
                                         <InfoIcon />
                                     </IconButton>
@@ -268,13 +281,32 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={'due-date-input'} xs={2}>
+                        <Grid item key={'paid-amount-imput'} xs={2}>
+                            <TextField
+                                required
+                                fullWidth
+                                type='number'
+                                id="paid-amount"
+                                label="Valor pago"
+                                name="paid-amount"
+                                onChange={
+                                    (e) => { setPaidAmount(parseFloat(e.target.value).toFixed(2)); }
+                                }
+                                onKeyUp={
+                                    (e) => {
+                                        if (e.key === "Enter") {
+                                            saveData()
+                                        }
+                                    }
+                                }
+                            />
+                        </Grid>
+                        <Grid item key={'due-date-input'} xs={3}>
                             <TextField
                                 required
                                 fullWidth
                                 type='date'
                                 id="due-date"
-                                label="Vencimento"
                                 name="due-date"
                                 onChange={
                                     (e) => { setDueDate(e.target.value); }
@@ -288,8 +320,23 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 }
                             />
                         </Grid>
-                        <Grid item key={'castegory-input'} xs={4} >
+                        <Grid item key={'castegory-input'} xs={5} >
                             <MyCategories categoryList={categoryList} saveData={saveData} />
+                        </Grid>
+                        <Grid item key={'comments-input'} xs={5}>
+                            <TextField
+                                name="comments"
+                                fullWidth
+                                label="Comentários"
+                                onKeyUp={
+                                    (e) => {
+                                        setComments(e.target.value);
+                                        if (e.key === "Enter") {
+                                            saveData()
+                                        }
+                                    }
+                                }
+                            />
                         </Grid>
                         <Grid item key={'save-button'} xs={1}>
                             <Tooltip title="Salvar">
@@ -299,16 +346,6 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                     <AddCircleIcon fontSize='large' />
                                 </IconButton>
                             </Tooltip>
-                        </Grid>
-                        <Grid item key={'comments-input'} xs={11}>
-                            <TextField
-                                name="comments"
-                                fullWidth
-                                label="Comentários"
-                                onBlur={
-                                    (e) => { setComments(e.target.value); }
-                                }
-                            />
                         </Grid>
                     </Grid>
                     <Grid container>

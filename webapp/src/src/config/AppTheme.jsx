@@ -7,13 +7,15 @@ export default function AppTheme() {
             primary: {
                 main: '#7364DB',
                 light: '#42a5f5',
-                dark: '#1565c0',
+                dark: '#1F2128',
+                surface: '#1F2128',
                 contrastText: '#64646f',
                 text: {
                     primary: '#eae1e1'
                 },
                 background: {
-                    body: "#000"
+                    body: "#000",
+                    secondary: "#1F2128"
                 }
             },
             success: {
