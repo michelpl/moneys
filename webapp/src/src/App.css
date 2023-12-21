@@ -1,59 +1,61 @@
-
 body {
   background-color: #000000;
 }
 
+h6 {
+  font-size: 8px;
+}
 .update {
-    margin: 50px 0;
-  }
+  margin: 50px 0;
+}
 
-  a,
-  a:visited,
-  link {
-    color: #7364DB !important;
-    text-decoration: none !important;
-  }
+a,
+a:visited,
+link {
+  color: #7364DB !important;
+  text-decoration: none !important;
+}
 
-  .css-10hburv-MuiTypography-root .bold {
-    font-weight: bold;
-  }
+.css-10hburv-MuiTypography-root .bold {
+  font-weight: bold;
+}
 
-  ul {
-    list-style: none;
-  }
+ul {
+  list-style: none;
+}
 
-  .p1 {
-    font-size: 16px;
-  }
+.p1 {
+  font-size: 16px;
+}
 
-  .p2 {
-    font-size: 14px;
-  }
+.p2 {
+  font-size: 14px;
+}
 
-  .MuiBox-root {
-    margin-bottom: 15px;
-  }
+.MuiBox-root {
+  margin-bottom: 15px;
+}
 
-  .nubank {
-    background-color: #9B02D5 !important;
-    color: #fff !important;
-  }
+.nubank {
+  background-color: #9B02D5 !important;
+  color: #fff !important;
+}
 
-  .rico {
-    background-color: #FF5200;
-    color: #9B02D5;
-  }
+.rico {
+  background-color: #FF5200;
+  color: #9B02D5;
+}
 
-  .gastosVariaveis {
-    background-color: #c739a2;
-    color: #9B02D5;
-  }
+.gastosVariaveis {
+  background-color: #c739a2;
+  color: #9B02D5;
+}
 
-  .gastosFixos {
-    background-color: #c7a839;
-    color: #9B02D5;
-  }
+.gastosFixos {
+  background-color: #c7a839;
+  color: #9B02D5;
+}
 
-  .hide {
-    display: none !important;
-  }
+.hide {
+  display: none !important;
+}
