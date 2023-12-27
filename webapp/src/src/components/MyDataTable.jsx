@@ -257,7 +257,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 fullWidth
                                 label="Descrição"
                                 onBlur={
-                                    (e) => { setDescription(e.target.value); }
+                                    (e) => { setDescription(e.target.value); } // Add event.PreventDefault()
                                 }
                             />
                         </Grid>
@@ -270,7 +270,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 label="Valor destinado"
                                 name="amount"
                                 onChange={
-                                    (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); }
+                                    (e) => { setAmount(parseFloat(e.target.value).toFixed(2)); } // Add event.PreventDefault()
                                 }
                                 onKeyUp={
                                     (e) => {
@@ -290,7 +290,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 label="Valor pago"
                                 name="paid-amount"
                                 onChange={
-                                    (e) => { setPaidAmount(parseFloat(e.target.value).toFixed(2)); }
+                                    (e) => { setPaidAmount(parseFloat(e.target.value).toFixed(2)); } // Add event.PreventDefault()
                                 }
                                 onKeyUp={
                                     (e) => {
@@ -309,7 +309,8 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 id="due-date"
                                 name="due-date"
                                 onChange={
-                                    (e) => { setDueDate(e.target.value); }
+                                    (e) => { setDueDate(e.target.value); // Add event.PreventDefault()
+                                     }
                                 }
                                 onKeyUp={
                                     (e) => {
@@ -330,7 +331,7 @@ export default function MyDataTable({ data, totalAmountToParent }) {
                                 label="Comentários"
                                 onKeyUp={
                                     (e) => {
-                                        setComments(e.target.value);
+                                        setComments(e.target.value); // Add event.PreventDefault()
                                         if (e.key === "Enter") {
                                             saveData()
                                         }

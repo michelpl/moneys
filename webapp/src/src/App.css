@@ -1,10 +1,35 @@
 body {
-  background-color: #000000;
+  background-color: #0c0c0c;
+}
+
+h1 {
+  width: 100%;
+}
+
+h2 {
+  width: 100%;
+}
+
+h3 {
+  width: 100%;
+}
+
+h4 {
+  width: 100%;
+}
+
+h5 {
+  width: 100%;
 }
 
 h6 {
-  font-size: 8px;
+  width: 100%;
 }
+
+.bolder {
+  font-weight: bolder;
+}
+
 .update {
   margin: 50px 0;
 }
@@ -12,34 +37,20 @@ h6 {
 a,
 a:visited,
 link {
-  color: #7364DB !important;
   text-decoration: none !important;
-}
-
-.css-10hburv-MuiTypography-root .bold {
-  font-weight: bold;
+  color: #FFF;
 }
 
 ul {
   list-style: none;
 }
 
-.p1 {
-  font-size: 16px;
-}
-
-.p2 {
-  font-size: 14px;
-}
-
-.MuiBox-root {
-  margin-bottom: 15px;
-}
-
 .nubank {
   background-color: #9B02D5 !important;
   color: #fff !important;
 }
+
+/* Tags */
 
 .rico {
   background-color: #FF5200;
