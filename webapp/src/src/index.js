@@ -12,7 +12,7 @@ import Month from './Pages/Month'
 import ThemePage from './Pages/ThemePage'
 import Home from "./Pages/Home";
 import MonthList from "./Pages/MonthList";
-import New from "./Pages/New";
+import MonthlyBudgetControl from "./Pages/MonthlyBudgetControl";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "new",
-        element: <New />
+        element: <MonthlyBudgetControl />
       }
     ],
   },
