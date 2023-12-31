@@ -2,6 +2,7 @@ import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import { Avatar, AvatarGroup } from '@mui/material';
 
 export default function Tags({ categoryList, saveData }) {
   return (
@@ -29,6 +30,35 @@ export default function Tags({ categoryList, saveData }) {
           />
         )}
       />
+     <AvatarGroup
+      renderSurplus={(surplus) => <span>+{surplus.toString()[0]}k</span>}
+      total={4251}
+    >
+        <Avatar alt="Remy Sharp" src="logos/rico.jpeg" sx={{backgroundColor: '#fff'}} />
+        <Avatar alt="Travis Howard" src="logos/nubank.png" sx={{borderColor: '#fff', backgroundColor: '#fff'}}  />
+        <Avatar alt="Cindy Baker" src="logos/prime-video.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/mastercard.png" />
+        <Avatar alt="Agnes Walker" src="logos/netflix.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
+        <Avatar alt="Trevor Henderson" src="logos/rico.jpeg" />
+      </AvatarGroup>
     </Stack>
   );
 }

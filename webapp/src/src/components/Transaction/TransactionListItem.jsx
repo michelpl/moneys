@@ -6,7 +6,7 @@ import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import InputForm from './TransactionForm';
+import InputForm from './Form/Form';
 
 const MyPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -33,7 +33,6 @@ export default function TransactionListItem() {
                   <MoreVertIcon />
                 </IconButton>
               </Tooltip>
-
             </>
           }
         >

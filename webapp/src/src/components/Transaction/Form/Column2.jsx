@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Tags from '../Tags'
-import CustomDatePicker from '../FormControl/CustomDatePicker';
+import Tags from '../../Tags'
+import CustomDatePicker from '../../FormControl/CustomDatePicker';
 
 export default function TransactionFormColumn2() {
     return (
@@ -31,9 +31,7 @@ export default function TransactionFormColumn2() {
                     <Grid item xs={12}>
                         <Tags />
                     </Grid>
-                    <Grid item xs={12}>
-                        <CustomDatePicker fullWidth={true} id={'payment_date'} label="Data de pagamento" />
-                    </Grid>
+                    
                 </Grid>
             </Grid>
         </>

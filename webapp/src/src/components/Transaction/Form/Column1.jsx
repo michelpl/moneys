@@ -2,8 +2,8 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-import MoneyTextField from '../FormControl/MoneyTextField';
-import CustomDatePicker from '../FormControl/CustomDatePicker';
+import MoneyTextField from '../../FormControl/MoneyTextField';
+import CustomDatePicker from '../../FormControl/CustomDatePicker';
 
 export default function TransactionFormColumn1() {
     return (
@@ -20,7 +20,10 @@ export default function TransactionFormColumn1() {
                         <MoneyTextField id={'amount'} label={'Valor total'} />
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomDatePicker fullWidth={true} id={'due_date'} label="Vencimento" />
+                        <CustomDatePicker fullWidth={true} id={'due_date'} label="Data de vencimento" />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <CustomDatePicker fullWidth={true} id={'payment_date'} label="Data de pagamento" />
                     </Grid>
                 </Grid>
             </Grid>

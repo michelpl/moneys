@@ -32,7 +32,11 @@ export default function AppTheme() {
               main: '#fdd835',
             },
             pink: {
-              main: '#ca4484'
+              main: '#ca4484',
+              secondary: '#f95e5e'
+            },
+            gray: {
+              primary: '#666'
             }
           },
           typography: {
