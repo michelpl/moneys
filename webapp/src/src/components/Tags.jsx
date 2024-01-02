@@ -2,7 +2,8 @@ import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import { Avatar, AvatarGroup, Tooltip } from '@mui/material';
+import { AvatarGroup, Tooltip } from '@mui/material';
+import CategoryAvatar from './CategoryAvatar';
 
 const categories = [
   { id: '34243234', label: 'Nubank', image: 'nubank.png' },
@@ -20,9 +21,9 @@ const shownCategories = 4;
 
 export default function Tags({ categoryList, saveData }) {
 
-  const renderCategoryAvatars = (row, order) => {
+  const renderCategoryAvatars = (data, order) => {
     if (order < shownCategories) {
-      return <Tooltip key={order}><Avatar alt={row.label} src={'logos/' + row.image} sx={{ backgroundColor: '#fff' }} /></Tooltip>
+      return <CategoryAvatar key={data.id} image={ data.image } title={data.label} />
     }
   }
   return (

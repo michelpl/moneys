@@ -2,11 +2,11 @@ import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import InputForm from './Form/Form';
+import TransactionAvatar from './TransactionAvatar'
 
 const MyPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -37,7 +37,7 @@ export default function TransactionListItem() {
           }
         >
           <ListItemIcon>
-            <PaidRoundedIcon sx={{ fontSize: 30, color: 'pink.main' }} />
+            <TransactionAvatar title={'Nubank, Rico, Mastercard, Gastos fixos´'} image={'nubank.png'} id={'999999999'} ></TransactionAvatar>
           </ListItemIcon>
           <ListItemText
             primary={<Typography variant='h5'>Conta de luz</Typography>}
