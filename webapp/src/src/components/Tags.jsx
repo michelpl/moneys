@@ -2,9 +2,29 @@ import * as React from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import { Avatar, AvatarGroup } from '@mui/material';
+import { Avatar, AvatarGroup, Tooltip } from '@mui/material';
+
+const categories = [
+  { id: '34243234', label: 'Nubank', image: 'nubank.png' },
+  { id: '6666654543', label: 'Rico', image: 'rico.jpeg' },
+  { id: '6222', label: 'Netflix', image: 'netflix.jpeg' },
+  { id: '777', label: 'Prime Video', image: 'prime-video.jpeg' },
+  { id: '7868', label: 'Rico', image: 'rico.jpeg' },
+  { id: '555', label: 'Netflix', image: 'netflix.jpeg' },
+  { id: '8756', label: 'Rico', image: 'rico.jpeg' },
+  { id: '465', label: 'Mastercard', image: 'martercard.png' },
+  { id: '38', label: 'Visa', image: 'visa.svg' },
+
+];
+const shownCategories = 4;
 
 export default function Tags({ categoryList, saveData }) {
+
+  const renderCategoryAvatars = (row, order) => {
+    if (order < shownCategories) {
+      return <Tooltip key={order}><Avatar alt={row.label} src={'logos/' + row.image} sx={{ backgroundColor: '#fff' }} /></Tooltip>
+    }
+  }
   return (
     <Stack spacing={3} sx={{ minWidth: '100%' }}>
       <Autocomplete
@@ -30,51 +50,29 @@ export default function Tags({ categoryList, saveData }) {
           />
         )}
       />
-     <AvatarGroup
-      renderSurplus={(surplus) => <span>+{surplus.toString()[0]}k</span>}
-      total={4251}
-    >
-        <Avatar alt="Remy Sharp" src="logos/rico.jpeg" sx={{backgroundColor: '#fff'}} />
-        <Avatar alt="Travis Howard" src="logos/nubank.png" sx={{borderColor: '#fff', backgroundColor: '#fff'}}  />
-        <Avatar alt="Cindy Baker" src="logos/prime-video.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/mastercard.png" />
-        <Avatar alt="Agnes Walker" src="logos/netflix.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Agnes Walker" src="logos/rico.jpeg" />
-        <Avatar alt="Trevor Henderson" src="logos/rico.jpeg" />
+      <AvatarGroup
+        renderSurplus={(surplus) => 
+          <Tooltip title={renderSurplusTootipTitle()} ><span>+{surplus.toString()}</span></Tooltip>}
+        total={categories.length}
+      >
+        {
+          categories.map((row, order) => {
+            return renderCategoryAvatars(row, order)
+          })
+        }
       </AvatarGroup>
     </Stack>
   );
 }
 
 
-const categories = [
-  { id: 'nubank', label: 'Nubank', backgroundColor: '#820AD1', color: 'text.primary', icon: '' },
-  { id: 'rico', label: 'Rico', backgroundColor: '#FE5200', color: 'text.primary', icon: '' },
-  { id: 'gastos-fixos', label: 'Gastos fixos', backgroundColor: '#E23738', color: 'text.primary', icon: 'DescriptionIcon' },
-  { id: 'gastos-variaveis', label: 'Gastos variáveis', backgroundColor: '#7747CA', color: 'text.primary', icon: 'PaidIcon' },
-  { id: 'supermercado', label: 'Supermercado', backgroundColor: '#c739a2', color: 'text.primary', icon: 'ShoppingCartIcon' },
-  { id: 'farmacia', label: 'Farmácia', backgroundColor: '#FB7BB8', color: 'text.primary', icon: 'MedicationIcon' },
-  { id: 'sacolao', label: 'Sacolão', backgroundColor: '#50D1B2', color: 'text.primary', icon: 'EggIcon' },
-  { id: 'itau', label: 'Itaú', backgroundColor: '#c739a2', color: 'text.primary', icon: '' },
-  { id: 'assinaturas', label: 'Assinaturas', backgroundColor: '#c739a2', color: 'text.primary', icon: '' },
-  { id: 'investimentos', label: 'Investimentos', backgroundColor: '#c739a2', color: 'text.primary', icon: '' },
-  { id: 'salario', label: 'Salário', backgroundColor: 'success.main', color: 'text.secondary', icon: '' },
-  { id: 'renda-extra', label: 'Renda extra', backgroundColor: 'success.main', color: 'text.secondary', icon: '' },
-];
+const renderSurplusTootipTitle = () => {
+  var inlineCategories = ''
+  categories.map((row, order) => {
+    if (order >= shownCategories) {
+      inlineCategories += row.label + ', '
+    }
+  });
+
+  return inlineCategories.substring(0, inlineCategories.length - 2);
+};

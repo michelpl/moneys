@@ -78,3 +78,11 @@ ul {
 .hide {
   display: none !important;
 }
+
+.MuiAvatarGroup-avatar {
+  background-color: #50D1B2!important;
+  color: #fafafa!important;
+  font-weight: bold!important;
+  font-size: 0.85rem !important;
+  border: 2px solid #1f2128 !important;
+}
