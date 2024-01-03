@@ -22,8 +22,7 @@ class InputController extends Controller
             [
                 'user_id' => (int) $request->query('user_id'),
                 'year' => (int) $request->query('year'),
-                'month' => (int) $request->query('month'),
-                'model' => $request->query('model')
+                'month' => (int) $request->query('month')
             ]
         )
             ->orderBy('model, month, updated_at')

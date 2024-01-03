@@ -12,7 +12,7 @@ const MyPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export default function TransactionListItem() {
+export default function TransactionListItem({ transactionData }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -22,7 +22,7 @@ export default function TransactionListItem() {
   return (
     <Paper variant='outlined' sx={{ marginBottom: 0.5, padding: 0, backgroundColor: 'background.paper' }}>
       <ListItemButton onClick={handleClick}>
-        <ListItem alignItems="flex-start"
+        <ListItem key={transactionData.id} alignItems="flex-start"
           secondaryAction={
             <>
               <Tooltip title="Pago" placement="top-end" arrow>
@@ -40,7 +40,7 @@ export default function TransactionListItem() {
             <TransactionAvatar title={'Nubank, Rico, Mastercard, Gastos fixos´'} image={'nubank.png'} id={'999999999'} ></TransactionAvatar>
           </ListItemIcon>
           <ListItemText
-            primary={<Typography variant='h5'>Conta de luz</Typography>}
+            primary={<Typography variant='h5'>{transactionData.description}</Typography>}
             secondary={
               <React.Fragment>
                 <Typography
