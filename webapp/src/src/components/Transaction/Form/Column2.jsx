@@ -7,7 +7,7 @@ import CustomDatePicker from '../../FormControl/CustomDatePicker';
 export default function TransactionFormColumn2() {
     return (
         <>
-            <Grid key={'column2'} item xs={12} sm={6}>
+            <Grid key={'column2'} item xs={12} md={6}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField

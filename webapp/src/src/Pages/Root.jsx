@@ -29,7 +29,9 @@ export default function Root() {
         <AppBar position="relative">
           <MyTopBar title={'Moneys'} subtitle={'Home'}></MyTopBar>
         </AppBar>
-        <Outlet />
+        <section>
+          <Outlet />
+        </section>
         {/* Footer */}
         <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
           <Typography variant="h6" align="center" gutterBottom>

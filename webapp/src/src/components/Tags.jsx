@@ -53,7 +53,7 @@ export default function Tags({ categoryList, saveData }) {
       />
       <AvatarGroup
         renderSurplus={(surplus) => 
-          <Tooltip title={renderSurplusTootipTitle()} ><span>+{surplus.toString()}</span></Tooltip>}
+          <Tooltip title={renderSurplusTootipTitle()} arrow><span>+{surplus.toString()}</span></Tooltip>}
         total={categories.length}
       >
         {

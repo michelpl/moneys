@@ -3,6 +3,6 @@ import React from 'react'
 
 export default function CategoryAvatar({ id, image, title }) {
   return (
-    <Tooltip key={id} title={title} ><Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: '#fff' }} /></Tooltip>
+    <Tooltip arrow key={id} title={title} ><Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: '#fff' }} /></Tooltip>
   )
 }

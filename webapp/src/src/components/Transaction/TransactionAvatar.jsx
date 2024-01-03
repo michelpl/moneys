@@ -5,7 +5,7 @@ import { Tooltip } from '@mui/material';
 
 export default function TransactionAvatar({ id, image, title }) {
   return (
-    <Tooltip key={id} title={'Categories: ' + title} >
+    <Tooltip key={id} title={'Categories: ' + title} arrow>
       <Badge
         badgeContent='1'
         variant='dot'
