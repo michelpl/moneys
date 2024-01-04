@@ -17,20 +17,34 @@ export default function TransactionAvatar({ id, image, title, categories }) {
     return names;
   }
 
+  function RenderComponent() {
+    if (categories.length > 1) {
+      return <>
+        <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
+          <Badge
+            badgeContent='1'
+            variant='dot'
+            color="secondary"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: 'green.500' }} />
+          </Badge>
+        </Tooltip >
+      </>
+        ;
+    }
+    return <>
+      <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
+        <Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: 'green.500' }} />
+      </Tooltip>
+    </>
+      ;
+  }
 
   return (
-    <Tooltip key={id} title={'Categories: ' + categoryNames() } arrow>
-      <Badge
-        badgeContent='1'
-        variant='dot'
-        color="secondary"
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      >
-        <Avatar alt={ title } src={'../logos/' + image} sx={{ backgroundColor: 'green.500' }} />
-      </Badge>
-    </Tooltip>
+    <RenderComponent />
   );
 }
