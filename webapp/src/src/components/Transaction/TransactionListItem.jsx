@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
@@ -13,7 +13,17 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TransactionListItem({ transactionData }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const checkIfIspaid = () => {
+    if (transactionData.value == transactionData.paidAmount) {
+      return 'success.main';
+    }
+
+    return 'text.disabled';
+  };
+
+  const [isPaid, setIsPaid] = useState(checkIfIspaid);
 
   const handleClick = () => {
     setOpen(!open);
@@ -26,7 +36,7 @@ export default function TransactionListItem({ transactionData }) {
           secondaryAction={
             <>
               <Tooltip title="Pago" placement="top-end" arrow>
-                <DoneAllIcon sx={{ marginTop: 1, marginRight: 0.4, color: 'success.main' }} edge='end' aria-label='paid'></DoneAllIcon>
+                <DoneAllIcon sx={{ marginTop: 1, marginRight: 0.4, color: isPaid }} edge='end' aria-label='paid'></DoneAllIcon>
               </Tooltip>
               <Tooltip title="Expandir" placement="top-end" arrow>
                 <IconButton sx={{ marginTop: -1 }} edge="end" aria-label="more">
@@ -37,12 +47,18 @@ export default function TransactionListItem({ transactionData }) {
           }
         >
           <ListItemIcon>
-            <TransactionAvatar title={'Nubank, Rico, Mastercard, Gastos fixos´'} image={'nubank.png'} id={'999999999'} ></TransactionAvatar>
+            <TransactionAvatar
+              title={transactionData.description}
+              image={transactionData.image}
+              id={transactionData._id}
+              categories={ transactionData.categories }
+            >
+            </TransactionAvatar>
           </ListItemIcon>
           <ListItemText
             primary={<Typography variant='h5'>{transactionData.description}</Typography>}
             secondary={
-              <React.Fragment>
+              <Fragment>
                 <Typography
                   sx={{ display: 'inline' }}
                   component="span"
@@ -53,10 +69,10 @@ export default function TransactionListItem({ transactionData }) {
                 {
                   <Typography variant='span'>
                     Vencimento:
-                    <Typography variant='span'> 12/01/2023</Typography>
+                    <Typography variant='span'> {transactionData.dueDate} </Typography>
                   </Typography>
                 }
-              </React.Fragment>
+              </Fragment>
             }
           />
           <ListItemText
@@ -65,13 +81,13 @@ export default function TransactionListItem({ transactionData }) {
             primary={
               <>
                 <Tooltip title="Valor destinado" placement="top-end" arrow>
-                  <Typography variant='h5'>R$ 21.123,54</Typography>
+                  <Typography variant='h5'>R$ {parseFloat(transactionData.value).toFixed(2)}</Typography>
                 </Tooltip>
               </>
             }
             secondary={
               <Typography variant='span' sx={{ color: 'text.secondary' }}>
-                <span>Ainda falta pagar: R$ 2.200,22</span>
+                <span>Ainda falta pagar: R$ {(parseFloat(transactionData.value) - parseFloat(transactionData.paidAmount)).toFixed(2)}</span>
               </Typography>
             }
           />
@@ -80,7 +96,7 @@ export default function TransactionListItem({ transactionData }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <InputForm></InputForm>
+          <InputForm data={transactionData.description}></InputForm>
         </List>
       </Collapse>
     </Paper >

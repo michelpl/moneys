@@ -37,6 +37,9 @@ export default function AppTheme() {
             },
             gray: {
               primary: '#666'
+            },
+            green: {
+              500: '#50D1B2'
             }
           },
           typography: {

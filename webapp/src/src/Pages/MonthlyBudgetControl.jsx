@@ -3,26 +3,17 @@ import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Card, CardContent, List, Typography } from '@mui/material';
-import TransactionList from '../components/Transaction/TransactionList';
-import getUserTransactions from '../functions/Transactions';
 import TransactionListItem from '../components/Transaction/TransactionListItem';
 import TransactionListItemSkeleton from '../components/Transaction/TransactionListItemSkeleton';
 
 export default function MonthlyBudgetControl() {
-  const callUserTransactions = () => {
-    return getUserTransactions(
-      1,
-      2024,
-      1,
-      'expenses'
-    )
-  }
+
   const apiUrl = 'http://3.88.14.53:8000/api';
   const [userTransactions, setUserTransactions] = useState([]);
   const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
-    var uri = apiUrl + '/input?user_id=' + 1 + '&year=' + parseInt(2024) + '&month=' + parseInt(1) + '&model=expenses';
+    var uri = apiUrl + '/input?user_id=' + 1 + '&year=' + parseInt(2024) + '&month=' + parseInt(1);
     fetch(uri)
       .then((response) => response.json())
       .then((data) => {
@@ -34,17 +25,29 @@ export default function MonthlyBudgetControl() {
       });
   }, []);
 
-  function LoadingContainer({ name, isPacked }) {
+  function LoadingContainer() {
     if (toggle) {
       return <>
-      <TransactionListItemSkeleton />
-      <TransactionListItemSkeleton />
-      <TransactionListItemSkeleton />
-    </>
-    ;
+        <TransactionListItemSkeleton />
+        <TransactionListItemSkeleton />
+        <TransactionListItemSkeleton />
+      </>
+        ;
     }
 
     return null;
+  }
+
+  function RenderTransactions(param) {
+    var filtered = userTransactions.filter((item) => {
+      return item.model === param.filter
+    });
+
+    return (<>{
+      filtered.map((transaction, order) => (
+        <TransactionListItem key={order} transactionData={transaction} />
+      ))
+    }</>);
   }
 
   return (
@@ -65,11 +68,7 @@ export default function MonthlyBudgetControl() {
                 <Grid xs={12}>
                   <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                     <LoadingContainer />
-                    {
-                      userTransactions.map((transaction, order) => (
-                        <TransactionListItem key={order} transactionData={transaction} />
-                      ))
-                    }
+                    <RenderTransactions filter={'budget'} />
                   </List>
                 </Grid>
               </CardContent>
@@ -89,7 +88,8 @@ export default function MonthlyBudgetControl() {
                   </Typography>
                 </Grid>
                 <Grid xs={12}>
-
+                  <LoadingContainer />
+                  <RenderTransactions filter={'expenses'} />
                 </Grid>
               </CardContent>
             </Card>
