@@ -5,13 +5,13 @@ import TextField from '@mui/material/TextField';
 import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 
-export default function TransactionFormColumn1() {
+export default function TransactionFormColumn1({data}) {
     return (
         <>
             <Grid key={'column1'} item xs={12} md={6}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <TextField fullWidth={true} label="Descrição" variant="outlined" />
+                        <TextField fullWidth={true} label="Descrição" value={data.description} variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <MoneyTextField id={'amount'} label={'Valor total'} />

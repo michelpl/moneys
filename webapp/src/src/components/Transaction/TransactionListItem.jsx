@@ -5,7 +5,7 @@ import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItem
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import InputForm from './Form/Form';
+import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
 
 const MyPaper = styled(Paper)(({ theme }) => ({
@@ -13,6 +13,12 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TransactionListItem({ transactionData }) {
+  const [description, setDescription] = useState(transactionData.description);
+  const [amount, setAmount] = useState('');
+  const [paidAmount, setPaidAmount] = useState('');
+  const [categories, setCategories] = useState([]);
+
+  const [totalAmount, setTotalAmount] = useState('');
   const [open, setOpen] = useState(false);
 
   const checkIfIspaid = () => {
@@ -28,6 +34,23 @@ export default function TransactionListItem({ transactionData }) {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const [data, setData] = useState('');
+
+  const childToParent = (input, value) => {
+    
+    switch (input) {
+      case 'description':
+        setDescription(value);
+        break;
+      case 'amount':
+      case 'paidAmount':
+      case 'dueDate':
+      case 'paymentDate':
+      default:
+    }
+    
+  }
 
   return (
     <Paper variant='outlined' sx={{ marginBottom: 0.5, padding: 0, backgroundColor: 'background.paper' }}>
@@ -48,15 +71,15 @@ export default function TransactionListItem({ transactionData }) {
         >
           <ListItemIcon>
             <TransactionAvatar
-              title={transactionData.description}
+              title={ transactionData.description }
               image={transactionData.image}
               id={transactionData._id}
-              categories={ transactionData.categories }
+              categories={transactionData.categories}
             >
             </TransactionAvatar>
           </ListItemIcon>
           <ListItemText
-            primary={<Typography variant='h5'>{transactionData.description}</Typography>}
+            primary={<Typography variant='h5'>{ description }</Typography>}
             secondary={
               <Fragment>
                 <Typography
@@ -96,7 +119,7 @@ export default function TransactionListItem({ transactionData }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <InputForm data={transactionData.description}></InputForm>
+          <TransactionForm childToParent={childToParent} data={transactionData}></TransactionForm>
         </List>
       </Collapse>
     </Paper >

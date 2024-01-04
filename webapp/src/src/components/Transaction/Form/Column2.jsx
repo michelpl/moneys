@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Tags from '../../Tags'
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 
-export default function TransactionFormColumn2() {
+export default function TransactionFormColumn2({data}) {
     return (
         <>
             <Grid key={'column2'} item xs={12} md={6}>
