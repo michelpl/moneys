@@ -11,6 +11,8 @@ services:
       - app-network
     volumes:
       - ./mongodata:/data/db
+    ports:
+      - "2000:27017"
   webapp:
     container_name: webapp
     build: ./webapp
