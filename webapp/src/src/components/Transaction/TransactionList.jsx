@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Box, Card, CardContent, Grid, List, Typography } from '@mui/material';
+import { Box, Card, CardActionArea, CardActions, CardContent, Grid, List, Typography } from '@mui/material';
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
+import BottomActions from './Form/BottomActions';
+import TransactionActions from './TransactionActions';
 
 export default function TransactionList({ transactions, model, toggle }) {
     function LoadingContainer() {
@@ -44,6 +46,9 @@ export default function TransactionList({ transactions, model, toggle }) {
                                 <RenderTransactions filter={model.name} />
                             </List>
                         </Grid>
+                    <CardActions>
+                        <TransactionActions />
+                    </CardActions>
                     </CardContent>
                 </Card>
             </Box>
