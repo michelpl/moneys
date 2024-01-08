@@ -20,16 +20,30 @@ export default function TransactionListItem({ transactionData }) {
   const [paymentDate, setPaymentDate] = useState(transactionData.payment_date);
   const [dueDate, setDueDate] = useState(transactionData.due_date);
   const [categories, setCategories] = useState([]);
-  const [current, setCurrent] = useState(
-    ////(parseFloat(transactionData.value) - parseFloat(transactionData.paidAmount)).toFixed(2)
-    0
-  )
 
+  const sumCurrentAmount = () => {
+    if (
+      !isNaN(
+        (
+          parseFloat(transactionData.amount) - 
+          parseFloat(transactionData.paid_amount)
+        )
+      )
+    ) {
+        return (
+          parseFloat(transactionData.amount) - 
+          parseFloat(transactionData.paid_amount)
+        ).toFixed(2)
+      }
+      return '0,00';
+  }
+
+  const [current, setCurrent] = useState(sumCurrentAmount);
   const [totalAmount, setTotalAmount] = useState('');
   const [open, setOpen] = useState(false);
 
   const checkIfIspaid = () => {
-    if (transactionData.value == transactionData.paidAmount) {
+    if (current === paidAmount) {
       return 'success.main';
     }
 
@@ -53,22 +67,21 @@ export default function TransactionListItem({ transactionData }) {
         handleClick();
         break;
       case 'amount':
-        console.log(value);
         setAmount(value);
-        if (value - paidAmount > 0) {
-          setCurrent(value - paidAmount);
+        if (value - paidAmount < 0) {
+          setCurrent('+' + (value - paidAmount * -1).toString());
           break;
         }
-        setCurrent(0);
+        setCurrent(value - paidAmount);
         break;       
       case 'paidAmount':
         console.log(value);
         setPaidAmount(value);
-        if (amount - value > 0) {
-          setCurrent(amount - value);
+        if (amount - value < 0) {
+          setCurrent('+' + ((amount - value) * -1).toFixed(2).toString());
           break;
         }
-        setCurrent(0);
+        setCurrent(amount - value);
         break;
         
       case 'categories':
@@ -145,7 +158,7 @@ export default function TransactionListItem({ transactionData }) {
             }
             secondary={
               <Typography variant='span' sx={{ color: 'text.secondary' }}>
-                <span>Ainda falta pagar: R$ {current}</span>
+                <span>Falta pagar: R$ {current}</span>
               </Typography>
             }
           />
