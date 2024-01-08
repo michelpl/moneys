@@ -8,12 +8,16 @@ import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import Tags from '../../Tags';
 
-
-export default function TransactionForm({ childToParent, data }) {
+export default function TransactionForm({ handleClick, childToParent, data }) {
   const [description, setDescription] = useState(data.description);
-  const [amount, setAmount] = useState('');
-  const [paidAmount, setPaidAmount] = useState('');
+  const [amount, setAmount] = useState(data.amount);
+  const [paidAmount, setPaidAmount] = useState(data.paid_amount);
   const [categories, setCategories] = useState([]);
+  const [dueDate, setDueDate] = useState(data.due_date);
+  const [paymentDate, setPaymentDate] = useState(data.payment_date);
+  const [currentInstallment, setCurrentInstallment] = useState(data.current_installment);
+  const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
+  const [notes, setNotes] = useState(data.notes);
 
   return (
     <Fragment>
@@ -24,28 +28,28 @@ export default function TransactionForm({ childToParent, data }) {
         <Grid key={'column1'} item xs={12} md={6}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-            <TextField
-              id="outlined-controlled"
-              label="Descrição"
-              value={description}
-              fullWidth
-              onChange={(event) => {
-                setDescription(event.target.value);
-                childToParent('description', event.target.value);
-              }}
-            />
+              <TextField
+                id="outlined-controlled"
+                label="Descrição"
+                fullWidth
+                value={description}
+                onChange={(event) => {
+                  setDescription(event.target.value);
+                  childToParent('description', event.target.value);
+                }}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField id={'amount'} label={'Valor total'} />
+              <MoneyTextField childToParent={childToParent} id={'amount'} initialValue={amount} label={'Valor total'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField id={'current_amount'} label={'Valor pago até agora'} />
+              <MoneyTextField childToParent={childToParent} id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker fullWidth={true} id={'due_date'} label="Data de vencimento" />
+              <CustomDatePicker date={setDueDate} initialValue={dueDate} fullWidth={true} id={'due_date'} label="Data de vencimento" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker fullWidth={true} id={'payment_date'} label="Data de pagamento" />
+              <CustomDatePicker date={setPaymentDate} initialValue={paymentDate} fullWidth={true} id={'payment_date'} label="Data de pagamento" />
             </Grid>
           </Grid>
         </Grid>
@@ -57,6 +61,11 @@ export default function TransactionForm({ childToParent, data }) {
                 label="Parcela atual"
                 type="number"
                 fullWidth
+                value={currentInstallment}
+                onChange={(event) => {
+                  setCurrentInstallment(event.target.value);
+                  //childToParent('currentInstallment', event.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -68,6 +77,11 @@ export default function TransactionForm({ childToParent, data }) {
                 min='0'
                 max='5'
                 step='2'
+                value={totalInstallmentsNumber}
+                onChange={(event) => {
+                  setTotalInstallmentsNumber(event.target.value);
+                  //childToParent('totalInstallmentsNumber', event.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -81,11 +95,20 @@ export default function TransactionForm({ childToParent, data }) {
         </Grid>
         <Grid item xs={12} sx={{ marginBottom: 2 }}>
           <TextField multiline
-            minRows={4} fullWidth={true} label="Anotações" variant="outlined" />
+            minRows={4}
+            fullWidth={true}
+            label="Anotações"
+            variant="outlined"
+            value={notes}
+            onChange={(event) => {
+              setNotes(event.target.value);
+
+            }}
+          />
         </Grid>
       </Grid>
-      <Grid item xs={12} md={6} sx={{marginBottom:5}}>
-        <BottomActions></BottomActions>
+      <Grid item xs={12} md={6} sx={{ marginBottom: 5 }}>
+        <BottomActions handleClick={handleClick} ></BottomActions>
       </Grid>
     </Fragment>
   );

@@ -7,6 +7,7 @@ import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
+import Accordion from '../../actions/TransactionFormActions';
 
 const MyPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -14,9 +15,15 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 
 export default function TransactionListItem({ transactionData }) {
   const [description, setDescription] = useState(transactionData.description);
-  const [amount, setAmount] = useState('');
-  const [paidAmount, setPaidAmount] = useState('');
+  const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
+  const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
+  const [paymentDate, setPaymentDate] = useState(transactionData.payment_date);
+  const [dueDate, setDueDate] = useState(transactionData.due_date);
   const [categories, setCategories] = useState([]);
+  const [current, setCurrent] = useState(
+    ////(parseFloat(transactionData.value) - parseFloat(transactionData.paidAmount)).toFixed(2)
+    0
+  )
 
   const [totalAmount, setTotalAmount] = useState('');
   const [open, setOpen] = useState(false);
@@ -38,18 +45,46 @@ export default function TransactionListItem({ transactionData }) {
   const [data, setData] = useState('');
 
   const childToParent = (input, value) => {
-    
     switch (input) {
       case 'description':
         setDescription(value);
         break;
+      case 'z':
+        handleClick();
+        break;
       case 'amount':
+        console.log(value);
+        setAmount(value);
+        if (value - paidAmount > 0) {
+          setCurrent(value - paidAmount);
+          break;
+        }
+        setCurrent(0);
+        break;       
       case 'paidAmount':
+        console.log(value);
+        setPaidAmount(value);
+        if (amount - value > 0) {
+          setCurrent(amount - value);
+          break;
+        }
+        setCurrent(0);
+        break;
+        
+      case 'categories':
+        setCategories(value);
       case 'dueDate':
+        setDueDate(value);
       case 'paymentDate':
+        setPaymentDate(value);
+
+        if (value) {
+          setIsPaid('success.main');
+        }
+        break;
       default:
     }
-    
+
   }
 
   return (
@@ -71,7 +106,7 @@ export default function TransactionListItem({ transactionData }) {
         >
           <ListItemIcon>
             <TransactionAvatar
-              title={ transactionData.description }
+              title={transactionData.description}
               image={transactionData.image}
               id={transactionData._id}
               categories={transactionData.categories}
@@ -79,7 +114,7 @@ export default function TransactionListItem({ transactionData }) {
             </TransactionAvatar>
           </ListItemIcon>
           <ListItemText
-            primary={<Typography variant='h5'>{ description }</Typography>}
+            primary={<Typography variant='h5'>{description}</Typography>}
             secondary={
               <Fragment>
                 <Typography
@@ -92,7 +127,7 @@ export default function TransactionListItem({ transactionData }) {
                 {
                   <Typography variant='span'>
                     Vencimento:
-                    <Typography variant='span'> {transactionData.dueDate} </Typography>
+                    <Typography variant='span'> {dueDate} </Typography>
                   </Typography>
                 }
               </Fragment>
@@ -104,13 +139,13 @@ export default function TransactionListItem({ transactionData }) {
             primary={
               <>
                 <Tooltip title="Valor destinado" placement="top-end" arrow>
-                  <Typography variant='h5'>R$ {parseFloat(transactionData.value).toFixed(2)}</Typography>
+                  <Typography variant='h5'>R$ {amount}</Typography>
                 </Tooltip>
               </>
             }
             secondary={
               <Typography variant='span' sx={{ color: 'text.secondary' }}>
-                <span>Ainda falta pagar: R$ {(parseFloat(transactionData.value) - parseFloat(transactionData.paidAmount)).toFixed(2)}</span>
+                <span>Ainda falta pagar: R$ {current}</span>
               </Typography>
             }
           />
@@ -119,7 +154,7 @@ export default function TransactionListItem({ transactionData }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <TransactionForm childToParent={childToParent} data={transactionData}></TransactionForm>
+          <TransactionForm handleClick={handleClick} childToParent={childToParent} data={transactionData}></TransactionForm>
         </List>
       </Collapse>
     </Paper >
