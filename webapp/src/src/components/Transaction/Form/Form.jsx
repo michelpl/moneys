@@ -6,13 +6,13 @@ import { Box, Button, Divider } from '@mui/material';
 import BottomActions from './BottomActions';
 import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
-import Tags from '../../Tags';
+import CategorySelector from '../../FormControl/CategorySelector';
 
 export default function TransactionForm({ handleClick, childToParent, data }) {
   const [description, setDescription] = useState(data.description);
   const [amount, setAmount] = useState(data.amount);
   const [paidAmount, setPaidAmount] = useState(data.paid_amount);
-  const [categories, setCategories] = useState([]);
+  const [categoryList, setCategoryList] = useState(data.categories);
   const [dueDate, setDueDate] = useState(data.due_date);
   const [paymentDate, setPaymentDate] = useState(data.payment_date);
   const [currentInstallment, setCurrentInstallment] = useState(data.current_installment);
@@ -64,7 +64,6 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
                 value={currentInstallment}
                 onChange={(event) => {
                   setCurrentInstallment(event.target.value);
-                  //childToParent('currentInstallment', event.target.value);
                 }}
               />
             </Grid>
@@ -80,12 +79,11 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
                 value={totalInstallmentsNumber}
                 onChange={(event) => {
                   setTotalInstallmentsNumber(event.target.value);
-                  //childToParent('totalInstallmentsNumber', event.target.value);
                 }}
               />
             </Grid>
             <Grid item xs={12}>
-              <Tags />
+              <CategorySelector setCategoryList={setCategoryList} initialValue={categoryList} />
             </Grid>
 
           </Grid>
@@ -102,7 +100,6 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
             value={notes}
             onChange={(event) => {
               setNotes(event.target.value);
-
             }}
           />
         </Grid>
