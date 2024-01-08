@@ -83,7 +83,7 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
               />
             </Grid>
             <Grid item xs={12}>
-              <CategorySelector setCategoryList={setCategoryList} initialValue={categoryList} />
+              <CategorySelector childToParent={childToParent} initialValue={categoryList} />
             </Grid>
 
           </Grid>

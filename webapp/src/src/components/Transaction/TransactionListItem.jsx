@@ -19,7 +19,7 @@ export default function TransactionListItem({ transactionData }) {
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
   const [paymentDate, setPaymentDate] = useState(transactionData.payment_date);
   const [dueDate, setDueDate] = useState(transactionData.due_date);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(transactionData.categories);
 
   const sumCurrentAmount = () => {
     if (
@@ -39,7 +39,6 @@ export default function TransactionListItem({ transactionData }) {
   }
 
   const [current, setCurrent] = useState(sumCurrentAmount);
-  const [totalAmount, setTotalAmount] = useState('');
   const [open, setOpen] = useState(false);
 
   const checkIfIspaid = () => {
@@ -97,7 +96,6 @@ export default function TransactionListItem({ transactionData }) {
         break;
       default:
     }
-
   }
 
   return (
@@ -122,7 +120,7 @@ export default function TransactionListItem({ transactionData }) {
               title={transactionData.description}
               image={transactionData.image}
               id={transactionData._id}
-              categories={transactionData.categories}
+              categories={categories}
             >
             </TransactionAvatar>
           </ListItemIcon>

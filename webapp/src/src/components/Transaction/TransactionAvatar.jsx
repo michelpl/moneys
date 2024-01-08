@@ -30,7 +30,8 @@ export default function TransactionAvatar({ id, image, title, categories }) {
               horizontal: 'right',
             }}
           >
-            <Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: 'green.500' }} />
+            {categories[0].icon}
+            <Avatar alt={title} src={'../logos/' + categories[0].icon} sx={{ backgroundColor: 'green.500' }} />
           </Badge>
         </Tooltip >
       </>
@@ -38,7 +39,7 @@ export default function TransactionAvatar({ id, image, title, categories }) {
     }
     return <>
       <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
-        <Avatar alt={title} src={'../logos/' + image} sx={{ backgroundColor: 'green.500' }} />
+        <Avatar alt={title} src={'../logos/' + categories[0].icon} sx={{ backgroundColor: 'green.500' }} />
       </Tooltip>
     </>
       ;

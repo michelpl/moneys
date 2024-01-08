@@ -16,23 +16,10 @@ const options = [
   { id: '8756', label: 'Ricou', icon: 'rico.jpeg' },
   { id: '465', label: 'Mastercard', icon: 'martercard.png' },
   { id: 'salario', label: 'Salário', icon: 'rico.jpeg' },
-
 ];
 
-
-export default function CategorySelector({ setCategoryList, initialValue }) {
+export default function CategorySelector({ childToParent, initialValue }) {
   const [categories, setCategories] = React.useState(initialValue);
-
-  const startSelectedValue = () => {
-    // var filtered = options.filter((item) => item.id == initialValue.id);
-    // console.log(initialValue);
-
-    // return Object.keys(options).filter({}.hasOwnProperty.bind(initialValue));
-    // return 0;
-
-  }
-
-  const [selectedValue, setSelectedValue] = React.useState(startSelectedValue);
 
   const renderSurplusTootipTitle = () => {
     var inlineCategories = ''
@@ -56,11 +43,11 @@ export default function CategorySelector({ setCategoryList, initialValue }) {
         multiple
         value={categories}
         id="tags-outlined"
-        options={ options }
+        options={options}
         getOptionLabel={(option) => option.label}
         filterSelectedOptions
         onChange={(event, newValue) => {
-          console.log(newValue);
+          childToParent('categories', newValue);
           setCategories(newValue);
         }}
         onKeyUp={
