@@ -67,20 +67,24 @@ export default function TransactionListItem({ transactionData }) {
         break;
       case 'amount':
         setAmount(value);
-        if (value - paidAmount < 0) {
-          setCurrent('+' + (value - paidAmount * -1).toString());
+        if (value - paidAmount > 0) {
+          setCurrent(value - paidAmount);
+          setIsPaid('text.disabled');
+          
           break;
         }
-        setCurrent(value - paidAmount);
+        setCurrent('+' + (value - paidAmount * -1).toString());
+        setIsPaid('success.main');
         break;       
       case 'paidAmount':
-        console.log(value);
         setPaidAmount(value);
-        if (amount - value < 0) {
-          setCurrent('+' + ((amount - value) * -1).toFixed(2).toString());
+        if (amount - value > 0) {
+          setCurrent(amount - value);
+          setIsPaid('text.disabled');
           break;
         }
-        setCurrent(amount - value);
+        setCurrent('+' + ((amount - value) * -1).toFixed(2).toString());
+        setIsPaid('success.main');
         break;
         
       case 'categories':
