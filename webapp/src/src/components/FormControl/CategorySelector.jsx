@@ -47,7 +47,8 @@ export default function CategorySelector({ childToParent, initialValue }) {
         getOptionLabel={(option) => option.label}
         filterSelectedOptions
         onChange={(event, newValue) => {
-          childToParent('categories', newValue);
+          console.log(newValue)
+          //childToParent('categories', newValue);
           setCategories(newValue);
         }}
         onKeyUp={

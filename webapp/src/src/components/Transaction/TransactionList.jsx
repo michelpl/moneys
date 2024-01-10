@@ -1,11 +1,57 @@
 import * as React from 'react';
-import { Box, Card, CardActionArea, CardActions, CardContent, Grid, List, Typography } from '@mui/material';
+import { Box, Card, CardActionArea, CardActions, CardContent, Divider, Grid, List, Typography } from '@mui/material';
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import BottomActions from './Form/BottomActions';
 import TransactionActions from './TransactionActions';
 
-export default function TransactionList({ transactions, model, toggle }) {
+export default function TransactionList({ transactions, model }) {
+
+    const [list, setList] = React.useState([])
+    const [toggle, setToggle] = React.useState(true)
+
+    React.useEffect(() => {
+        if (transactions.length > 0) {
+            setList(transactions);
+        }
+    }, [transactions,]);
+
+    const update = () => {
+        setList(transactions);
+        if (transactions.length > 0) {
+            setToggle(false);
+        }
+    }
+
+    const addItem = () => {
+        let item = {
+            user_id: 1,
+            description : "...",
+            model: "budget",
+            amount: 0,
+            paid_amount: 0,
+            categories: []
+        }
+
+        let newList = [...list, item];
+        setToggle(false);
+        setList(newList);
+    }
+
+    const totalAmount = React.useState(() => {
+        var total = 0;
+        list.map((transaction) => {
+            transaction += transaction.amount;
+        })
+        return total;
+    })
+
+    const handleClick = (action) => {
+        if (action === 'add') {
+            addItem();
+        }
+    }
+
     function LoadingContainer() {
         if (toggle) {
             return <>
@@ -15,42 +61,65 @@ export default function TransactionList({ transactions, model, toggle }) {
             </>
                 ;
         }
-
         return null;
     }
 
     function RenderTransactions(param) {
-        var filtered = transactions.filter((item) => {
-            return item.model === param.filter
-        });
 
-        return (<>{
-            filtered.map((transaction, order) => (
-                <TransactionListItem key={order} transactionData={transaction} />
-            ))
-        }</>);
+        // var filtered = list.filter((item) => {
+        //     return item.model === param.filter
+        // });
+
+        // return (<>{
+        //     filtered.map((transaction, order) => (
+        //         <TransactionListItem key={order} transactionData={transaction} />
+        //     ))
+        // }</>);
+
+        return (<></>)
     }
+
+    const RenderList = () => {
+        list.map((transaction, order) => (
+            <TransactionListItem key={order} />
+        ))
+    }
+
     return (
         <>
             <Box>
                 <Card>
                     <CardContent sx={{ backgroundColor: 'background.paper' }}>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <Typography variant='subtitle2' gutterBottom textAlign={'left'} component="div">
                                 <h2>{model.label}</h2>
                             </Typography>
                         </Grid>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                                 <LoadingContainer />
-                                <RenderTransactions filter={model.name} />
+                                <>
+                                    {
+
+                                        list.map((transaction, order) => {
+                                            if (transaction.model == model.name) {
+                                                return <TransactionListItem key={order} transactionData={transaction} />
+                                            }
+
+                                        })
+                                    }
+                                </>
+
                             </List>
                         </Grid>
-                    <CardActions>
-                        <TransactionActions />
-                    </CardActions>
+
                     </CardContent>
+
+                    <CardActions sx={{ padding: 2 }}>
+                        <TransactionActions model={model} totalAmount={totalAmount} handleClick={handleClick} />
+                    </CardActions>
                 </Card>
+
             </Box>
         </>
     );

@@ -18,6 +18,17 @@ export default function TransactionAvatar({ id, image, title, categories }) {
   }
 
   function RenderComponent() {
+
+    const selectIcon = () => {
+      if (categories.length > 0 && categories[0].icon != undefined) {
+        return categories[0].icon;
+      }
+      return 'money_641821.png';
+    }
+
+    const [transactionIcon] = React.useState(selectIcon);
+
+
     if (categories.length > 1) {
       return <>
         <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
@@ -30,8 +41,8 @@ export default function TransactionAvatar({ id, image, title, categories }) {
               horizontal: 'right',
             }}
           >
-            {categories[0].icon}
-            <Avatar alt={title} src={'../logos/' + categories[0].icon} sx={{ backgroundColor: 'green.500' }} />
+            {transactionIcon}
+            <Avatar alt='$' sx={{ backgroundColor: 'green.500' }} />
           </Badge>
         </Tooltip >
       </>
@@ -39,7 +50,7 @@ export default function TransactionAvatar({ id, image, title, categories }) {
     }
     return <>
       <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
-        <Avatar alt={title} src={'../logos/' + categories[0].icon} sx={{ backgroundColor: 'green.500' }} />
+        <Avatar alt='$' src={'../logos/' + transactionIcon} />
       </Tooltip>
     </>
       ;

@@ -12,6 +12,7 @@ export default function AppTheme() {
             },
             background: {
               default: '#0c0b0b',
+              secondary: '#27292f',
               paper: '#1f2128',
             },
             success: {

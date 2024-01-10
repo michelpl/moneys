@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function TransactionActions({handleClick}) {
+export default function TransactionActions({handleClick, model, totalAmount}) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} padding={2}>
@@ -23,16 +23,18 @@ export default function TransactionActions({handleClick}) {
                     justifyContent="space-between"
                     alignItems="center"
                     flexDirection={{ xs: 'column', sm: 'row' }}
-                    sx={{ fontSize: '12px' }}
                 >
-                    <Grid xs={12} sm={2} sx={{ order: { xs: 12, sm: 1 } }}>
-                        <Typography variant='h5'>Saldo: R$ 10.000,00</Typography>
+                    <Grid xs={12} sm={4} sx={{ order: { xs: 12, sm: 1 } }}>
+                        <Typography variant='h5'>{'Total de ' + model.label.toLowerCase() + ': R$ ' + totalAmount }</Typography>
                     </Grid>
                     <Grid container columnSpacing={1} xs={12} sm={2} sx={{ order: { xs: 12, sm: 2 } }}>
                             <Button 
-                                name='save'
+                                name='add'
                                 fullWidth={true} 
                                 variant='contained'
+                                onClick={() => {
+                                    handleClick('add')
+                                }}
                             >+ Adiconar</Button>
 
                     </Grid>
