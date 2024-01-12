@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/input')->group(function () {
-    Route::get('/', [InputController::class, 'list']);
-    Route::get('/{id}', [InputController::class, 'find']);
-    Route::post('/', [InputController::class, 'create']);
-    Route::delete('/{id}', [InputController::class, 'delete']);
-    Route::put('/{id}', [InputController::class, 'update']);
+
+Route::prefix('/v1')->group(function () {
+
+    Route::prefix('/transaction')->group(function () {
+        Route::get('/{user_id}/{year}/{month}', [InputController::class, 'list']); //@Todo Create user authentication
+        Route::get('/', [InputController::class, 'all']); //@Todo remove
+        Route::get('/{id}', [InputController::class, 'find']);
+        Route::post('/', [InputController::class, 'create']);
+        Route::delete('/{id}', [InputController::class, 'delete']);
+        Route::put('/{id}', [InputController::class, 'update']);
+    });
 });

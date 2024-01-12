@@ -15,10 +15,13 @@ class Input extends Model
         'description',
         'model',
         'month',
-        'obs',
-        'value',
-        'value_type',
         'year',
+        'amount',
+        'paid_amount',
+        'due_date',
+        'payment_date',
+        'notes',
+        'value_type',
         'categories'
     ];
 }
