@@ -7,13 +7,12 @@ import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
-import Accordion from '../../actions/TransactionFormActions';
-
+ 
 const MyPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-export default function TransactionListItem({ transactionData }) {
+export default function TransactionListItem({ transactionData, model }) {
   const [description, setDescription] = useState(transactionData.description);
   const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
@@ -25,17 +24,17 @@ export default function TransactionListItem({ transactionData }) {
     if (
       !isNaN(
         (
-          parseFloat(transactionData.amount) - 
+          parseFloat(transactionData.amount) -
           parseFloat(transactionData.paid_amount)
         )
       )
     ) {
-        return (
-          parseFloat(transactionData.amount) - 
-          parseFloat(transactionData.paid_amount)
-        ).toFixed(2)
-      }
-      return '0,00';
+      return (
+        parseFloat(transactionData.amount) -
+        parseFloat(transactionData.paid_amount)
+      ).toFixed(2)
+    }
+    return '0,00';
   }
 
   const [current, setCurrent] = useState(sumCurrentAmount);
@@ -62,20 +61,16 @@ export default function TransactionListItem({ transactionData }) {
       case 'description':
         setDescription(value);
         break;
-      case 'z':
-        handleClick();
-        break;
       case 'amount':
         setAmount(value);
         if (value - paidAmount > 0) {
           setCurrent(value - paidAmount);
           setIsPaid('text.disabled');
-          
           break;
         }
         setCurrent('+' + (value - paidAmount * -1).toString());
         setIsPaid('success.main');
-        break;       
+        break;
       case 'paidAmount':
         setPaidAmount(value);
         if (amount - value > 0) {
@@ -86,7 +81,7 @@ export default function TransactionListItem({ transactionData }) {
         setCurrent('+' + ((amount - value) * -1).toFixed(2).toString());
         setIsPaid('success.main');
         break;
-        
+
       case 'categories':
         setCategories(value);
       case 'dueDate':
@@ -100,6 +95,21 @@ export default function TransactionListItem({ transactionData }) {
         break;
       default:
     }
+  }
+
+  function HandleDescription() {
+    if (description != undefined && description != '') {
+      return <>
+        <Typography variant='h5'>{description}</Typography>
+      </>
+        ;
+    }
+    return (
+      <Tooltip arrow title='Preencha os dados da transão clicando nela para abrir seu formulário'>
+        <Typography variant='h5' sx={{ color: 'text.secondary' }}><i> ------- </i>
+        </Typography>
+      </Tooltip> 
+    )
   }
 
   return (
@@ -129,7 +139,7 @@ export default function TransactionListItem({ transactionData }) {
             </TransactionAvatar>
           </ListItemIcon>
           <ListItemText
-            primary={<Typography variant='h5'>{description}</Typography>}
+            primary={<HandleDescription />}
             secondary={
               <Fragment>
                 <Typography
@@ -169,7 +179,7 @@ export default function TransactionListItem({ transactionData }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <TransactionForm handleClick={handleClick} childToParent={childToParent} data={transactionData}></TransactionForm>
+          <TransactionForm handleClick={handleClick} childToParent={childToParent} data={transactionData} model={model}></TransactionForm>
         </List>
       </Collapse>
     </Paper >

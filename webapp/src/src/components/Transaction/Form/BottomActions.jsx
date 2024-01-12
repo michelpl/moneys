@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function BottomActions({handleClick}) {
+export default function BottomActions({handleFormActions}) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} padding={2}>
@@ -34,6 +34,7 @@ export default function BottomActions({handleClick}) {
                             sx={{
                                 backgroundColor: 'pink.secondary'
                             }}
+                            onClick={() => {handleFormActions('delete')}}
                         >EXCLUIR
                         </Button>
                     </Grid>
@@ -47,7 +48,7 @@ export default function BottomActions({handleClick}) {
                                     color: 'gray.primary',
                                     borderColor: 'gray.primary'
                                 }}
-                                onClick={handleClick}
+                                onClick={() => {handleFormActions('cancel')}}
                             >CANCELAR</Button>
                         </Grid>
                         <Grid xs={12} sm={6}>
@@ -55,6 +56,7 @@ export default function BottomActions({handleClick}) {
                                 name='save'
                                 fullWidth={true} 
                                 variant='contained'
+                                onClick={() => {handleFormActions('save')}}
                             >SALVAR</Button>
                         </Grid>
                     </Grid>

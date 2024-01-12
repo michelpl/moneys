@@ -34,14 +34,14 @@ NumericFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default function MoneyTextField({childToParent, initialValue, id, label}) {
+export default function MoneyTextField({setState, initialValue, id, label}) {
   const [values, setValues] = React.useState({
     textmask: '(100) 000-0000',
     numberformat: initialValue,
   });
 
   const handleChange = (event) => {
-    childToParent(id, event.target.value);
+    setState(event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value,

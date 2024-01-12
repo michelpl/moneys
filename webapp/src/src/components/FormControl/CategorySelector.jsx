@@ -18,7 +18,7 @@ const options = [
   { id: 'salario', label: 'Salário', icon: 'rico.jpeg' },
 ];
 
-export default function CategorySelector({ childToParent, initialValue }) {
+export default function CategorySelector({setState, childToParent, initialValue }) {
   const [categories, setCategories] = React.useState(initialValue);
 
   const renderSurplusTootipTitle = () => {
@@ -47,9 +47,9 @@ export default function CategorySelector({ childToParent, initialValue }) {
         getOptionLabel={(option) => option.label}
         filterSelectedOptions
         onChange={(event, newValue) => {
-          console.log(newValue)
           //childToParent('categories', newValue);
           setCategories(newValue);
+          setState(newValue);
         }}
         onKeyUp={
           (e) => {

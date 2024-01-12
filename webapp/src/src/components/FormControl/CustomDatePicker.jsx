@@ -4,22 +4,25 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function CustomDatePicker({id, initialValue, label}) {
+export default function CustomDatePicker({setDate, id, initialValue, label }) {
   const [initvalue] = React.useState(initialValue)
 
   return (
     <LocalizationProvider fullWidth value={'01/02/2024'} dateAdapter={AdapterDayjs}>
       <DemoContainer fullWidth components={['DatePicker']}>
-        <DatePicker 
+        <DatePicker
           label={label}
-          
+
           id={id}
           fullWidth={true}
-          sx={{width: '100%'}}
-          
-         >
+          sx={{ width: '100%' }}
+          onChange={(e) => {
+            console.log(e);
+             setDate(e.$d.toJSON())
+          }}
+        >
           {"2000-01-31T12:59-0500"}
-          </DatePicker>
+        </DatePicker>
       </DemoContainer>
     </LocalizationProvider>
   );

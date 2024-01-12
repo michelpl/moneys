@@ -9,14 +9,14 @@ import TransactionList from '../components/Transaction/TransactionList';
 
 export default function MonthlyBudgetControl() {
 
-  const apiUrl = 'http://3.88.14.53:8000/api';
+  const apiUrl = 'http://3.88.14.53:8000/api/v1';
   const [userTransactions, setUserTransactions] = useState([]);
   const [toggle, setToggle] = useState(true);
 
   const userSession = { user_id: 1};
 
   useEffect(() => {
-    var uri = apiUrl + '/input?user_id=' + userSession.user_id + '&year=' + parseInt(2024) + '&month=' + parseInt(1);
+    var uri = apiUrl + '/transaction/' + userSession.user_id + '/' + parseInt(2024) + '/' + parseInt(1);
     fetch(uri)
       .then((response) => response.json())
       .then((data) => {

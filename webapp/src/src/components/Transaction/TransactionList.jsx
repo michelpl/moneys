@@ -13,20 +13,14 @@ export default function TransactionList({ transactions, model }) {
     React.useEffect(() => {
         if (transactions.length > 0) {
             setList(transactions);
-        }
-    }, [transactions,]);
-
-    const update = () => {
-        setList(transactions);
-        if (transactions.length > 0) {
             setToggle(false);
         }
-    }
+    }, [transactions,]);
 
     const addItem = () => {
         let item = {
             user_id: 1,
-            description : "...",
+            description : "",
             model: "budget",
             amount: 0,
             paid_amount: 0,
@@ -34,7 +28,7 @@ export default function TransactionList({ transactions, model }) {
         }
 
         let newList = [...list, item];
-        setToggle(false);
+
         setList(newList);
     }
 
@@ -64,27 +58,6 @@ export default function TransactionList({ transactions, model }) {
         return null;
     }
 
-    function RenderTransactions(param) {
-
-        // var filtered = list.filter((item) => {
-        //     return item.model === param.filter
-        // });
-
-        // return (<>{
-        //     filtered.map((transaction, order) => (
-        //         <TransactionListItem key={order} transactionData={transaction} />
-        //     ))
-        // }</>);
-
-        return (<></>)
-    }
-
-    const RenderList = () => {
-        list.map((transaction, order) => (
-            <TransactionListItem key={order} />
-        ))
-    }
-
     return (
         <>
             <Box>
@@ -103,7 +76,7 @@ export default function TransactionList({ transactions, model }) {
 
                                         list.map((transaction, order) => {
                                             if (transaction.model == model.name) {
-                                                return <TransactionListItem key={order} transactionData={transaction} />
+                                                return <TransactionListItem key={order} transactionData={transaction} model={model} />
                                             }
 
                                         })

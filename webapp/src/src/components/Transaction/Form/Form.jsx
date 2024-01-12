@@ -8,7 +8,7 @@ import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
-export default function TransactionForm({ handleClick, childToParent, data }) {
+export default function TransactionForm({ handleClick, childToParent, data, model }) {
   const [description, setDescription] = useState(data.description);
   const [amount, setAmount] = useState(data.amount);
   const [paidAmount, setPaidAmount] = useState(data.paid_amount);
@@ -18,6 +18,84 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
   const [currentInstallment, setCurrentInstallment] = useState(data.current_installment);
   const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
   const [notes, setNotes] = useState(data.notes);
+  const apiUrl = 'http://3.88.14.53:8000/api/v1';
+
+  const saveData = async (item) => {
+    var uri = apiUrl + '/transaction';
+    fetch(uri, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item)
+    }).then((response) => response.json())
+      .then((data) => {
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  const deleteItem = async (id) => {
+    let uri = apiUrl + '/transaction/' + id;
+    fetch(uri, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+    }).then((response) => response.json())
+      .then((data) => {
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  const createItem = () => {
+    //console.log(categoryList);
+    const newItem = {
+      'user_id': 1,
+      'description': description,
+      'amount': parseFloat(amount),
+      'paid_amount': parseFloat(paidAmount),
+      'notes': notes,
+      'due_date': dueDate,
+      'payment_date': paymentDate,
+      'model': model.name,
+      'month': 1,
+      'year': 2024,
+      'categories': categoryList
+    }
+
+    //sumTotalAmount(newList);
+    saveData(newItem);
+  };
+
+  const deleteData = (id) => {
+    // const filtered = rows.filter((item) => item._id !== id);
+    // setRows(filtered);
+    // deleteItem(id);
+    // sumTotalAmount(filtered);
+  };
+
+
+
+  const handleFormActions = (action) => {
+    switch (action) {
+      case 'save':
+        createItem();
+        break;
+      case 'cancel':
+        handleClick();
+        break;
+      case 'delete':
+        break;
+        case 'delete':
+          break;
+      default:
+    }
+    return null;
+  }
 
   return (
     <Fragment>
@@ -29,6 +107,7 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
+                autoFocus
                 id="outlined-controlled"
                 label="Descrição"
                 fullWidth
@@ -40,16 +119,16 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField childToParent={childToParent} id={'amount'} initialValue={amount} label={'Valor total'} />
+              <MoneyTextField setState={setAmount} id={'amount'} initialValue={amount} label={'Valor total'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField childToParent={childToParent} id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
+              <MoneyTextField setState={setPaidAmount} id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker date={setDueDate} initialValue={dueDate} fullWidth={true} id={'due_date'} label="Data de vencimento" />
+              <CustomDatePicker setDate={setDueDate} initialValue={dueDate} fullWidth={true} id={'due_date'} label="Data de vencimento" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker date={setPaymentDate} initialValue={paymentDate} fullWidth={true} id={'payment_date'} label="Data de pagamento" />
+              <CustomDatePicker setDate={setPaymentDate} initialValue={paymentDate} fullWidth={true} id={'payment_date'} label="Data de pagamento" />
             </Grid>
           </Grid>
         </Grid>
@@ -83,7 +162,7 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
               />
             </Grid>
             <Grid item xs={12}>
-              <CategorySelector childToParent={childToParent} initialValue={categoryList} />
+              <CategorySelector setState={setCategoryList} childToParent={childToParent} initialValue={categoryList} />
             </Grid>
 
           </Grid>
@@ -105,7 +184,7 @@ export default function TransactionForm({ handleClick, childToParent, data }) {
         </Grid>
       </Grid>
       <Grid item xs={12} md={6} sx={{ marginBottom: 5 }}>
-        <BottomActions handleClick={handleClick} ></BottomActions>
+        <BottomActions handleFormActions={handleFormActions} ></BottomActions>
       </Grid>
     </Fragment>
   );
