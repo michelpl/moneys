@@ -1,6 +1,6 @@
 # defines variables
-WEBAPI_PERMISSIONS ?= make permissions-webapi
-WEBAPP_PERMISSIONS ?= make permissions-webapp
+PERMISSIONS_WEBAPI ?= make webapi-permissions
+PERMISSIONS_WEBAPP ?= make webapp-permissions
 MYSQL_PASSWORD ?= root
 #include Make.config
 
@@ -10,9 +10,6 @@ install:
 	docker-compose up -d
 	docker-compose exec webapi composer update -vvv
 	docker-compose exec composer require mongodb/laravel-mongodb ^4.0.0
-
-importdata:
-	docker-compose exec db mysql -u root -p$(MYSQL_PASSWORD) hcdb.stocks < ./stocks.sql;
 
 mysql:
 	docker-compose exec db mysql -u root -p$(MYSQL_PASSWORD)
@@ -27,15 +24,15 @@ stop:
 test:
 	docker-compose exec webapi php artisan test
 
-show_logs:
+show-logs:
 	echo "Showing logs...... \n " && tail -f src/storage/logs/laravel.log
 
 permissions:
 	$ echo "Running permissions"
-	$(WEBAPI_PERMISSIONS)
-	$(WEBAPP_PERMISSIONS)
+	$(PERMISSIONS_WEBAPI)
+	$(PERMISSIONS_WEBAPP)
 
-permissions-webapi:
+webapi-permissions:
 	sudo find webapi/src/ -type d -exec chmod 775 {} \;
 	sudo find webapi/src/ -type f -exec chmod 664 {} \;
 	sudo chown -R www-data:${USER} webapi/src
@@ -43,7 +40,7 @@ permissions-webapi:
 	sudo find webapi/src/bootstrap/cache -type f -exec chmod 664 {} \;
 	sudo chown -R www-data:${USER} webapi/src/bootstrap/cache
 
-permissions-webapp:
+webapp-permissions:
 	$ echo 'Running webapp permissions'\;
 	sudo find webapp/src/src/ -type d -exec chmod 775 {} \;
 	sudo find webapp/src/src/ -type f -exec chmod 664 {} \;
@@ -52,7 +49,7 @@ permissions-webapp:
 	sudo find webapp/src/public/ -type f -exec chmod 664 {} \;
 	sudo chown -R root:${USER} webapp/src/public/
 
-api-bash:
+webapi-bash:
 	docker-compose exec webapi bash
 
 webapp-bash:
