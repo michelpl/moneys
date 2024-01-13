@@ -13,6 +13,12 @@ const MyPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export default function TransactionListItem({ transactionData, model }) {
+  const [transactionId, setTransactionId] = useState(() =>{
+    if (transactionData._id != undefined) {
+      return transactionData._id;
+    }
+    return '';
+  });
   const [description, setDescription] = useState(transactionData.description);
   const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
@@ -115,7 +121,7 @@ export default function TransactionListItem({ transactionData, model }) {
   return (
     <Paper variant='outlined' sx={{ marginBottom: 0.5, padding: 0, backgroundColor: 'background.paper' }}>
       <ListItemButton onClick={handleClick}>
-        <ListItem key={transactionData.id} alignItems="flex-start"
+        <ListItem key={transactionId} alignItems="flex-start"
           secondaryAction={
             <>
               <Tooltip title="Pago" placement="top-end" arrow>

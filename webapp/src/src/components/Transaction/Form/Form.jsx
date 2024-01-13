@@ -9,6 +9,7 @@ import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
 export default function TransactionForm({ handleClick, childToParent, data, model }) {
+  const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
   const [amount, setAmount] = useState(data.amount);
   const [paidAmount, setPaidAmount] = useState(data.paid_amount);
@@ -21,9 +22,35 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
   const apiUrl = 'http://3.88.14.53:8000/api/v1';
 
   const saveData = async (item) => {
+
+    if (transactionId != undefined && transactionId != '') {
+      updateTransaction(item);
+      return;
+    }
+
+    createTransaction(item);
+  }
+
+  const createTransaction = (item) => {
     var uri = apiUrl + '/transaction';
     fetch(uri, {
       method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item)
+    }).then((response) => response.json())
+      .then((data) => {
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  const updateTransaction = (item) => {
+    var uri = apiUrl + '/transaction/' + transactionId;
+    fetch(uri, {
+      method: 'PUT',
       mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item)
@@ -52,8 +79,9 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
   }
 
   const createItem = () => {
-    //console.log(categoryList);
+
     const newItem = {
+
       'user_id': 1,
       'description': description,
       'amount': parseFloat(amount),
@@ -66,7 +94,6 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
       'year': 2024,
       'categories': categoryList
     }
-
     //sumTotalAmount(newList);
     saveData(newItem);
   };
@@ -78,8 +105,6 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
     // sumTotalAmount(filtered);
   };
 
-
-
   const handleFormActions = (action) => {
     switch (action) {
       case 'save':
@@ -90,8 +115,8 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
         break;
       case 'delete':
         break;
-        case 'delete':
-          break;
+      case 'delete':
+        break;
       default:
     }
     return null;
