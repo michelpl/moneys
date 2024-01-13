@@ -27,6 +27,7 @@ export default function CategorySelector({setState, childToParent, initialValue 
       if (order >= shownCategories) {
         inlineCategories += row.label + ', '
       }
+      return inlineCategories;
     });
 
     return inlineCategories.substring(0, inlineCategories.length - 2);

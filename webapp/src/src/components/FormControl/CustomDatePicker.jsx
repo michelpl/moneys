@@ -1,29 +1,25 @@
 import * as React from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import dayjs from 'dayjs';
+import 'dayjs/locale/de';
+import 'dayjs/locale/en-gb';
+import 'dayjs/locale/zh-cn';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-export default function CustomDatePicker({setDate, id, initialValue, label }) {
-  const [initvalue] = React.useState(initialValue)
+export default function CustomDatePicker({ setDate, id, initialValue, label }) {
+  const [locale] = React.useState('en-gb');
 
   return (
-    <LocalizationProvider fullWidth value={'01/02/2024'} dateAdapter={AdapterDayjs}>
-      <DemoContainer fullWidth components={['DatePicker']}>
-        <DatePicker
-          label={label}
-
-          id={id}
-          fullWidth={true}
-          sx={{ width: '100%' }}
-          onChange={(e) => {
-            console.log(e);
-             setDate(e.$d.toJSON())
-          }}
-        >
-          {"2000-01-31T12:59-0500"}
-        </DatePicker>
-      </DemoContainer>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
+      <DatePicker
+        fullWidth
+        label={label}
+        defaultValue={dayjs(initialValue)}
+        onChange={(e) => {
+          setDate(e.$d.toJSON());
+        }}
+      />
     </LocalizationProvider>
   );
 }
