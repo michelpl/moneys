@@ -17,8 +17,13 @@ export default function CustomDatePicker({ setDate, id, initialValue, label }) {
         label={label}
         defaultValue={dayjs(initialValue)}
         onChange={(e) => {
-          setDate(e.$d.toJSON());
-        }}
+          if (e != null && e.$d != undefined ) {
+            setDate(e.$d.toJSON());
+            return;
+          }
+
+          setDate('12/12/2020');
+         }}
       />
     </LocalizationProvider>
   );

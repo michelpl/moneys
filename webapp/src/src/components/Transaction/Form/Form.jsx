@@ -9,6 +9,7 @@ import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
 export default function TransactionForm({ handleClick, childToParent, data, model }) {
+  
   const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
   const [amount, setAmount] = useState(data.amount);
@@ -63,20 +64,7 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
       });
   }
 
-  const deleteItem = async (id) => {
-    let uri = apiUrl + '/transaction/' + id;
-    fetch(uri, {
-      method: 'DELETE',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-    }).then((response) => response.json())
-      .then((data) => {
 
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }
 
   const createItem = () => {
 
@@ -98,11 +86,8 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
     saveData(newItem);
   };
 
-  const deleteData = (id) => {
-    // const filtered = rows.filter((item) => item._id !== id);
-    // setRows(filtered);
-    // deleteItem(id);
-    // sumTotalAmount(filtered);
+  const deleteItem = () => {
+    childToParent('deleteItem');
   };
 
   const handleFormActions = (action) => {
@@ -114,8 +99,7 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
         handleClick();
         break;
       case 'delete':
-        break;
-      case 'delete':
+        deleteItem();
         break;
       default:
     }

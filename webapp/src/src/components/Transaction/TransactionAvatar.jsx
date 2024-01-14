@@ -22,7 +22,6 @@ export default function TransactionAvatar({ id, image, title, categories }) {
     const selectIcon = () => {
 
       if (categories.length > 0 && categories[0].icon != undefined) {
-        console.log(categories[0].icon);
         return categories[0].icon;
       }
       return 'money_641821.png';
@@ -32,7 +31,6 @@ export default function TransactionAvatar({ id, image, title, categories }) {
     const [transactionIcon, setTransactionIcon] = React.useState('');
     React.useEffect(() => {
       if (categories.length > 0 && categories[0].icon != undefined) {
-        console.log(categories[0].icon);
         setTransactionIcon(categories[0].icon);
         return;
       }

@@ -7,12 +7,8 @@ import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
- 
-const MyPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(1),
-}));
 
-export default function TransactionListItem({ transactionData, model }) {
+export default function TransactionListItem({handleListActions, transactionData, model }) {
   const [transactionId, setTransactionId] = useState(() =>{
     if (transactionData._id != undefined) {
       return transactionData._id;
@@ -99,6 +95,8 @@ export default function TransactionListItem({ transactionData, model }) {
           setIsPaid('success.main');
         }
         break;
+      case 'deleteItem':
+        handleListActions('deleteItem', transactionId);
       default:
     }
   }

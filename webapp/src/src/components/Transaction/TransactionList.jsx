@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Box, Card, CardActionArea, CardActions, CardContent, Divider, Grid, List, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, Grid, List, Typography } from '@mui/material';
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
-import BottomActions from './Form/BottomActions';
 import TransactionActions from './TransactionActions';
+
+const apiUrl = 'http://3.88.14.53:8000/api/v1';
 
 export default function TransactionList({ transactions, model }) {
 
@@ -20,7 +21,7 @@ export default function TransactionList({ transactions, model }) {
     const addItem = () => {
         let item = {
             user_id: 1,
-            description : "",
+            description: "",
             model: "budget",
             amount: 0,
             paid_amount: 0,
@@ -34,15 +35,52 @@ export default function TransactionList({ transactions, model }) {
 
     const totalAmount = React.useState(() => {
         var total = 0;
-        list.map((transaction) => {
-            transaction += transaction.amount;
-        })
+        list.map((transaction) => 
+            transaction += transaction.amount
+        )
         return total;
-    })
+    });
+
+    const deleteData = async (transactionId) => {
+        let uri = apiUrl + '/transaction/' + transactionId;
+        fetch(uri, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
+        }).then((response) => response.json())
+            .then((data) => {
+
+            })
+            .catch((err) => {
+                console.log('Não foi possível deletar a transação | ', err.message);
+            });
+    }
+
+    const deleteListItem = (removedItemId) => {
+
+        const filtered = list.filter((item) => {
+            if (item._id != removedItemId) {
+                return true;
+            }
+            return false;
+
+        });
+        setList(filtered);
+    }
 
     const handleClick = (action) => {
         if (action === 'add') {
             addItem();
+        }
+    }
+
+    const handleListActions = (action, value) => {
+        switch (action) {
+            case "deleteItem":
+                deleteListItem(value);
+                deleteData(value);
+                break;
+            default:
         }
     }
 
@@ -72,11 +110,11 @@ export default function TransactionList({ transactions, model }) {
                             <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                                 <LoadingContainer />
                                 <>
-                                    {
 
+                                    {
                                         list.map((transaction, order) => {
                                             if (transaction.model == model.name) {
-                                                return <TransactionListItem key={order} transactionData={transaction} model={model} />
+                                                return <TransactionListItem key={order} handleListActions={handleListActions} transactionData={transaction} model={model} />
                                             }
 
                                         })
@@ -89,7 +127,7 @@ export default function TransactionList({ transactions, model }) {
                     </CardContent>
 
                     <CardActions sx={{ padding: 2 }}>
-                        <TransactionActions model={model} totalAmount={totalAmount} handleClick={handleClick} />
+                        <TransactionActions model={model} totalAmount={totalAmount} handleListActions={handleListActions} handleClick={handleClick} />
                     </CardActions>
                 </Card>
 
