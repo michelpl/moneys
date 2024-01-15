@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function TransactionActions({handleClick, model, totalAmount}) {
+export default function TransactionActions({handleListActions, model, totalAmount}) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} padding={2}>
@@ -33,7 +33,7 @@ export default function TransactionActions({handleClick, model, totalAmount}) {
                                 fullWidth={true} 
                                 variant='contained'
                                 onClick={() => {
-                                    handleClick('add')
+                                    handleListActions('add')
                                 }}
                             >+ Adiconar</Button>
 

@@ -53,9 +53,9 @@ export default function TransactionListItem({handleListActions, transactionData,
 
   const [isPaid, setIsPaid] = useState(checkIfIspaid);
 
-  const handleClick = () => {
+  const toggle = () => {
     setOpen(!open);
-  };
+  }
 
   const [data, setData] = useState('');
 
@@ -98,6 +98,8 @@ export default function TransactionListItem({handleListActions, transactionData,
         break;
       case 'deleteItem':
         handleListActions('deleteItem', value);
+      case 'toggle':
+        setOpen(!open);
       default:
     }
   }
@@ -119,7 +121,7 @@ export default function TransactionListItem({handleListActions, transactionData,
 
   return (
     <Paper variant='outlined' sx={{ marginBottom: 0.5, padding: 0, backgroundColor: 'background.paper' }}>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton onClick={toggle}>
         <ListItem key={transactionId} alignItems="flex-start"
           secondaryAction={
             <>
@@ -184,7 +186,7 @@ export default function TransactionListItem({handleListActions, transactionData,
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <TransactionForm handleClick={handleClick} childToParent={childToParent} data={transactionData} model={model}></TransactionForm>
+          <TransactionForm childToParent={childToParent} data={transactionData} model={model}></TransactionForm>
         </List>
       </Collapse>
     </Paper >

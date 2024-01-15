@@ -8,7 +8,7 @@ import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
-export default function TransactionForm({ handleClick, childToParent, data, model }) {
+export default function TransactionForm({ childToParent, data, model }) {
 
   const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
@@ -89,7 +89,7 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
         createItem();
         break;
       case 'cancel':
-        handleClick();
+        childToParent('toggle');
         break;
       case 'delete':
         childToParent('deleteItem', transactionId);

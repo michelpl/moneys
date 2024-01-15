@@ -20,11 +20,12 @@ export default function TransactionList({ transactions, model }) {
     }, [transactions,]);
 
     const addItem = () => {
+        console.log(model);
         let item = {
             _id: uuid(),
             user_id: 1,
             description: "",
-            model: "budget",
+            model: model.name,
             amount: 0,
             paid_amount: 0,
             categories: []
@@ -71,19 +72,16 @@ export default function TransactionList({ transactions, model }) {
         setList(filtered);
     }
 
-    const handleClick = (action) => {
-        if (action === 'add') {
-            addItem();
-        }
-    }
-
     const handleListActions = (action, value) => {
 
         switch (action) {
             case "deleteItem":
-                deleteListItem(value._id);
-                //deleteData(value.transactionId);
+                deleteData(value);
+                deleteListItem(value);
                 break;
+            case 'add':
+                console.log('add')
+                addItem();
             default:
         }
     }
@@ -131,7 +129,7 @@ export default function TransactionList({ transactions, model }) {
                     </CardContent>
 
                     <CardActions sx={{ padding: 2 }}>
-                        <TransactionActions model={model} totalAmount={totalAmount} handleListActions={handleListActions} handleClick={handleClick} />
+                        <TransactionActions model={model} totalAmount={totalAmount} handleListActions={handleListActions} />
                     </CardActions>
                 </Card>
 
