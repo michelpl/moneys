@@ -51,10 +51,10 @@ class InputController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if (Input::where('_id', $id)->update($request->all())) {
+        if (Input::updateOrCreate($request->all())) {
             return $this->find($id);
         }
-        return response('', HttpResponse::HTTP_NOT_FOUND);
+        return response($request->all(), HttpResponse::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

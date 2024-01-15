@@ -3,6 +3,7 @@ import { Box, Card, CardActions, CardContent, Grid, List, Typography } from '@mu
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
+import {v4 as uuid} from 'uuid';
 
 const apiUrl = 'http://3.88.14.53:8000/api/v1';
 
@@ -20,6 +21,7 @@ export default function TransactionList({ transactions, model }) {
 
     const addItem = () => {
         let item = {
+            _id: uuid(),
             user_id: 1,
             description: "",
             model: "budget",
@@ -35,7 +37,7 @@ export default function TransactionList({ transactions, model }) {
 
     const totalAmount = React.useState(() => {
         var total = 0;
-        list.map((transaction) => 
+        list.map((transaction) =>
             transaction += transaction.amount
         )
         return total;
@@ -65,6 +67,7 @@ export default function TransactionList({ transactions, model }) {
             return false;
 
         });
+        console.log(filtered)
         setList(filtered);
     }
 
@@ -75,10 +78,11 @@ export default function TransactionList({ transactions, model }) {
     }
 
     const handleListActions = (action, value) => {
+
         switch (action) {
             case "deleteItem":
-                deleteListItem(value);
-                deleteData(value);
+                deleteListItem(value._id);
+                //deleteData(value.transactionId);
                 break;
             default:
         }
@@ -113,7 +117,7 @@ export default function TransactionList({ transactions, model }) {
 
                                     {
                                         list.map((transaction, order) => {
-                                            if (transaction.model == model.name) {
+                                            if (transaction.model === model.name) {
                                                 return <TransactionListItem key={order} handleListActions={handleListActions} transactionData={transaction} model={model} />
                                             }
 

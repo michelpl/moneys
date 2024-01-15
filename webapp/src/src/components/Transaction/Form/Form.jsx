@@ -9,7 +9,7 @@ import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
 export default function TransactionForm({ handleClick, childToParent, data, model }) {
-  
+
   const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
   const [amount, setAmount] = useState(data.amount);
@@ -41,7 +41,7 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
       body: JSON.stringify(item)
     }).then((response) => response.json())
       .then((data) => {
-
+        setTransactionId(data._id);
       })
       .catch((err) => {
         console.log(err.message);
@@ -64,12 +64,9 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
       });
   }
 
-
-
   const createItem = () => {
-
     const newItem = {
-
+      _id: transactionId,
       'user_id': 1,
       'description': description,
       'amount': parseFloat(amount),
@@ -86,10 +83,6 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
     saveData(newItem);
   };
 
-  const deleteItem = () => {
-    childToParent('deleteItem');
-  };
-
   const handleFormActions = (action) => {
     switch (action) {
       case 'save':
@@ -99,7 +92,7 @@ export default function TransactionForm({ handleClick, childToParent, data, mode
         handleClick();
         break;
       case 'delete':
-        deleteItem();
+        childToParent('deleteItem', transactionId);
         break;
       default:
     }

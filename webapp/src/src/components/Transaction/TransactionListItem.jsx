@@ -15,6 +15,7 @@ export default function TransactionListItem({handleListActions, transactionData,
     }
     return '';
   });
+
   const [description, setDescription] = useState(transactionData.description);
   const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
@@ -96,7 +97,7 @@ export default function TransactionListItem({handleListActions, transactionData,
         }
         break;
       case 'deleteItem':
-        handleListActions('deleteItem', transactionId);
+        handleListActions('deleteItem', value);
       default:
     }
   }
