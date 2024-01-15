@@ -65,6 +65,7 @@ export default function TransactionListItem({handleListActions, transactionData,
         setDescription(value);
         break;
       case 'amount':
+        console.log(value);
         setAmount(value);
         if (value - paidAmount > 0) {
           setCurrent(value - paidAmount);
@@ -76,12 +77,15 @@ export default function TransactionListItem({handleListActions, transactionData,
         break;
       case 'paidAmount':
         setPaidAmount(value);
+        if (amount - value === 0) {
+          setCurrent(((amount - value) * -1).toFixed(2).toString());  
+        }
         if (amount - value > 0) {
           setCurrent(amount - value);
           setIsPaid('text.disabled');
           break;
         }
-        setCurrent('+' + ((amount - value) * -1).toFixed(2).toString());
+        setCurrent('Pago a mais +' + ((amount - value) * -1).toFixed(2).toString());
         setIsPaid('success.main');
         break;
 
@@ -177,7 +181,7 @@ export default function TransactionListItem({handleListActions, transactionData,
             }
             secondary={
               <Typography variant='span' sx={{ color: 'text.secondary' }}>
-                <span>Falta pagar: R$ {current}</span>
+                <span>{current}</span>
               </Typography>
             }
           />

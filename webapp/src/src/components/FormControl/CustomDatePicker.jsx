@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-export default function CustomDatePicker({ setDate, id, initialValue, label }) {
+export default function CustomDatePicker({ setDate, setParentState, id, initialValue, label }) {
   const [locale] = React.useState('en-gb');
 
   return (
@@ -18,10 +18,11 @@ export default function CustomDatePicker({ setDate, id, initialValue, label }) {
         defaultValue={dayjs(initialValue)}
         onChange={(e) => {
           if (e != null && e.$d != undefined ) {
-            setDate(e.$d.toJSON());
+            const formated = e.$d.toLocaleDateString('en-gb');
+            setDate(formated);
+            setParentState(id, formated);
             return;
           }
-
           setDate('12/12/2020');
          }}
       />

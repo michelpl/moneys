@@ -121,16 +121,16 @@ export default function TransactionForm({ childToParent, data, model }) {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField setState={setAmount} id={'amount'} initialValue={amount} label={'Valor total'} />
+              <MoneyTextField setState={setAmount} setParentState={childToParent} id={'amount'} initialValue={amount} label={'Valor total'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField setState={setPaidAmount} id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
+              <MoneyTextField setState={setPaidAmount} setParentState={childToParent}  id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker setDate={setDueDate} initialValue={dueDate} fullWidth={true} id={'due_date'} label="Data de vencimento" />
+              <CustomDatePicker setDate={setDueDate} setParentState={childToParent}  initialValue={dueDate} fullWidth={true} id={'dueDate'} label="Data de vencimento" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker setDate={setPaymentDate} initialValue={paymentDate} fullWidth={true} id={'payment_date'} label="Data de pagamento" />
+              <CustomDatePicker setDate={setPaymentDate} setParentState={childToParent} initialValue={paymentDate} fullWidth={true} id={'paymentDate'} label="Data de pagamento" />
             </Grid>
           </Grid>
         </Grid>

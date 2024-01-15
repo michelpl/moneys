@@ -49,7 +49,7 @@ export default function BottomActions({handleFormActions}) {
                                     borderColor: 'gray.primary'
                                 }}
                                 onClick={() => {handleFormActions('cancel')}}
-                            >CANCELAR</Button>
+                            >FECHAR</Button>
                         </Grid>
                         <Grid xs={12} sm={6}>
                             <Button 
