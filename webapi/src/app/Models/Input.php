@@ -11,6 +11,7 @@ class Input extends Model
     protected $connection = 'mongodb';
     protected $collection = 'input';
     protected $fillable = [
+        '_id',
         'user_id',
         'description',
         'model',

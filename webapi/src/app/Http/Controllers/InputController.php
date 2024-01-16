@@ -56,7 +56,7 @@ class InputController extends Controller
             Input::where('_id', $id)->update($request->all());
             return;
         }
-        return response('', HttpResponse::HTTP_NOT_FOUND);
+        $this->create($request);
     }
 
     /**
