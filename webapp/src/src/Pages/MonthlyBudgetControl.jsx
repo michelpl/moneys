@@ -9,7 +9,8 @@ import TransactionList from '../components/Transaction/TransactionList';
 
 export default function MonthlyBudgetControl() {
 
-  const apiUrl = 'http://3.88.14.53:8000/api/v1';
+  //const apiUrl = 'http://3.88.14.53:8000/api/v1';
+  const apiUrl = 'http://localhost:8000/api/v1';
   const [userTransactions, setUserTransactions] = useState([]);
   const [toggle, setToggle] = useState(true);
 

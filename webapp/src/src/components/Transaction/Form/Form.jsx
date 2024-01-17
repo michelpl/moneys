@@ -1,7 +1,7 @@
-import { Fragment, useState, ChangeEvent, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { Box, Button, Divider } from '@mui/material';
+import { Divider } from '@mui/material';
 
 import BottomActions from './BottomActions';
 import MoneyTextField from '../../FormControl/MoneyTextField';
@@ -20,11 +20,12 @@ export default function TransactionForm({ childToParent, data, model }) {
   const [currentInstallment, setCurrentInstallment] = useState(data.current_installment);
   const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
   const [notes, setNotes] = useState(data.notes);
-  const apiUrl = 'http://3.88.14.53:8000/api/v1';
+  //const apiUrl = 'http://3.88.14.53:8000/api/v1';
+  const apiUrl = 'http://localhost:8000/api/v1';
 
   const saveData = async (item) => {
 
-    if (transactionId != undefined && transactionId != '') {
+    if (transactionId !== undefined && transactionId !== '') {
       updateTransaction(item);
       return;
     }
@@ -80,13 +81,14 @@ export default function TransactionForm({ childToParent, data, model }) {
       'categories': categoryList
     }
     //sumTotalAmount(newList);
-    saveData(newItem);
+    return newItem;
   };
 
   const handleFormActions = (action) => {
     switch (action) {
       case 'save':
-        createItem();
+        const newItem = createItem();
+        saveData(newItem);
         break;
       case 'cancel':
         childToParent('toggle');
@@ -124,10 +126,10 @@ export default function TransactionForm({ childToParent, data, model }) {
               <MoneyTextField setState={setAmount} setParentState={childToParent} id={'amount'} initialValue={amount} label={'Valor total'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MoneyTextField setState={setPaidAmount} setParentState={childToParent}  id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
+              <MoneyTextField setState={setPaidAmount} setParentState={childToParent} id={'paidAmount'} initialValue={paidAmount} label={'Valor pago até agora'} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomDatePicker setDate={setDueDate} setParentState={childToParent}  initialValue={dueDate} fullWidth={true} id={'dueDate'} label="Data de vencimento" />
+              <CustomDatePicker setDate={setDueDate} setParentState={childToParent} initialValue={dueDate} fullWidth={true} id={'dueDate'} label="Data de vencimento" />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomDatePicker setDate={setPaymentDate} setParentState={childToParent} initialValue={paymentDate} fullWidth={true} id={'paymentDate'} label="Data de pagamento" />

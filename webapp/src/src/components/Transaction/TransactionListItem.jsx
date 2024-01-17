@@ -1,16 +1,16 @@
 import { Fragment, useState } from 'react';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip, Typography } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '@fontsource/roboto/300.css';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
+import dayjs from 'dayjs';
 
 export default function TransactionListItem({handleListActions, transactionData, model }) {
-  const [transactionId, setTransactionId] = useState(() =>{
-    if (transactionData._id != undefined) {
+  const [transactionId] = useState(() =>{
+    if (transactionData._id !== undefined) {
       return transactionData._id;
     }
     return '';
@@ -56,16 +56,13 @@ export default function TransactionListItem({handleListActions, transactionData,
   const toggle = () => {
     setOpen(!open);
   }
-
-  const [data, setData] = useState('');
-
+  
   const childToParent = (input, value) => {
     switch (input) {
       case 'description':
         setDescription(value);
         break;
       case 'amount':
-        console.log(value);
         setAmount(value);
         if (value - paidAmount > 0) {
           setCurrent(value - paidAmount);
@@ -91,32 +88,32 @@ export default function TransactionListItem({handleListActions, transactionData,
 
       case 'categories':
         setCategories(value);
+        break;
       case 'dueDate':
         setDueDate(value);
+        break;
       case 'paymentDate':
         setPaymentDate(value);
-
-        if (value) {
-          setIsPaid('success.main');
-        }
         break;
       case 'deleteItem':
         handleListActions('deleteItem', value);
+        break;
       case 'toggle':
         setOpen(!open);
+        break;
       default:
     }
   }
 
   function HandleDescription() {
-    if (description != undefined && description != '') {
+    if (description !== undefined && description !== '') {
       return <>
         <Typography variant='h5'>{description}</Typography>
       </>
         ;
     }
     return (
-      <Tooltip arrow title='Preencha os dados da transão clicando nela para abrir seu formulário'>
+      <Tooltip arrow title='Preencha os dados da transação clicando nela para abrir seu formulário'>
         <Typography variant='h5' sx={{ color: 'text.secondary' }}><i> ------- </i>
         </Typography>
       </Tooltip> 
@@ -163,7 +160,7 @@ export default function TransactionListItem({handleListActions, transactionData,
                 {
                   <Typography variant='span'>
                     Vencimento:
-                    <Typography variant='span'> {dueDate} </Typography>
+                    <Typography variant='span'> {dayjs(dueDate).format('DD/MM/YYYY')} </Typography>
                   </Typography>
                 }
               </Fragment>

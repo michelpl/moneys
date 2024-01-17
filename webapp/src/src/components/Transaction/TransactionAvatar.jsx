@@ -3,7 +3,7 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import { Tooltip } from '@mui/material';
 
-export default function TransactionAvatar({ id, image, title, categories }) {
+export default function TransactionAvatar({ id, categories }) {
   function categoryNames() {
     var names = '';
 
@@ -19,18 +19,9 @@ export default function TransactionAvatar({ id, image, title, categories }) {
 
   function RenderComponent() {
 
-    const selectIcon = () => {
-
-      if (categories.length > 0 && categories[0].icon != undefined) {
-        return categories[0].icon;
-      }
-      return 'money_641821.png';
-    }
-
-
     const [transactionIcon, setTransactionIcon] = React.useState('');
     React.useEffect(() => {
-      if (categories.length > 0 && categories[0].icon != undefined) {
+      if (categories.length > 0 && categories[0].icon !== undefined) {
         setTransactionIcon(categories[0].icon);
         return;
       }

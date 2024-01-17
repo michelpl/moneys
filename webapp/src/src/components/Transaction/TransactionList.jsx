@@ -3,9 +3,10 @@ import { Box, Card, CardActions, CardContent, Grid, List, Typography } from '@mu
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-const apiUrl = 'http://3.88.14.53:8000/api/v1';
+//const apiUrl = 'http://3.88.14.53:8000/api/v1';
+const apiUrl = 'http://localhost:8000/api/v1';
 
 export default function TransactionList({ transactions, model }) {
 
@@ -20,14 +21,16 @@ export default function TransactionList({ transactions, model }) {
     }, [transactions,]);
 
     const addItem = () => {
-        console.log(model);
         let item = {
             _id: uuid(),
             user_id: 1,
-            description: "",
+            description: '',
             model: model.name,
             amount: 0,
+            due_date: '2022-02-22',
+            payment_date: '2022-02-22',
             paid_amount: 0,
+            notes: '',
             categories: []
         }
 
@@ -62,13 +65,12 @@ export default function TransactionList({ transactions, model }) {
     const deleteListItem = (removedItemId) => {
 
         const filtered = list.filter((item) => {
-            if (item._id != removedItemId) {
+            if (item._id !== removedItemId) {
                 return true;
             }
             return false;
 
         });
-        console.log(filtered)
         setList(filtered);
     }
 
@@ -82,6 +84,7 @@ export default function TransactionList({ transactions, model }) {
             case 'add':
                 console.log('add')
                 addItem();
+                break;
             default:
         }
     }
@@ -112,13 +115,11 @@ export default function TransactionList({ transactions, model }) {
                             <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                                 <LoadingContainer />
                                 <>
-
                                     {
                                         list.map((transaction, order) => {
                                             if (transaction.model === model.name) {
                                                 return <TransactionListItem key={order} handleListActions={handleListActions} transactionData={transaction} model={model} />
                                             }
-
                                         })
                                     }
                                 </>

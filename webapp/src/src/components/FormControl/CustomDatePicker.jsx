@@ -1,30 +1,31 @@
 import * as React from 'react';
 import dayjs from 'dayjs';
-import 'dayjs/locale/de';
 import 'dayjs/locale/en-gb';
-import 'dayjs/locale/zh-cn';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export default function CustomDatePicker({ setDate, setParentState, id, initialValue, label }) {
   const [locale] = React.useState('en-gb');
+  const [value, setValue] = React.useState(initialValue)
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
-      <DatePicker
-        fullWidth
-        label={label}
-        defaultValue={dayjs(initialValue)}
-        onChange={(e) => {
-          if (e != null && e.$d != undefined ) {
-            const formated = e.$d.toLocaleDateString('en-gb');
-            setDate(formated);
-            setParentState(id, formated);
+      <DatePicker 
+        label={label} 
+        defaultValue={dayjs(value)}
+        onChange={(value) =>{
+          if (value !== null && value.$d !== undefined && value.$d !== null) {
+            setValue(value.$d.toString());
+            setDate(value.$d.toString())
+            setParentState(id, value.$d.toString())
             return;
           }
-          setDate('12/12/2020');
-         }}
+          setValue('');
+          setDate('');
+          setParentState('');
+        }}
       />
     </LocalizationProvider>
   );
