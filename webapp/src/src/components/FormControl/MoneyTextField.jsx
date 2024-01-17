@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NumericFormat } from 'react-number-format';
 import TextField from '@mui/material/TextField';
 
-const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(
+const ToMoneyFormat = React.forwardRef(function ToMoneyFormat(
   props,
   ref,
 ) {
@@ -24,12 +24,15 @@ const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(
       decimalSeparator=','
       thousandSeparator='.'
       valueIsNumericString
+      allowNegative={false}
+      decimalScale='2'
+      fixedDecimalScale={true}
       prefix="R$ "
     />
   );
 });
 
-NumericFormatCustom.propTypes = {
+ToMoneyFormat.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
@@ -58,7 +61,7 @@ export default function MoneyTextField({setState, setParentState , initialValue,
         fullWidth
         id={id}
         InputProps={{
-          inputComponent: NumericFormatCustom,
+          inputComponent: ToMoneyFormat,
         }}
         variant="outlined"
       />

@@ -7,9 +7,10 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import TransactionForm from './Form/Form';
 import TransactionAvatar from './TransactionAvatar'
 import dayjs from 'dayjs';
+import { NumericFormat } from 'react-number-format';
 
-export default function TransactionListItem({handleListActions, transactionData, model }) {
-  const [transactionId] = useState(() =>{
+export default function TransactionListItem({ handleListActions, transactionData, model }) {
+  const [transactionId] = useState(() => {
     if (transactionData._id !== undefined) {
       return transactionData._id;
     }
@@ -56,34 +57,38 @@ export default function TransactionListItem({handleListActions, transactionData,
   const toggle = () => {
     setOpen(!open);
   }
-  
+
   const childToParent = (input, value) => {
     switch (input) {
       case 'description':
         setDescription(value);
         break;
       case 'amount':
+        if (value === '') {
+          value = 0;
+        }
         setAmount(value);
         if (value - paidAmount > 0) {
           setCurrent(value - paidAmount);
           setIsPaid('text.disabled');
           break;
         }
-        setCurrent('+' + (value - paidAmount * -1).toString());
+        setCurrent(value - paidAmount);
         setIsPaid('success.main');
         break;
       case 'paidAmount':
+        if (value === '') {
+          value = 0;
+        }
         setPaidAmount(value);
-        if (amount - value === 0) {
-          setCurrent(((amount - value) * -1).toFixed(2).toString());  
+        if (amount - value <= 0) {
+          setIsPaid('success.main');
         }
         if (amount - value > 0) {
-          setCurrent(amount - value);
           setIsPaid('text.disabled');
-          break;
+
         }
-        setCurrent('Pago a mais +' + ((amount - value) * -1).toFixed(2).toString());
-        setIsPaid('success.main');
+        setCurrent(amount - value);
         break;
 
       case 'categories':
@@ -116,7 +121,7 @@ export default function TransactionListItem({handleListActions, transactionData,
       <Tooltip arrow title='Preencha os dados da transação clicando nela para abrir seu formulário'>
         <Typography variant='h5' sx={{ color: 'text.secondary' }}><i> ------- </i>
         </Typography>
-      </Tooltip> 
+      </Tooltip>
     )
   }
 
@@ -172,14 +177,39 @@ export default function TransactionListItem({handleListActions, transactionData,
             primary={
               <>
                 <Tooltip title="Valor destinado" placement="top-end" arrow>
-                  <Typography variant='h5'>R$ {amount}</Typography>
+                  <NumericFormat
+                    value={amount}
+                    thousandSeparator='.'
+                    decimalSeparator=','
+                    displayType="text"
+                    decimalScale='2'
+                    fixedDecimalScale={true}
+                    allowNegative={false}
+                    prefix='R$ '
+                    renderText={(value) => <Typography variant='h5'>{value}</Typography>}
+                  />
                 </Tooltip>
               </>
             }
             secondary={
-              <Typography variant='span' sx={{ color: 'text.secondary' }}>
-                <span>{current}</span>
-              </Typography>
+              <NumericFormat
+                value={current}
+                thousandSeparator='.'
+                decimalSeparator=','
+                displayType="text"
+                decimalScale='2'
+                allowNegative={false}
+                fixedDecimalScale={true}
+                prefix='R$ '
+                renderText={(value) => {
+                  return (
+                    <Typography variant='span' sx={{ color: 'text.secondary' }}>
+                      <span>{value}</span>
+                    </Typography>)
+                }}
+  
+              />
+
             }
           />
         </ListItem>
