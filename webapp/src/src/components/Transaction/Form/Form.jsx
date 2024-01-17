@@ -19,7 +19,15 @@ export default function TransactionForm({ childToParent, data, model }) {
   const [paymentDate, setPaymentDate] = useState(data.payment_date);
   const [currentInstallment, setCurrentInstallment] = useState(data.current_installment);
   const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
-  const [notes, setNotes] = useState(data.notes);
+
+  const handleNotesInitialValue = (data) => {
+    if (data != undefined && data.notes != undefined && data.notes != null) {
+      return data.notes.toString();
+    }
+    return '';
+  }
+
+  const [notes, setNotes] = useState(handleNotesInitialValue(data));
   //const apiUrl = 'http://3.88.14.53:8000/api/v1';
   const apiUrl = 'http://localhost:8000/api/v1';
 
