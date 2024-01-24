@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button, Typography } from '@mui/material';
+import { NumericFormat } from 'react-number-format';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function TransactionActions({handleListActions, model, totalAmount}) {
+export default function TransactionActions({ handleListActions, model, finalBudget }) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} padding={2}>
@@ -25,17 +26,27 @@ export default function TransactionActions({handleListActions, model, totalAmoun
                     flexDirection={{ xs: 'column', sm: 'row' }}
                 >
                     <Grid xs={12} sm={4} sx={{ order: { xs: 12, sm: 1 } }}>
-                        <Typography variant='h5'>{'Total de ' + model.label.toLowerCase() + ': R$ ' + totalAmount }</Typography>
+                        <NumericFormat
+                            value={finalBudget[model.name]}
+                            thousandSeparator='.'
+                            decimalSeparator=','
+                            displayType="text"
+                            decimalScale='2'
+                            fixedDecimalScale={true}
+                            allowNegative={false}
+                            prefix='R$ '
+                            renderText={(value) =><Typography variant='h5'>Total de {model.label.toLowerCase()} {value}</Typography>}
+                        />
                     </Grid>
                     <Grid container columnSpacing={1} xs={12} sm={2} sx={{ order: { xs: 12, sm: 2 } }}>
-                            <Button 
-                                name='add'
-                                fullWidth={true} 
-                                variant='contained'
-                                onClick={() => {
-                                    handleListActions('add')
-                                }}
-                            >+ Adiconar</Button>
+                        <Button
+                            name='add'
+                            fullWidth={true}
+                            variant='contained'
+                            onClick={() => {
+                                handleListActions('add')
+                            }}
+                        >+ Adiconar</Button>
 
                     </Grid>
                 </Grid>

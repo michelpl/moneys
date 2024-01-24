@@ -25,6 +25,10 @@ const ToMoneyFormat = React.forwardRef(function ToMoneyFormat(
       thousandSeparator='.'
       valueIsNumericString
       allowNegative={false}
+      isAllowed={(values) => {
+        const { floatValue } = values;
+        return floatValue < 10000000;
+      }}
       decimalScale='2'
       fixedDecimalScale={true}
       prefix="R$ "

@@ -9,7 +9,7 @@ import TransactionAvatar from './TransactionAvatar'
 import dayjs from 'dayjs';
 import { NumericFormat } from 'react-number-format';
 
-export default function TransactionListItem({ handleListActions, transactionData, model }) {
+export default function TransactionListItem({ handleListActions, transactionData, model, handleTotalAmount, handleTransactions }) {
   const [transactionId] = useState(() => {
     if (transactionData._id !== undefined) {
       return transactionData._id;
@@ -17,6 +17,7 @@ export default function TransactionListItem({ handleListActions, transactionData
     return '';
   });
 
+  const [transaction, setTransaction] = useState(transactionData);
   const [description, setDescription] = useState(transactionData.description);
   const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
@@ -59,29 +60,37 @@ export default function TransactionListItem({ handleListActions, transactionData
   }
 
   const childToParent = (input, value) => {
+
+    if (transaction[input] != undefined) {
+      let updatedTransaction = transaction;
+      updatedTransaction[input] = value;
+      handleTransactions(updatedTransaction);
+      setDescription(transaction.description);
+    }
+    // @Todo: move to other function
     switch (input) {
-      case 'description':
-        setDescription(value);
-        break;
       case 'amount':
         if (value === '') {
           value = 0;
         }
         setAmount(value);
+
         if (value - paidAmount > 0) {
           setCurrent(value - paidAmount);
           setIsPaid('text.disabled');
           break;
         }
         setCurrent(value - paidAmount);
-        setIsPaid('success.main');
+        if (paidAmount > 0) {
+          setIsPaid('success.main');
+        }
         break;
       case 'paidAmount':
         if (value === '') {
           value = 0;
         }
         setPaidAmount(value);
-        if (amount - value <= 0) {
+        if (amount - value <= 0 && paidAmount > 0) {
           setIsPaid('success.main');
         }
         if (amount - value > 0) {
@@ -90,20 +99,10 @@ export default function TransactionListItem({ handleListActions, transactionData
         }
         setCurrent(amount - value);
         break;
-
-      case 'categories':
-        setCategories(value);
-        break;
-      case 'dueDate':
-        setDueDate(value);
-        break;
-      case 'paymentDate':
-        setPaymentDate(value);
-        break;
-      case 'deleteItem':
+      case 'deleteItem': // @Todo: move to other function
         handleListActions('deleteItem', value);
         break;
-      case 'toggle':
+      case 'toggle':  // @Todo: move to other function
         setOpen(!open);
         break;
       default:
@@ -111,9 +110,9 @@ export default function TransactionListItem({ handleListActions, transactionData
   }
 
   function HandleDescription() {
-    if (description !== undefined && description !== '') {
+    if (transaction.description !== undefined && transaction.description !== null) {
       return <>
-        <Typography variant='h5'>{description}</Typography>
+        <Typography variant='h5'>{transaction.description}</Typography>
       </>
         ;
     }
@@ -144,7 +143,7 @@ export default function TransactionListItem({ handleListActions, transactionData
         >
           <ListItemIcon>
             <TransactionAvatar
-              title={transactionData.description}
+              title={transaction.description}
               image={transactionData.image}
               id={transactionData._id}
               categories={categories}
@@ -152,7 +151,7 @@ export default function TransactionListItem({ handleListActions, transactionData
             </TransactionAvatar>
           </ListItemIcon>
           <ListItemText
-            primary={<HandleDescription />}
+            primary={transaction.description}
             secondary={
               <Fragment>
                 <Typography
@@ -176,19 +175,19 @@ export default function TransactionListItem({ handleListActions, transactionData
             edge="end"
             primary={
               <>
-                <Tooltip title="Valor destinado" placement="top-end" arrow>
-                  <NumericFormat
-                    value={amount}
-                    thousandSeparator='.'
-                    decimalSeparator=','
-                    displayType="text"
-                    decimalScale='2'
-                    fixedDecimalScale={true}
-                    allowNegative={false}
-                    prefix='R$ '
-                    renderText={(value) => <Typography variant='h5'>{value}</Typography>}
-                  />
-                </Tooltip>
+
+                <NumericFormat
+                  value={amount}
+                  thousandSeparator='.'
+                  decimalSeparator=','
+                  displayType="text"
+                  decimalScale='2'
+                  fixedDecimalScale={true}
+                  allowNegative={false}
+                  prefix='R$ '
+                  renderText={(value) => <Tooltip title="Valor destinado" placement="top-end" arrow><Typography variant='h5'>{value}</Typography></Tooltip>}
+                />
+
               </>
             }
             secondary={
@@ -207,7 +206,7 @@ export default function TransactionListItem({ handleListActions, transactionData
                       <span>{value}</span>
                     </Typography>)
                 }}
-  
+
               />
 
             }
@@ -217,7 +216,7 @@ export default function TransactionListItem({ handleListActions, transactionData
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <TransactionForm childToParent={childToParent} data={transactionData} model={model}></TransactionForm>
+          <TransactionForm childToParent={childToParent} data={transaction} model={model}></TransactionForm>
         </List>
       </Collapse>
     </Paper >

@@ -4,21 +4,43 @@ import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
 import { v4 as uuid } from 'uuid';
+import { useRef } from 'react';
 
 //const apiUrl = 'http://3.88.14.53:8000/api/v1';
 const apiUrl = 'http://localhost:8000/api/v1';
 
-export default function TransactionList({ transactions, model }) {
+export default function TransactionList({ transactions, model, sumTotalAmount }) {
 
     const [list, setList] = React.useState([])
     const [toggle, setToggle] = React.useState(true)
+    const [finalBudget, setFinalBudget] = React.useState('');
+
+    function handleTransactions(transaction) {
+        var newList = list;
+        if (transaction.amount === undefined || transaction.amount === '' || !transaction.amount) {
+            transaction.amount = 0;
+        }
+
+        newList.map((item, order) => {
+            if (item._id === transaction._id) {
+                
+                newList[order] = transaction;
+                return;
+            }
+
+        });
+        setList(newList);
+        sumTotalAmount(newList);
+    }
+
 
     React.useEffect(() => {
         if (transactions.length > 0) {
             setList(transactions);
             setToggle(false);
         }
-    }, [transactions,]);
+    }, [transactions]);
+
 
     const addItem = () => {
         let item = {
@@ -38,14 +60,6 @@ export default function TransactionList({ transactions, model }) {
 
         setList(newList);
     }
-
-    const totalAmount = React.useState(() => {
-        var total = 0;
-        list.map((transaction) =>
-            transaction += transaction.amount
-        )
-        return total;
-    });
 
     const deleteData = async (transactionId) => {
         let uri = apiUrl + '/transaction/' + transactionId;
@@ -118,7 +132,15 @@ export default function TransactionList({ transactions, model }) {
                                     {
                                         list.map((transaction, order) => {
                                             if (transaction.model === model.name) {
-                                                return <TransactionListItem key={order} handleListActions={handleListActions} transactionData={transaction} model={model} />
+                                                return (
+                                                    <TransactionListItem
+                                                        key={order}
+                                                        handleListActions={handleListActions}
+                                                        transactionData={transaction}
+                                                        model={model}
+                                                        handleTransactions={handleTransactions}
+                                                    />
+                                                )
                                             }
                                         })
                                     }
@@ -130,10 +152,9 @@ export default function TransactionList({ transactions, model }) {
                     </CardContent>
 
                     <CardActions sx={{ padding: 2 }}>
-                        <TransactionActions model={model} totalAmount={totalAmount} handleListActions={handleListActions} />
+                        <TransactionActions model={model} finalBudget={finalBudget} handleListActions={handleListActions}  />
                     </CardActions>
                 </Card>
-
             </Box>
         </>
     );
