@@ -27,7 +27,7 @@ export default function TransactionActions({ handleListActions, model, finalBudg
                 >
                     <Grid xs={12} sm={4} sx={{ order: { xs: 12, sm: 1 } }}>
                         <NumericFormat
-                            value={finalBudget[model.name]}
+                            value={finalBudget}
                             thousandSeparator='.'
                             decimalSeparator=','
                             displayType="text"

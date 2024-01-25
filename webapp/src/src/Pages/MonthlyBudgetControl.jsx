@@ -1,10 +1,7 @@
-import * as React from 'react';
 import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Card, CardActions, CardContent, CardHeader, List, Typography } from '@mui/material';
-import TransactionListItem from '../components/Transaction/TransactionListItem';
-import TransactionListItemSkeleton from '../components/Transaction/TransactionListItemSkeleton';
+import { Card, CardContent, CardHeader, List, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
 
 export default function MonthlyBudgetControl_BKP() {
@@ -47,8 +44,6 @@ export default function MonthlyBudgetControl_BKP() {
       });
   }, []);
 
-
-
   return (
     <Box marginTop={5} padding={1}>
       <Grid container spacing={1} columns={12}>
@@ -73,6 +68,9 @@ export default function MonthlyBudgetControl_BKP() {
         <Grid xs={12} sm={8}>
           <TransactionList sumTotalAmount={ sumTotalAmount } transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} />
           { totalAmount }
+        </Grid>
+        <Grid xs={12}>
+
         </Grid>
       </Grid>
     </Box>

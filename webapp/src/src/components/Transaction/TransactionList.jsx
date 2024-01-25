@@ -13,23 +13,32 @@ export default function TransactionList({ transactions, model, sumTotalAmount })
 
     const [list, setList] = React.useState([])
     const [toggle, setToggle] = React.useState(true)
-    const [finalBudget, setFinalBudget] = React.useState('');
+    const [finalBudget, setFinalBudget] = React.useState(0);
 
     function handleTransactions(transaction) {
+        var modelTotal = 0;
+
         var newList = list;
         if (transaction.amount === undefined || transaction.amount === '' || !transaction.amount) {
             transaction.amount = 0;
         }
 
         newList.map((item, order) => {
+
+            if (item.model === model.name) {
+                console.log('item :', item.model);
+                console.log('model :', model.name);
+                modelTotal += parseFloat(item.amount);
+            }
             if (item._id === transaction._id) {
-                
                 newList[order] = transaction;
                 return;
             }
 
         });
+
         setList(newList);
+        setFinalBudget(modelTotal);
         sumTotalAmount(newList);
     }
 
@@ -152,7 +161,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount })
                     </CardContent>
 
                     <CardActions sx={{ padding: 2 }}>
-                        <TransactionActions model={model} finalBudget={finalBudget} handleListActions={handleListActions}  />
+                        <TransactionActions model={model} finalBudget={finalBudget} handleListActions={handleListActions} />
                     </CardActions>
                 </Card>
             </Box>

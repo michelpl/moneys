@@ -64,14 +64,14 @@ export default function AppTheme() {
               fontSize: '18px',
             },
             h5: {
-              fontSize: '12px',
+              fontSize: '13px',
               fontWeight: 'bold'
             },
             h6: {
-              fontSize: '14px',
+              fontSize: '12px',
             },
             p: {
-              fontSize: '14px'
+              fontSize: '12px'
             },
             highlight: {
               fontSize: '18px'
