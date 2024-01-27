@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Card, CardContent, CardHeader, List, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardHeader, List, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
+import InsertChartIcon from '@mui/icons-material/InsertChart';
+import SendIcon from '@mui/icons-material/Send';
+import { NumericFormat } from "react-number-format";
+import Totals from "../components/Totals";
 
 export default function MonthlyBudgetControl_BKP() {
 
@@ -12,21 +16,21 @@ export default function MonthlyBudgetControl_BKP() {
   const [toggle, setToggle] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
   const userSession = { user_id: 1 };
-  
+
   const sumTotalAmount = (data) => {
     var amount = 0
-   
+
     data.map((item, order) => {
       if (item.amount === undefined || item.amount === '' || !item.amount) {
         item.amount = 0;
       }
-      if (item.model=== 'budget') {
-          amount += parseFloat(item.amount);
+      if (item.model === 'budget') {
+        amount += parseFloat(item.amount);
       }
-      if (item.model=== 'expenses') {
+      if (item.model === 'expenses') {
         amount -= parseFloat(item.amount);
-    }
-  });
+      }
+    });
     setTotalAmount(amount);
   }
 
@@ -51,7 +55,7 @@ export default function MonthlyBudgetControl_BKP() {
           <Typography variant='H2'>Controle de orçamento mensal</Typography>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={ sumTotalAmount } transactions={userTransactions} model={{ label: 'Entradas', name: 'budget' }} toggle={toggle} />
+          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Entradas', name: 'budget' }} toggle={toggle} />
         </Grid>
 
         <Grid xs={3}>
@@ -66,13 +70,10 @@ export default function MonthlyBudgetControl_BKP() {
           </Card>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={ sumTotalAmount } transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} />
-          { totalAmount }
-        </Grid>
-        <Grid xs={12}>
-
+          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} />
+          <Totals label={'Previsão de saldo no fim do mês'} total={totalAmount} />
         </Grid>
       </Grid>
-    </Box>
+    </Box >
   );
 }

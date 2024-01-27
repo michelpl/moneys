@@ -40,8 +40,18 @@ export default function AppTheme() {
               primary: '#666'
             },
             green: {
-              500: '#50D1B2'
-            }
+              500: '#50D1B2',
+              secondary: '#50D1B2'
+            },
+            red: {
+              primary: '#f95e5e'
+            },
+            blue: {
+              primary: '#6B9FBC'
+            },
+            yellow: {
+              primary: '#E2AB84'
+            },
           },
           typography: {
             fontWeightLight: 300,
@@ -83,6 +93,6 @@ export default function AppTheme() {
           },
           shape: {
             borderRadius: 6,
-          },
+          }
     })
 }

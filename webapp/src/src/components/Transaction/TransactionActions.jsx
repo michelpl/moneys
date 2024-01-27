@@ -35,7 +35,7 @@ export default function TransactionActions({ handleListActions, model, finalBudg
                             fixedDecimalScale={true}
                             allowNegative={false}
                             prefix='R$ '
-                            renderText={(value) =><Typography variant='h5'>Total de {model.label.toLowerCase()} {value}</Typography>}
+                            renderText={(value) => <Typography variant='h5'>Total de {model.label.toLowerCase()} {value}</Typography>}
                         />
                     </Grid>
                     <Grid container columnSpacing={1} xs={12} sm={2} sx={{ order: { xs: 12, sm: 2 } }}>
