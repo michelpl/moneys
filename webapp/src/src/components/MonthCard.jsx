@@ -27,7 +27,7 @@ export default function MonthCard({ month, year, data }) {
     <Card>
       <CardHeader style={{ textTransform: 'capitalize' }}
         avatar={
-          <Link to={'/month/' + year + '/' + month.id}>
+          <Link to={'/budget/' + year + '/' + month.id}>
             <Avatar sx={{ bgcolor: '#7364DB' }} aria-label="month">
               { month.name.substring(1, 0).toUpperCase() }
             </Avatar>
@@ -39,7 +39,7 @@ export default function MonthCard({ month, year, data }) {
           </IconButton>
         }
         title={
-          <Link to={'/month/' + year + '/' + month.id}>
+          <Link to={'/budget/' + year + '/' + month.id}>
             { month.name + ' (' + year + ')' }
           </Link>
         }
@@ -49,7 +49,7 @@ export default function MonthCard({ month, year, data }) {
         <MonthCardPropertiesList data={data} />
       </CardContent>
       <CardActions>
-        <Link to={'/month/' + year + '/' + month.id}><OpenInNewIcon /></Link>
+        <Link to={'/budget/' + year + '/' + month.id}><OpenInNewIcon /></Link>
       </CardActions>
     </Card>
   );

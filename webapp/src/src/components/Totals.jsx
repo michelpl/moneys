@@ -15,9 +15,9 @@ export default function Totals({ label, total }) {
         <>
             <Box>
                 <Grid spacing={2} container sx={{ marginTop: 2, marginBottom: 5 }} justifyContent="flex-end">
-                    <Grid sm={3}>
+                    <Grid item sm={3}>
                         <Card>
-                            <CardContent sx={{ backgroundColor: 'background.paper' }} textAlign={'right'}>
+                            <CardContent sx={{ backgroundColor: 'background.paper' }}>
 
                                 <Typography variant='h5' textAlign={'right'} gutterBottom>
                                     {label}

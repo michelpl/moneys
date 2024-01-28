@@ -48,7 +48,6 @@ export default function CategorySelector({setState, childToParent, initialValue 
         getOptionLabel={(option) => option.label}
         filterSelectedOptions
         onChange={(event, newValue) => {
-          //childToParent('categories', newValue);
           setCategories(newValue);
           setState(newValue);
         }}

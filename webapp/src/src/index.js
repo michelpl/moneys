@@ -8,7 +8,6 @@ import {
 import "./App.css";
 
 import Root from './Pages/Root'
-import Month from './Pages/Month'
 import ThemePage from './Pages/ThemePage'
 import Home from "./Pages/Home";
 import MonthList from "./Pages/MonthList";
@@ -28,21 +27,17 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "year/:year",
+        path: "budget/:year",
         element: <MonthList />,
       },
       {
-        path: "month/:year/:month",
-        element: <Month />,
+        path: "budget/:year/:month",
+        element: <MonthlyBudgetControl />,
       },
       {
         path: "theme",
         element: <ThemePage />,
       },
-      {
-        path: "new",
-        element: <MonthlyBudgetControl />
-      }
     ],
   },
 ]);

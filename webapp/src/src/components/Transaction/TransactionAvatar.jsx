@@ -41,7 +41,7 @@ export default function TransactionAvatar({ id, categories }) {
             }}
           >
 
-            <Avatar alt='$' src={'../logos/' + transactionIcon} />
+            <Avatar alt='$' src={'../../logos/' + transactionIcon} />
           </Badge>
         </Tooltip >
       </>
@@ -49,7 +49,7 @@ export default function TransactionAvatar({ id, categories }) {
     }
     return <>
       <Tooltip key={id} title={'Categorias: ' + categoryNames()} arrow>
-        <Avatar alt='$' src={'../logos/' + transactionIcon} />
+        <Avatar alt='$' src={'../../logos/' + transactionIcon} />
       </Tooltip>
     </>
       ;

@@ -37,7 +37,6 @@ export default function Month() {
   const [expenses, setExpenses] = useState(0);
   const [budgetWithoutDiscounts, setBudgetWithoutDiscounts] = useState(0);
 
-
   function HeaderView(model) {
     const location = useParams();
     const filtered = months.filter((item) => item.id == location.month); 

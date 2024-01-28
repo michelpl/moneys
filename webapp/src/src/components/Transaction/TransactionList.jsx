@@ -9,10 +9,9 @@ import { useRef } from 'react';
 //const apiUrl = 'http://3.88.14.53:8000/api/v1';
 const apiUrl = 'http://localhost:8000/api/v1';
 
-export default function TransactionList({ transactions, model, sumTotalAmount }) {
+export default function TransactionList({ transactions, model, sumTotalAmount, toggle, listMessage }) {
 
-    const [list, setList] = React.useState([])
-    const [toggle, setToggle] = React.useState(true)
+    const [list, setList] = React.useState([]);
     const [finalBudget, setFinalBudget] = React.useState(0);
 
     function handleTransactions(transaction) {
@@ -34,7 +33,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount })
                 newList[order] = transaction;
                 return;
             }
-
         });
 
         setList(newList);
@@ -42,11 +40,9 @@ export default function TransactionList({ transactions, model, sumTotalAmount })
         sumTotalAmount(newList);
     }
 
-
     React.useEffect(() => {
         if (transactions.length > 0) {
             setList(transactions);
-            setToggle(false);
         }
     }, [transactions]);
 
@@ -130,13 +126,16 @@ export default function TransactionList({ transactions, model, sumTotalAmount })
                 <Card>
                     <CardContent sx={{ backgroundColor: 'background.paper' }}>
                         <Grid item xs={12}>
-                            <Typography variant='subtitle2' gutterBottom textAlign={'left'} component="div">
+                            <Typography variant='subtitle2' gutterBottom component="div">
                                 <h2>{model.label}</h2>
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                                 <LoadingContainer />
+                                <>
+                                    <Typography variant={'h5'}>{listMessage}</Typography>
+                                </>
                                 <>
                                     {
                                         list.map((transaction, order) => {
