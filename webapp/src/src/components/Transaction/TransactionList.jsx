@@ -4,12 +4,11 @@ import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
 import { v4 as uuid } from 'uuid';
-import { useRef } from 'react';
 
 //const apiUrl = 'http://3.88.14.53:8000/api/v1';
 const apiUrl = 'http://localhost:8000/api/v1';
 
-export default function TransactionList({ transactions, model, sumTotalAmount, toggle, listMessage }) {
+export default function TransactionList({ transactions, model, sumTotalAmount, toggle }) {
 
     const [list, setList] = React.useState([]);
     const [finalBudget, setFinalBudget] = React.useState(0);
@@ -23,10 +22,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
         }
 
         newList.map((item, order) => {
-
             if (item.model === model.name) {
-                console.log('item :', item.model);
-                console.log('model :', model.name);
                 modelTotal += parseFloat(item.amount);
             }
             if (item._id === transaction._id) {
@@ -46,7 +42,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
         }
     }, [transactions]);
 
-
     const addItem = () => {
         let item = {
             _id: uuid(),
@@ -54,8 +49,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
             description: '',
             model: model.name,
             amount: 0,
-            due_date: '2022-02-22',
-            payment_date: '2022-02-22',
             paid_amount: 0,
             notes: '',
             categories: []
@@ -101,7 +94,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                 deleteListItem(value);
                 break;
             case 'add':
-                console.log('add')
                 addItem();
                 break;
             default:
@@ -120,6 +112,12 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
         return null;
     }
 
+    function MessageContainer() {
+        if (list.length === 0) {
+            return <Typography variant={'h6'}>Adicione uma transação</Typography>
+        }
+    }
+
     return (
         <>
             <Box>
@@ -133,9 +131,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                         <Grid item xs={12}>
                             <List spacing={6} sx={{ padding: 0, width: '100%' }}>
                                 <LoadingContainer />
-                                <>
-                                    <Typography variant={'h5'}>{listMessage}</Typography>
-                                </>
+                                <MessageContainer />
                                 <>
                                     {
                                         list.map((transaction, order) => {
@@ -158,9 +154,8 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                         </Grid>
 
                     </CardContent>
-
                     <CardActions sx={{ padding: 2 }}>
-                        <TransactionActions model={model} finalBudget={finalBudget} handleListActions={handleListActions} />
+                        <TransactionActions model={model} finalBudget={finalBudget} handleListActions={ handleListActions } />
                     </CardActions>
                 </Card>
             </Box>

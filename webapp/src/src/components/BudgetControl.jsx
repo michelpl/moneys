@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Button, Card, CardActions, CardContent, CardHeader, List, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
-import InsertChartIcon from '@mui/icons-material/InsertChart';
-import SendIcon from '@mui/icons-material/Send';
-import { NumericFormat } from "react-number-format";
 import Totals from "../components/Totals";
 
 export default function BudgetControl({yearAndMonth}) {
@@ -14,7 +11,6 @@ export default function BudgetControl({yearAndMonth}) {
   const [userTransactions, setUserTransactions] = useState([]);
   const [toggle, setToggle] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [listMessage, setListMessage] = useState('');
   const userSession = { user_id: 1 };
 
   const sumTotalAmount = (data) => {
@@ -42,9 +38,6 @@ export default function BudgetControl({yearAndMonth}) {
         setToggle(false);
         setUserTransactions(data);
         sumTotalAmount(data);
-        if (data.length === 0) {
-            setListMessage('Clique em adicionar para criar uma transação');
-        }
       })
       .catch((err) => {
         console.log(err.message);
@@ -58,7 +51,7 @@ export default function BudgetControl({yearAndMonth}) {
           <Typography variant='H2'>Controle de orçamento mensal</Typography>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Entradas', name: 'budget' }} toggle={toggle} listMessage={listMessage} />
+          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Entradas', name: 'budget' }} toggle={toggle} />
         </Grid>
 
         <Grid xs={3}>
@@ -73,7 +66,7 @@ export default function BudgetControl({yearAndMonth}) {
           </Card>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} listMessage={listMessage} />
+          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} />
           <Totals label={'Previsão de saldo no fim do mês'} total={totalAmount} />
         </Grid>
       </Grid>

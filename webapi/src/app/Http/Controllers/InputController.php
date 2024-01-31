@@ -43,7 +43,6 @@ class InputController extends Controller
      */
     public function create(Request $request)
     {
-
         if (Input::create($request->all())) {
             return response($request->all(), HttpResponse::HTTP_CREATED);
         }
@@ -55,8 +54,9 @@ class InputController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $transaction = Input::find($id);
-        if ($transaction) {
+        $transaction = $this->find($id);
+
+        if (!empty($transaction)) {
             $transaction->user_id = $request->user_id;
             $transaction->description = $request->description;
             $transaction->model = $request->model;
