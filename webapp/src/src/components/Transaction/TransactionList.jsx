@@ -3,10 +3,8 @@ import { Box, Card, CardActions, CardContent, Grid, List, Typography } from '@mu
 import TransactionListItem from './TransactionListItem';
 import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
-import { v4 as uuid } from 'uuid';
-
-//const apiUrl = 'http://3.88.14.53:8000/api/v1';
-const apiUrl = 'http://localhost:8000/api/v1';
+import { itemModel } from '../../models/ItemModel';
+import { deleteTransaction } from '../../actions/TransactionFormActions';
 
 export default function TransactionList({ transactions, model, sumTotalAmount, toggle }) {
 
@@ -15,9 +13,12 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
 
     function handleTransactions(transaction) {
         var modelTotal = 0;
-
         var newList = list;
-        if (transaction.amount === undefined || transaction.amount === '' || !transaction.amount) {
+        
+        if (transaction.amount === undefined || 
+            transaction.amount === '' || 
+            !transaction.amount
+        ) {
             transaction.amount = 0;
         }
 
@@ -43,39 +44,10 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
     }, [transactions]);
 
     const addItem = () => {
-        let item = {
-            _id: uuid(),
-            user_id: 1,
-            description: '',
-            model: model.name,
-            amount: 0,
-            paid_amount: 0,
-            notes: '',
-            categories: []
-        }
-
-        let newList = [...list, item];
-
-        setList(newList);
-    }
-
-    const deleteData = async (transactionId) => {
-        let uri = apiUrl + '/transaction/' + transactionId;
-        fetch(uri, {
-            method: 'DELETE',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/json' },
-        }).then((response) => response.json())
-            .then((data) => {
-
-            })
-            .catch((err) => {
-                console.log('Não foi possível deletar a transação | ', err.message);
-            });
+        setList([...list, itemModel(model.name)]);
     }
 
     const deleteListItem = (removedItemId) => {
-
         const filtered = list.filter((item) => {
             if (item._id !== removedItemId) {
                 return true;
@@ -87,10 +59,9 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
     }
 
     const handleListActions = (action, value) => {
-
         switch (action) {
             case "deleteItem":
-                deleteData(value);
+                deleteTransaction(value);
                 deleteListItem(value);
                 break;
             case 'add':
