@@ -5,7 +5,7 @@ MYSQL_PASSWORD ?= root
 #include Make.config
 
 install:
-	cp webapi/.env webapi/src/.env
+	cp webapi/src/.env.example webapi/src/.env
 	docker-compose build --no-cache
 	docker-compose up -d
 	docker-compose exec webapi composer update -vvv
