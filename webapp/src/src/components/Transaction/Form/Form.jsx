@@ -8,7 +8,7 @@ import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
-export default function TransactionForm({ childToParent, data, model }) {
+export default function TransactionForm({ childToParent, data, model, date }) {
 
   const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
@@ -84,8 +84,8 @@ export default function TransactionForm({ childToParent, data, model }) {
       'due_date': dueDate,
       'payment_date': paymentDate,
       'model': model.name,
-      'month': 1,
-      'year': 2024,
+      'month': parseInt(date.month),
+      'year': parseInt(date.year),
       'categories': categoryList
     }
     //sumTotalAmount(newList);

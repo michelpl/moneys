@@ -9,7 +9,7 @@ import TransactionAvatar from './TransactionAvatar'
 import dayjs from 'dayjs';
 import { NumericFormat } from 'react-number-format';
 
-export default function TransactionListItem({ handleListActions, transactionData, model, handleTotalAmount, handleTransactions }) {
+export default function TransactionListItem({ handleListActions, transactionData, model, handleTotalAmount, handleTransactions, date }) {
   const [transactionId] = useState(() => {
     if (transactionData._id !== undefined) {
       return transactionData._id;
@@ -216,7 +216,7 @@ export default function TransactionListItem({ handleListActions, transactionData
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Divider />
         <List component="div" disablePadding>
-          <TransactionForm childToParent={childToParent} data={transaction} model={model}></TransactionForm>
+          <TransactionForm childToParent={childToParent} data={ transaction } model={ model } date={ date }></TransactionForm>
         </List>
       </Collapse>
     </Paper >

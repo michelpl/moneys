@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
 import Totals from "../components/Totals";
 
-export default function BudgetControl({yearAndMonth}) {
+export default function BudgetControl({date}) {
   //const apiUrl = 'http://3.88.14.53:8000/api/v1';
   const apiUrl = 'http://localhost:8000/api/v1';
   const [userTransactions, setUserTransactions] = useState([]);
@@ -31,7 +31,7 @@ export default function BudgetControl({yearAndMonth}) {
   }
 
   useEffect(() => {
-    var uri = apiUrl + '/transaction/' + userSession.user_id + '/' + parseInt(yearAndMonth.year) + '/' + parseInt(yearAndMonth.month);
+    var uri = apiUrl + '/transaction/' + userSession.user_id + '/' + parseInt(date.year) + '/' + parseInt(date.month);
     fetch(uri)
       .then((response) => response.json())
       .then((data) => {
@@ -51,7 +51,13 @@ export default function BudgetControl({yearAndMonth}) {
           <Typography variant='H2'>Controle de orçamento mensal</Typography>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Entradas', name: 'budget' }} toggle={toggle} />
+          <TransactionList 
+            sumTotalAmount={sumTotalAmount} 
+            transactions={userTransactions} 
+            model={{ label: 'Entradas', name: 'budget' }} 
+            toggle={toggle} 
+            date={date}
+          />
         </Grid>
 
         <Grid xs={3}>
@@ -60,13 +66,19 @@ export default function BudgetControl({yearAndMonth}) {
             <CardContent>
               <ul>
                 <li>Próximos vencimentos</li>
-                <li>Transaçoões com vencimento atrasado</li>
+                <li>Transações com vencimento atrasado</li>
               </ul>
             </CardContent>
           </Card>
         </Grid>
         <Grid xs={12} sm={8}>
-          <TransactionList sumTotalAmount={sumTotalAmount} transactions={userTransactions} model={{ label: 'Saídas', name: 'expenses' }} toggle={toggle} />
+          <TransactionList 
+            sumTotalAmount={sumTotalAmount} 
+            transactions={userTransactions} 
+            model={{ label: 'Saídas', name: 'expenses' }} 
+            toggle={toggle} 
+            date={date}
+          />
           <Totals label={'Previsão de saldo no fim do mês'} total={totalAmount} />
         </Grid>
       </Grid>

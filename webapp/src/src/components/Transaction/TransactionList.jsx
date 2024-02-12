@@ -6,7 +6,7 @@ import TransactionActions from './TransactionActions';
 import { itemModel } from '../../models/ItemModel';
 import { deleteTransaction } from '../../actions/TransactionFormActions';
 
-export default function TransactionList({ transactions, model, sumTotalAmount, toggle }) {
+export default function TransactionList({ transactions, model, sumTotalAmount, toggle, date }) {
 
     const [list, setList] = React.useState([]);
     const [finalBudget, setFinalBudget] = React.useState(0);
@@ -114,6 +114,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                                                         transactionData={transaction}
                                                         model={model}
                                                         handleTransactions={handleTransactions}
+                                                        date={date}
                                                     />
                                                 )
                                             }
