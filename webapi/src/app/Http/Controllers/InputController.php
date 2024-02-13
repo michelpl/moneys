@@ -50,12 +50,12 @@ class InputController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $transaction = Input::where('_id', $id)->get();
+        $found = Input::where('_id', $id);
         
-        if ($transaction->count() == 0) {
+        if ($found->count() == 0) {
             return $this->create($request);
         }
-        
+        $transaction = $found->first();
         $transaction->user_id = $request->user_id;
         $transaction->description = $request->description;
         $transaction->model = $request->model;

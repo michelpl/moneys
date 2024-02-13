@@ -60,7 +60,6 @@ export default function TransactionListItem({ handleListActions, transactionData
   }
 
   const childToParent = (input, value) => {
-
     if (transaction[input] != undefined) {
       let updatedTransaction = transaction;
       updatedTransaction[input] = value;
