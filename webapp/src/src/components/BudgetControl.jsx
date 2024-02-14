@@ -4,7 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
 import Totals from "../components/Totals";
-import { sumTransactionTotalAmount } from "../actions/HandleTransactions";
+import { updateTransactionList as getNewList } from "../actions/HandleTransactions";
 
 export default function BudgetControl({ date }) {
   const apiUrl = 'http://localhost:8000/api/v1';
@@ -14,21 +14,7 @@ export default function BudgetControl({ date }) {
   const userSession = { user_id: 1 };
 
   const updateTransactionList = (transactions) => {
-    var newList  = userTransactions;
-    
-    transactions.map((transaction, order) => {
-
-      var index = userTransactions.findIndex(obj => {
-        return obj._id === transaction._id;
-      });
-      if (index != -1) {
-        newList[index] = transaction;
-        return;
-      }
-      newList.push(transaction);
-    });
-    console.log(newList);
-
+    var newList = getNewList(userTransactions, transactions);
     setUserTransactions(newList);
     sumTotalAmount(newList);
   }

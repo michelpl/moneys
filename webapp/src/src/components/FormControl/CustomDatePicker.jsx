@@ -14,7 +14,7 @@ export default function CustomDatePicker({ setDate, setParentState, id, initialV
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={locale}>
       <DatePicker 
         label={label} 
-        defaultValue={(value != null) ? dayjs(value) : value}
+        defaultValue={(value !== null) ? dayjs(value) : value}
         onChange={(value) =>{
           if (value !== null && value.$d !== undefined && value.$d !== null) {
             setValue(value.$d.toString());

@@ -21,7 +21,7 @@ export default function TransactionForm({ childToParent, data, model, date }) {
   const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
 
   const handleNotesInitialValue = (data) => {
-    if (data != undefined && data.notes != undefined && data.notes != null) {
+    if (data !== undefined && data.notes !== undefined && data.notes !== null) {
       return data.notes.toString();
     }
     return '';
@@ -125,7 +125,7 @@ export default function TransactionForm({ childToParent, data, model, date }) {
                 fullWidth
                 value={description === null ? '' : description}
                 onChange={(event) => {
-                  if (event.target.value != undefined && event.target.value != null) {
+                  if (event.target.value !== undefined && event.target.value !== null) {
                     setDescription(event.target.value);
                     childToParent('description', event.target.value);
                   }

@@ -5,6 +5,7 @@ import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
 import { itemModel } from '../../models/ItemModel';
 import { deleteTransaction } from '../../actions/TransactionFormActions';
+import { sumTotalAmount as BudgetTotalAmount } from '../../actions/HandleTransactions';
 
 export default function TransactionList({ transactions, model, sumTotalAmount, toggle, date }) {
 
@@ -31,7 +32,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                 return;
             }
         });
-
+        console.log(modelTotal);
         setList(newList);
         setFinalBudget(modelTotal);
         sumTotalAmount(newList);
@@ -40,6 +41,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
     React.useEffect(() => {
         if (transactions.length > 0) {
             setList(transactions);
+            setFinalBudget(BudgetTotalAmount(transactions, model));
         }
     }, [transactions]);
 

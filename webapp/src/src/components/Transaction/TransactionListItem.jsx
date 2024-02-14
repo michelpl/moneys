@@ -17,13 +17,13 @@ export default function TransactionListItem({ handleListActions, transactionData
     return '';
   });
 
-  const [transaction, setTransaction] = useState(transactionData);
+  const [transaction] = useState(transactionData);
   const [description, setDescription] = useState(transactionData.description);
   const [amount, setAmount] = useState(parseFloat(transactionData.amount).toFixed(2));
   const [paidAmount, setPaidAmount] = useState((transactionData.paid_amount));
-  const [paymentDate, setPaymentDate] = useState(transactionData.payment_date);
-  const [dueDate, setDueDate] = useState(transactionData.due_date);
-  const [categories, setCategories] = useState(transactionData.categories);
+  const [paymentDate] = useState(transactionData.payment_date);
+  const [dueDate] = useState(transactionData.due_date);
+  const [categories] = useState(transactionData.categories);
 
   const sumCurrentAmount = () => {
     if (
@@ -60,7 +60,7 @@ export default function TransactionListItem({ handleListActions, transactionData
   }
 
   const childToParent = (input, value) => {
-    if (transaction[input] != undefined) {
+    if (transaction[input] !== undefined) {
       let updatedTransaction = transaction;
       updatedTransaction[input] = value;
       handleTransactions(updatedTransaction);
