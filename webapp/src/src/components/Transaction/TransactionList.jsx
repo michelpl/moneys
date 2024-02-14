@@ -32,7 +32,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                 return;
             }
         });
-        console.log(modelTotal);
         setList(newList);
         setFinalBudget(modelTotal);
         sumTotalAmount(newList);
@@ -123,10 +122,8 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                                         })
                                     }
                                 </>
-
                             </List>
                         </Grid>
-
                     </CardContent>
                     <CardActions sx={{ padding: 2 }}>
                         <TransactionActions model={model} finalBudget={finalBudget} handleListActions={ handleListActions } />

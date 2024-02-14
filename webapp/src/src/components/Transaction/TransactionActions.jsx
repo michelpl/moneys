@@ -18,7 +18,6 @@ export default function TransactionActions({ handleListActions, model, finalBudg
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} padding={2}>
-                <>{model.name}</>
                 <Grid
                     xs={12}
                     container

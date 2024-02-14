@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
 import Totals from "../components/Totals";
 import { updateTransactionList as getNewList, sumTotalAmountByModel } from "../actions/HandleTransactions";
+import { budgetControlModelList } from "../models/BudgetControlModelList";
 
 export default function BudgetControl({ date }) {
   const apiUrl = 'http://localhost:8000/api/v1';
@@ -45,25 +46,26 @@ export default function BudgetControl({ date }) {
           <Typography variant='H2'>Controle de orçamento mensal</Typography>
         </Grid>
         <Grid container xs={12} sm={9}>
-          <Grid xs={12}>
-            <TransactionList
-              sumTotalAmount={updateTransactionList}
-              transactions={userTransactions}
-              model={{ label: 'Entradas', name: 'budget' }}
-              toggle={toggle}
-              date={date}
-            />
-          </Grid>
-
-          <Grid xs={12}>
-            <TransactionList
-              sumTotalAmount={updateTransactionList}
-              transactions={userTransactions}
-              model={{ label: 'Saídas', name: 'expenses' }}
-              toggle={toggle}
-              date={date}
-            />
-          </Grid>
+          
+          <>
+            {
+              budgetControlModelList.map((model, order) => {
+                if (true) {
+                  return (
+                    <Grid xs={12} key={ model.name }>
+                      <TransactionList
+                        sumTotalAmount={updateTransactionList}
+                        transactions={userTransactions}
+                        model={ model }
+                        toggle={toggle}
+                        date={date}
+                      />
+                    </Grid>
+                  )
+                }
+              })
+            }
+          </>
           <Grid xs={12}>
             <Totals label={'Previsão de saldo no fim do mês'} total={totalAmount} />
           </Grid>
@@ -79,7 +81,7 @@ export default function BudgetControl({ date }) {
             </CardContent>
           </Card>
         </Grid>
-        
+
       </Grid>
     </Box >
   );

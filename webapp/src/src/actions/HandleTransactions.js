@@ -32,7 +32,6 @@ export const sumModelAmount = (transactionList, model) => {
         if (model.name === transaction.model) {
             amount += transaction.amount;
         }
-        // console.log((transaction.amount * found[0].operation));
     });
 
     return amount;
@@ -59,6 +58,5 @@ export const sumTotalAmountByModel = (transactionList) => {
 
         amount = amount + (transaction.amount * found[0].operation);
     });
-    console.log(amount);
     return amount;
 }
