@@ -4,7 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import TransactionList from '../components/Transaction/TransactionList';
 import Totals from "../components/Totals";
-import { updateTransactionList as getNewList } from "../actions/HandleTransactions";
+import { updateTransactionList as getNewList, sumTotalAmountByModel } from "../actions/HandleTransactions";
 
 export default function BudgetControl({ date }) {
   const apiUrl = 'http://localhost:8000/api/v1';
@@ -20,19 +20,7 @@ export default function BudgetControl({ date }) {
   }
 
   const sumTotalAmount = (transactionList) => {
-    var amount = 0
-    transactionList.map((transaction) => {
-      if (transaction.amount === undefined || transaction.amount === '' || !transaction.amount) {
-        transaction.amount = 0;
-      }
-      if (transaction.model === 'budget') {
-        amount += parseFloat(transaction.amount);
-      }
-      if (transaction.model === 'expenses') {
-        amount -= parseFloat(transaction.amount);
-      }
-    });
-    setTotalAmount(amount);
+    setTotalAmount(sumTotalAmountByModel(transactionList));
   }
 
   useEffect(() => {
@@ -43,6 +31,7 @@ export default function BudgetControl({ date }) {
         setToggle(false);
         setUserTransactions(data);
         sumTotalAmount(data);
+        sumTotalAmountByModel(data)
       })
       .catch((err) => {
         console.log(err.message);

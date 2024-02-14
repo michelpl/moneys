@@ -1,4 +1,4 @@
-import { budgetControlModelList as models } from "../models/BudgetControlModelList";
+import { budgetControlModelList as modelList } from "../models/BudgetControlModelList";
 
 export const updateTransactionList = (currentTransactions, newTransactions) => {
     var newList = currentTransactions;
@@ -18,7 +18,7 @@ export const updateTransactionList = (currentTransactions, newTransactions) => {
 
 }
 
-export const sumTotalAmount = (transactionList, model) => {
+export const sumModelAmount = (transactionList, model) => {
     var amount = 0
     
     transactionList.map((transaction,) => {
@@ -35,5 +35,30 @@ export const sumTotalAmount = (transactionList, model) => {
         // console.log((transaction.amount * found[0].operation));
     });
 
+    return amount;
+}
+
+export const sumTotalAmountByModel = (transactionList) => {
+    var amount = 0
+    
+    transactionList.map((transaction) => {
+        if (
+            transaction.amount === undefined ||
+            transaction.amount === '' ||
+            !transaction.amount
+        ) {
+            transaction.amount = 0;
+        }
+        
+        const found = modelList.filter((model) => {
+            if (model.name === transaction.model) {
+                return true;
+            }
+            return false;
+        });
+
+        amount = amount + (transaction.amount * found[0].operation);
+    });
+    console.log(amount);
     return amount;
 }
