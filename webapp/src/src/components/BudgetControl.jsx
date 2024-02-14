@@ -13,18 +13,40 @@ export default function BudgetControl({ date }) {
   const [totalAmount, setTotalAmount] = useState(0);
   const userSession = { user_id: 1 };
 
-  const updateUserTransactions = (newTransactions) => {
+  const updateTransactionList = (transactions) => {
+    var newList  = userTransactions;
     
-    setUserTransactions([...userTransactions, newTransactions])
+    transactions.map((transaction, order) => {
+
+      var index = userTransactions.findIndex(obj => {
+        return obj._id === transaction._id;
+      });
+      if (index != -1) {
+        newList[index] = transaction;
+        return;
+      }
+      newList.push(transaction);
+    });
+    console.log(newList);
+
+    setUserTransactions(newList);
+    sumTotalAmount(newList);
   }
 
-  const sumTotalAmount = (newTransactions) => {
-    var newList = userTransactions.concat(newTransactions);
-    //newList.filter(n => n);
-    setUserTransactions(newList)
-    console.log(userTransactions);
-    //setUserTransactions([...userTransactions, newTransactions])
-    //setTotalAmount(sumTransactionTotalAmount(userTransactions));
+  const sumTotalAmount = (transactionList) => {
+    var amount = 0
+    transactionList.map((transaction) => {
+      if (transaction.amount === undefined || transaction.amount === '' || !transaction.amount) {
+        transaction.amount = 0;
+      }
+      if (transaction.model === 'budget') {
+        amount += parseFloat(transaction.amount);
+      }
+      if (transaction.model === 'expenses') {
+        amount -= parseFloat(transaction.amount);
+      }
+    });
+    setTotalAmount(amount);
   }
 
   useEffect(() => {
@@ -50,7 +72,7 @@ export default function BudgetControl({ date }) {
         <Grid container xs={12} sm={9}>
           <Grid xs={12}>
             <TransactionList
-              sumTotalAmount={sumTotalAmount}
+              sumTotalAmount={updateTransactionList}
               transactions={userTransactions}
               model={{ label: 'Entradas', name: 'budget' }}
               toggle={toggle}
@@ -60,7 +82,7 @@ export default function BudgetControl({ date }) {
 
           <Grid xs={12}>
             <TransactionList
-              sumTotalAmount={sumTotalAmount}
+              sumTotalAmount={updateTransactionList}
               transactions={userTransactions}
               model={{ label: 'Saídas', name: 'expenses' }}
               toggle={toggle}
