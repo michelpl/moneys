@@ -123,10 +123,13 @@ export default function TransactionForm({ childToParent, data, model, date }) {
                 id="outlined-controlled"
                 label="Descrição"
                 fullWidth
-                value={description}
+                value={description === null ? '' : description}
                 onChange={(event) => {
-                  setDescription(event.target.value);
-                  childToParent('description', event.target.value);
+                  if (event.target.value != undefined && event.target.value != null) {
+                    setDescription(event.target.value);
+                    childToParent('description', event.target.value);
+                  }
+                  
                 }}
               />
             </Grid>
