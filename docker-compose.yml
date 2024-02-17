@@ -12,7 +12,7 @@ services:
     volumes:
       - ./mongodata:/data/db
     ports:
-      - "2707:2707"
+      - "27017:27017"
   webapp:
     container_name: webapp
     build: ./webapp

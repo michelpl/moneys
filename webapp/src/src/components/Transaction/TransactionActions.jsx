@@ -38,7 +38,7 @@ export default function TransactionActions({ handleListActions, model, finalBudg
                             renderText={(value) => <Typography variant='h5'>Total de {model.label.toLowerCase()} {value}</Typography>}
                         />
                     </Grid>
-                    <Grid container columnSpacing={1} xs={12} sm={2} sx={{ order: { xs: 12, sm: 2 } }}>
+                    <Grid container columnSpacing={1} xs={12} sm={3} lg={2} sx={{ order: { xs: 12, sm: 2 } }}>
                         <Button
                             name='add'
                             fullWidth={true}

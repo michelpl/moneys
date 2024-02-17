@@ -8,7 +8,7 @@ import MoneyTextField from '../../FormControl/MoneyTextField';
 import CustomDatePicker from '../../FormControl/CustomDatePicker';
 import CategorySelector from '../../FormControl/CategorySelector';
 
-export default function TransactionForm({ childToParent, data, model }) {
+export default function TransactionForm({ childToParent, data, model, date }) {
 
   const [transactionId, setTransactionId] = useState(data._id);
   const [description, setDescription] = useState(data.description);
@@ -21,7 +21,7 @@ export default function TransactionForm({ childToParent, data, model }) {
   const [totalInstallmentsNumber, setTotalInstallmentsNumber] = useState(data.total_installments);
 
   const handleNotesInitialValue = (data) => {
-    if (data != undefined && data.notes != undefined && data.notes != null) {
+    if (data !== undefined && data.notes !== undefined && data.notes !== null) {
       return data.notes.toString();
     }
     return '';
@@ -84,8 +84,8 @@ export default function TransactionForm({ childToParent, data, model }) {
       'due_date': dueDate,
       'payment_date': paymentDate,
       'model': model.name,
-      'month': 1,
-      'year': 2024,
+      'month': parseInt(date.month),
+      'year': parseInt(date.year),
       'categories': categoryList
     }
     //sumTotalAmount(newList);
@@ -123,10 +123,13 @@ export default function TransactionForm({ childToParent, data, model }) {
                 id="outlined-controlled"
                 label="Descrição"
                 fullWidth
-                value={description}
+                value={description === null ? '' : description}
                 onChange={(event) => {
-                  setDescription(event.target.value);
-                  childToParent('description', event.target.value);
+                  if (event.target.value !== undefined && event.target.value !== null) {
+                    setDescription(event.target.value);
+                    childToParent('description', event.target.value);
+                  }
+                  
                 }}
               />
             </Grid>

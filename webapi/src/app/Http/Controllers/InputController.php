@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Input;
-use App\Models\Transaction;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response as HttpResponse;
 
 class InputController extends Controller
@@ -54,26 +50,27 @@ class InputController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $transaction = $this->find($id);
-
-        if (!empty($transaction)) {
-            $transaction->user_id = $request->user_id;
-            $transaction->description = $request->description;
-            $transaction->model = $request->model;
-            $transaction->month = $request->month;
-            $transaction->year = $request->year;
-            $transaction->amount = $request->amount;
-            $transaction->paid_amount = $request->paid_amount;
-            $transaction->due_date = $request->due_date;
-            $transaction->payment_date = $request->payment_date;
-            $transaction->notes = $request->notes;
-            $transaction->value_type = 'flat';
-            $transaction->categories = $request->categories;
-            $transaction->save();
-            
-            return response('', HttpResponse::HTTP_OK);
+        $found = Input::where('_id', $id);
+        
+        if ($found->count() == 0) {
+            return $this->create($request);
         }
-        $this->create($request);
+        $transaction = $found->first();
+        $transaction->user_id = $request->user_id;
+        $transaction->description = $request->description;
+        $transaction->model = $request->model;
+        $transaction->month = $request->month;
+        $transaction->year = $request->year;
+        $transaction->amount = $request->amount;
+        $transaction->paid_amount = $request->paid_amount;
+        $transaction->due_date = $request->due_date;
+        $transaction->payment_date = $request->payment_date;
+        $transaction->notes = $request->notes;
+        $transaction->value_type = 'flat';
+        $transaction->categories = $request->categories;
+        $transaction->save();
+        
+        return response('', HttpResponse::HTTP_OK);
     }
 
     /**

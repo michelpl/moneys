@@ -9,6 +9,7 @@ export function itemModel(modelName) {
         amount: 0,
         paid_amount: 0,
         notes: '',
-        categories: []
+        categories: [],
+        operation: 'sum'
     }
 }

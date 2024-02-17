@@ -11,6 +11,6 @@ export default function MonthlyBudgetControl() {
   }
 
   return (
-    <BudgetControl yearAndMonth={GetYearAndMonth()} />
+    <BudgetControl date={ GetYearAndMonth() } />
   );
 }

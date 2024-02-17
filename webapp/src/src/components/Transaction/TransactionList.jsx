@@ -5,8 +5,9 @@ import TransactionListItemSkeleton from './TransactionListItemSkeleton';
 import TransactionActions from './TransactionActions';
 import { itemModel } from '../../models/ItemModel';
 import { deleteTransaction } from '../../actions/TransactionFormActions';
+import { sumModelAmount } from '../../actions/HandleTransactions';
 
-export default function TransactionList({ transactions, model, sumTotalAmount, toggle }) {
+export default function TransactionList({ transactions, model, sumTotalAmount, toggle, date }) {
 
     const [list, setList] = React.useState([]);
     const [finalBudget, setFinalBudget] = React.useState(0);
@@ -31,7 +32,6 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                 return;
             }
         });
-
         setList(newList);
         setFinalBudget(modelTotal);
         sumTotalAmount(newList);
@@ -40,6 +40,7 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
     React.useEffect(() => {
         if (transactions.length > 0) {
             setList(transactions);
+            setFinalBudget(sumModelAmount(transactions, model));
         }
     }, [transactions]);
 
@@ -114,16 +115,15 @@ export default function TransactionList({ transactions, model, sumTotalAmount, t
                                                         transactionData={transaction}
                                                         model={model}
                                                         handleTransactions={handleTransactions}
+                                                        date={date}
                                                     />
                                                 )
                                             }
                                         })
                                     }
                                 </>
-
                             </List>
                         </Grid>
-
                     </CardContent>
                     <CardActions sx={{ padding: 2 }}>
                         <TransactionActions model={model} finalBudget={finalBudget} handleListActions={ handleListActions } />
