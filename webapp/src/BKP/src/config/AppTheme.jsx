@@ -37,7 +37,7 @@ export default function AppTheme() {
               secondary: '#f95e5e'
             },
             gray: {
-              primary: '#666'
+              primary: '#4B5ACE'
             },
             green: {
               500: '#50D1B2',
