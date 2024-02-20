@@ -24,7 +24,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
+import ArgonBox from "components/Argon/ArgonBox";
 
 // Custom styles for the sidenavItem
 import { item, itemIcon, itemText, itemIconBox } from "examples/Sidenav/styles/sidenavItem";

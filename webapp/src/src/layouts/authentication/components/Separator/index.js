@@ -17,8 +17,8 @@ Coded by www.creative-tim.com
 import Divider from "@mui/material/Divider";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 function Separator() {
   return (

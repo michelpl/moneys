@@ -20,8 +20,8 @@ import PropTypes from "prop-types";
 import TableCell from "@mui/material/TableCell";
 
 // Argon Dashboard 2 MUI components
-import ArgonTypography from "components/ArgonTypography";
-import ArgonBox from "components/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
 
 function SalesTableCell({ title, content, image, noBorder, ...rest }) {
   let template;

@@ -25,8 +25,8 @@ import { Pie } from "react-chartjs-2";
 import Card from "@mui/material/Card";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 // PieChart configurations
 import configs from "examples/Charts/PieChart/configs";

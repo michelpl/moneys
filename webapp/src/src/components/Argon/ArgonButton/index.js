@@ -19,7 +19,7 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 // Custom styles for ArgonButton
-import ArgonButtonRoot from "components/ArgonButton/ArgonButtonRoot";
+import ArgonButtonRoot from "components/Argon/ArgonButton/ArgonButtonRoot";
 
 const ArgonButton = forwardRef(
   ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => (

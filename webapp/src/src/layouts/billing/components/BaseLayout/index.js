@@ -25,7 +25,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
+import ArgonBox from "components/Argon/ArgonBox";
 
 // Argon Dashboard 2 MUI base styles
 import breakpoints from "assets/theme/base/breakpoints";

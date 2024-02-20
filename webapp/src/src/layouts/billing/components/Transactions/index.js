@@ -19,9 +19,9 @@ import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-// import ArgonButton from "components/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+// import ArgonButton from "components/Argon/ArgonButton";
 
 // Billing page components
 import Transaction from "layouts/billing/components/Transaction";

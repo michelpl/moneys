@@ -20,9 +20,9 @@ import PropTypes from "prop-types";
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonButton from "components/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonButton from "components/Argon/ArgonButton";
 
 // Argon Dashboard 2 MUI contexts
 import { useArgonController } from "context";

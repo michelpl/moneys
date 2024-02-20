@@ -22,7 +22,7 @@ import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
+import ArgonBox from "components/Argon/ArgonBox";
 
 // Argon Dashboard 2 MUI context
 import { useArgonController, setLayout } from "context";

@@ -17,9 +17,9 @@ Coded by www.creative-tim.com
 import Card from "@mui/material/Card";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonButton from "components/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonButton from "components/Argon/ArgonButton";
 
 // Billing page components
 import Invoice from "layouts/billing/components/Invoice";

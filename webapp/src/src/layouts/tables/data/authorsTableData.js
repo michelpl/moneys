@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonAvatar from "components/ArgonAvatar";
-import ArgonBadge from "components/ArgonBadge";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonAvatar from "components/Argon/ArgonAvatar";
+import ArgonBadge from "components/Argon/ArgonBadge";
 
 // Images
 import team2 from "assets/images/team-2.jpg";

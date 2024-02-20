@@ -46,13 +46,13 @@ const colors = {
   },
 
   primary: {
-    main: "#7351D9",
-    focus: "#7351D9",
+    main: "#825EE4",
+    focus: "#825EE4",
   },
 
   secondary: {
-    main: "#6D6ED5",
-    focus: "#8392ab",
+    main: "#2F3037",
+    focus: "#2F3037",
   },
 
   contrast: {
@@ -104,8 +104,8 @@ const colors = {
 
   gradients: {
     primary: {
-      main: "#5e72e4",
-      state: "#825ee4",
+      main: "#825EE4",
+      state: "#5E72E4",
     },
 
     secondary: {

@@ -22,11 +22,11 @@ import PropTypes from "prop-types";
 import Fade from "@mui/material/Fade";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
+import ArgonBox from "components/Argon/ArgonBox";
 
 // Custom styles for the ArgonAlert
-import ArgonAlertRoot from "components/ArgonAlert/ArgonAlertRoot";
-import ArgonAlertCloseIcon from "components/ArgonAlert/ArgonAlertCloseIcon";
+import ArgonAlertRoot from "components/Argon/ArgonAlert/ArgonAlertRoot";
+import ArgonAlertCloseIcon from "components/Argon/ArgonAlert/ArgonAlertCloseIcon";
 
 function ArgonAlert({ color, dismissible, children, ...rest }) {
   const [alertStatus, setAlertStatus] = useState("mount");

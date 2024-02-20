@@ -19,10 +19,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonAvatar from "components/ArgonAvatar";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonButton from "components/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonAvatar from "components/Argon/ArgonAvatar";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonButton from "components/Argon/ArgonButton";
 
 // Argon Dashboard 2 MUI base styles
 import typography from "assets/theme/base/typography";

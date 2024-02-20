@@ -19,7 +19,7 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 // Custom styles for ArgonTypography
-import ArgonTypographyRoot from "components/ArgonTypography/ArgonTypographyRoot";
+import ArgonTypographyRoot from "components/Argon/ArgonTypography/ArgonTypographyRoot";
 
 // Argon Dashboard 2 MUI context
 import { useArgonController } from "context";

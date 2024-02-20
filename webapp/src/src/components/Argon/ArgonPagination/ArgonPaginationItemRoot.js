@@ -17,7 +17,7 @@ Coded by www.creative-tim.com
 import { styled } from "@mui/material/styles";
 
 // Argon Dashboard 2 MUI components
-import ArgonButton from "components/ArgonButton";
+import ArgonButton from "components/Argon/ArgonButton";
 
 export default styled(ArgonButton)(({ theme, ownerState }) => {
   const { borders, functions, typography, palette } = theme;

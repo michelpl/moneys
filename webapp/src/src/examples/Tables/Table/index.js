@@ -28,9 +28,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonAvatar from "components/ArgonAvatar";
-import ArgonTypography from "components/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonAvatar from "components/Argon/ArgonAvatar";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 // Argon Dashboard 2 MUI base styles
 import typography from "assets/theme/base/typography";

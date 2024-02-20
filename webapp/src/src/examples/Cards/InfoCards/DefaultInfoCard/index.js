@@ -22,8 +22,8 @@ import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 function DefaultInfoCard({ color, icon, title, description, value }) {
   return (

@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 
 // Argon Dashboard 2 MUI components
-import ArgonTypography from "components/ArgonTypography";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 const categoriesListData = [
   {

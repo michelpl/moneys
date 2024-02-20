@@ -14,8 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // Argon Dashboard 2 MUI components
-import ArgonButton from "components/ArgonButton";
-import ArgonBox from "components/ArgonBox";
+import ArgonButton from "components/Argon/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
 
 function Socials() {
   return (

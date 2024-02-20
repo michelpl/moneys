@@ -3,9 +3,9 @@
 import Icon from "@mui/material/Icon";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonProgress from "components/ArgonProgress";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonProgress from "components/Argon/ArgonProgress";
 
 // Images
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";

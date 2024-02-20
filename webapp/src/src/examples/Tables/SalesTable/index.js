@@ -26,8 +26,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
 // Argon Dashboard 2 MUI components
-import ArgonTypography from "components/ArgonTypography";
-import ArgonBox from "components/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
 
 // Argon Dashboard 2 MUI example components
 import SalesTableCell from "examples/Tables/SalesTable/SalesTableCell";

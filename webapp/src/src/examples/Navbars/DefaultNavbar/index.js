@@ -27,9 +27,9 @@ import Icon from "@mui/material/Icon";
 import Container from "@mui/material/Container";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonButton from "components/ArgonButton";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonButton from "components/Argon/ArgonButton";
 
 // Argon Dashboard 2 MUI examples components
 import DefaultNavbarLink from "examples/Navbars/DefaultNavbar/DefaultNavbarLink";

@@ -19,10 +19,10 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 // Argon Dashboard 2 MUI components
-import ArgonTypography from "components/ArgonTypography";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 // Custom styles for ArgonProgress
-import ArgonProgressRoot from "components/ArgonProgress/ArgonProgressRoot";
+import ArgonProgressRoot from "components/Argon/ArgonProgress/ArgonProgressRoot";
 
 const ArgonProgress = forwardRef(({ variant, color, value, label, ...rest }, ref) => (
   <>

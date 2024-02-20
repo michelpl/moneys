@@ -20,8 +20,8 @@ import CountUp from "react-countup";
 import PropTypes from "prop-types";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
 
 // Argon Dashboard 2 MUI base styles
 import colors from "assets/theme/base/colors";

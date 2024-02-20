@@ -23,9 +23,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 // Argon Dashboard 2 MUI components
-import ArgonBox from "components/ArgonBox";
-import ArgonTypography from "components/ArgonTypography";
-import ArgonAvatar from "components/ArgonAvatar";
+import ArgonBox from "components/Argon/ArgonBox";
+import ArgonTypography from "components/Argon/ArgonTypography";
+import ArgonAvatar from "components/Argon/ArgonAvatar";
 
 // Argon Dashboard 2 MUI example components
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
