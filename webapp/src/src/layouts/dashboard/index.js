@@ -46,7 +46,7 @@ function Default() {
   const { size } = typography;
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DashboardNavbar pageTitle={'Título da página'} />
       <ArgonBox py={3}>
         <Grid container spacing={3} mb={3}>
           <Grid item xs={12} md={6} lg={3}>

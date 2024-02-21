@@ -59,7 +59,7 @@ import {
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 
-function DashboardNavbar({ absolute, light, isMini }) {
+function DashboardNavbar({ absolute, light, isMini, pageTitle }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useArgonController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
@@ -150,7 +150,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         >
           <Breadcrumbs
             icon="home"
-            title={route[route.length - 1]}
+            title={pageTitle}
             route={route}
             light={transparentNavbar ? light : false}
           />
@@ -230,6 +230,7 @@ DashboardNavbar.defaultProps = {
   absolute: false,
   light: true,
   isMini: false,
+  pageTitle: 'Moneys'
 };
 
 // Typechecking props for the DashboardNavbar
@@ -237,6 +238,7 @@ DashboardNavbar.propTypes = {
   absolute: PropTypes.bool,
   light: PropTypes.bool,
   isMini: PropTypes.bool,
+  pageTitle: PropTypes.string,
 };
 
 export default DashboardNavbar;

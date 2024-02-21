@@ -57,6 +57,14 @@ const routes = [
   },
   {
     type: "route",
+    name: "Orçammento mensal",
+    key: "orcamento",
+    route: "/orcamento",
+    icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-tv-2" />,
+    component: <Dashboard />,
+  },
+  {
+    type: "route",
     name: "Tables",
     key: "tables",
     route: "/tables",
