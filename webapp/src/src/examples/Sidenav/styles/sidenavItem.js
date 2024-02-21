@@ -13,6 +13,9 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+
+import linearGradient from "assets/theme/functions/linearGradient"
+
 function item(theme, ownerState) {
   const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
   const { active, darkSidenav, sidenavColor, miniSidenav } = ownerState;
@@ -23,9 +26,6 @@ function item(theme, ownerState) {
   const { pxToRem, rgba } = functions;
 
   return {
-    background: active
-      ? rgba(palette[sidenavColor ?? "info"].main, sidenavColor ? 1 : 0.1)
-      : transparent.main,
     color: () => {
       let result = text.main;
 
@@ -36,6 +36,15 @@ function item(theme, ownerState) {
       }
 
       return result;
+    },
+    background: () => {
+      if (active) {
+        return linearGradient(
+          palette["gradients"].primary.main, 
+          palette["gradients"].primary.state, 
+          palette["gradients"].primary.angle
+        );
+      }
     },
     display: miniSidenav ? "block" : "flex",
     alignItems: "center",

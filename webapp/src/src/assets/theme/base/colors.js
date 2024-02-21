@@ -106,11 +106,13 @@ const colors = {
     primary: {
       main: "#825EE4",
       state: "#5E72E4",
+      angle: "115"
     },
 
     secondary: {
-      main: "#627594",
-      state: "#a8b8d8",
+      main: "#2f3037",
+      state: "#67676a",
+      angle: "145"
     },
 
     info: {
