@@ -15,8 +15,8 @@ import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import logoWebDev from "assets/images/small-logos/logo-webdev.svg";
 import logoXD from "assets/images/small-logos/logo-xd.svg";
 import Checkbox from '@mui/material/Checkbox';
-import MoneyTextField from "components/Form/MoneyTextField";
 import { TextField } from "@mui/material";
+import UnderlineTextField from "components/Form/UnderlineTextField";
 
 function Completion({ value, color }) {
   return (
@@ -42,8 +42,77 @@ const checkbox = (
 );
 
 const moneyTextField = (
-  < MoneyTextField />
+ <></>
 );
+
+// const TransactionsTable = {
+//   columns: [
+//     { name: "checkbox", label: checkbox, align: "center" },
+//     { name: "description", label: "Descrição", align: "left" },
+//     { name: "amount", label: "Valor", align: "left", type: 'input' },
+//     { name: "installment", label: "Parcela", align: "left", type: 'input'},
+//     { name: "due_date", label: "Vencimento", align: "left", type: 'input' },
+//     { name: "payment_date", label: "Data pagamento", align: "left", type: 'input' },
+//     { name: "actions", label: "", align: "center" },
+//   ],
+
+//   rows: [
+//     {
+//       checkbox,
+//       description: [logoSpotify, "Spotift"],
+//       amount: moneyTextField,
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//     {
+//       checkbox,
+//       description: [logoInvesion, "Invesion"],
+//       amount: 'R$3333,55',
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//     {
+//       checkbox,
+//       description: [logoJira, "Jira"],
+//       amount: '1034.99',
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//     {
+//       checkbox,
+//       description: [logoSlack, "Slack"],
+//       amount: '1034.99',
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//     {
+//       checkbox,
+//       description: [logoWebDev, "Webdev"],
+//       amount: '1034.99',
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//     {
+//       checkbox,
+//       description: [logoXD, "Adobe XD"],
+//       amount: '1034.99',
+//       installment:'working',
+//       due_date: "info",
+//       payment_date: "R$2,500",
+//       actions,
+//     },
+//   ],
+// };
 
 const TransactionsTable = {
   columns: [
@@ -59,59 +128,16 @@ const TransactionsTable = {
   rows: [
     {
       checkbox,
-      description: [logoSpotify, "Spotift"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
+      description: <UnderlineTextField value={''} />,
+      amount: <UnderlineTextField value={''} />,
+      installment: <UnderlineTextField value={''} />,
+      due_date: <UnderlineTextField value={''} />,
+      payment_date: <UnderlineTextField value={''} />,
       actions,
     },
-    {
-      checkbox,
-      description: [logoInvesion, "Invesion"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
-      actions,
-    },
-    {
-      checkbox,
-      description: [logoJira, "Jira"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
-      actions,
-    },
-    {
-      checkbox,
-      description: [logoSlack, "Slack"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
-      actions,
-    },
-    {
-      checkbox,
-      description: [logoWebDev, "Webdev"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
-      actions,
-    },
-    {
-      checkbox,
-      description: [logoXD, "Adobe XD"],
-      amount: '1034.99',
-      installment:'working',
-      due_date: "info",
-      payment_date: "R$2,500",
-      actions,
-    },
+    
   ],
 };
+
 
 export default TransactionsTable;

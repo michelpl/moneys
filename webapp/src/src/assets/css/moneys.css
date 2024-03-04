@@ -1,0 +1,7 @@
+.underlineTextField.Mui-focused {
+    border-bottom: 0.15rem solid #825EE4!important;
+}
+
+.underlineTextField:first-child {
+    padding-left: 2px;
+}

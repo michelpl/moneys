@@ -54,6 +54,7 @@ import brandDark from "assets/images/logo-ct-dark.png";
 // Icon Fonts
 import "assets/css/nucleo-icons.css";
 import "assets/css/nucleo-svg.css";
+import "assets/css/moneys.css"
 
 export default function App() {
   const [controller, dispatch] = useArgonController();

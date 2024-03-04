@@ -22,7 +22,7 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 // @mui material components
-import { Table as MuiTable, TextField } from "@mui/material";
+import { Box, Table as MuiTable, TextField } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -81,7 +81,7 @@ function Table({ columns, rows }) {
 
     const tableRow = columns.map(({ name, align, type }) => {
       let template;
-      console.log(type);
+
       if (Array.isArray(row[name])) {
         template = (
           <ArgonBox
@@ -128,23 +128,23 @@ function Table({ columns, rows }) {
         );
       }
 
-      if (type != undefined && type === 'input') {
-        template = (
-          <ArgonBox
-            key={uuidv4()}
-            component="td"
-            p={0}
-            textAlign={align}
-            lineHeight={0.65}
-            sx={({ palette: { light } }) => ({
-              borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
-            })}
-          >
-            <TextField variant="outlined" defaultValue={row[name]} sx={{padding: 0, maxWidth: '150px'}}/>
-          </ArgonBox>
+      // if (type != undefined && type === 'input') {
+      //   template = (
+      //     <ArgonBox
+      //       key={uuidv4()}
+      //       component="td"
+      //       p={0}
+      //       textAlign={align}
+      //       lineHeight={0.65}
+      //       sx={({ palette: { light } }) => ({
+      //         borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
+      //       })}
+      //     >
+      //       <TextField variant="outlined" defaultValue={row[name]} sx={{padding: 0, maxWidth: '150px'}}/>
+      //     </ArgonBox>
           
-        );
-      }
+      //   );
+      // }
 
       return template;
     });

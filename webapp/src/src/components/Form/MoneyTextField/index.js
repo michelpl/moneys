@@ -1,38 +1,82 @@
-/**
-=========================================================
-* Argon Dashboard 2 MUI - v3.0.1
-=========================================================
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { NumericFormat } from 'react-number-format';
+import TextField from '@mui/material/TextField';
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-material-ui
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { forwardRef } from "react";
-
-// prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
-
-import { TextField } from "@mui/material";
-
-
-const MoneyTextField = () => {
+const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(
+  props,
+  ref,
+) {
+  const { onChange, ...other } = props;
 
   return (
-    <TextField variant="standard" sx={{}} />
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      decimalSeparator=','
+      thousandSeparator='.'
+      valueIsNumericString
+      decimalScale={2}
+      prefix="R$ "
+    />
   );
+});
+
+NumericFormatCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
+
+export default function MoneyTextField({setState, setParentState , initialValue, id, label}) {
+  const [values, setValues] = React.useState({
+    textmask: '(100) 000-0000',
+    numberformat: initialValue,
+  });
+
+  const handleChange = (event) => {
+    // setState(event.target.value);
+    // setParentState(id, event.target.value);
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  return (
+    <TextField
+      label={label}
+      value={values.numberformat}
+      onChange={handleChange}
+      name="numberformat"
+      fullWidth
+      id={id}
+      InputProps={{
+        inputComponent: NumericFormatCustom,
+      }}
+      variant="outlined"
+    />
+  );
+}
+
 
 MoneyTextField.defaultProps = {
   size: "medium",
   error: false,
   success: false,
   disabled: false,
+  initialValue: '',
+  label: '',
+  id: '',
+  setState: '',
+  setParentState: ''
 };
 
 // Typechecking props for the MoneyTextField
@@ -41,7 +85,9 @@ MoneyTextField.propTypes = {
   error: PropTypes.bool,
   success: PropTypes.bool,
   disabled: PropTypes.bool,
+  initialValue: PropTypes.string,
+  label: PropTypes.string,
+  id: PropTypes.string,
+  setState: PropTypes.string,
+  setParentState: PropTypes.string
 };
-
-export default MoneyTextField;
-

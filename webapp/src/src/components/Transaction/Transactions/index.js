@@ -28,32 +28,31 @@ import Table from "components/Table";
 
 // Data
 import TransactionsTable from "components/Transaction/Transactions/data/TransactionsTable";
+import { TextField } from "@mui/material";
 
 function Transactions() {
   const { columns: prCols, rows: prRows } = TransactionsTable;
 
   return (
-      <ArgonBox py={3}>
-        <Card>
-          <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <ArgonTypography variant="h6">Entradas</ArgonTypography>
-          </ArgonBox>
-          <ArgonBox
-            sx={{
-              "& .MuiTableRow-root:not(:last-child)": {
-                "& td": {
-                  borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                    `${borderWidth[1]} solid ${borderColor}`,
-                },
+    <ArgonBox py={3}>
+      <Card>
+        <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+          <ArgonTypography variant="h6">Entradas</ArgonTypography>
+        </ArgonBox>
+        <ArgonBox
+          sx={{
+            "& .MuiTableRow-root:not(:last-child)": {
+              "& td": {
+                borderBottom: ({ borders: { borderWidth, borderColor } }) =>
+                  `${borderWidth[1]} solid ${borderColor}`,
               },
-            }}
-          >
-            <Table columns={prCols} rows={prRows} />
-          </ArgonBox>
-        </Card>
-      </ArgonBox>
-
-
+            },
+          }}
+        >
+          <Table columns={prCols} rows={prRows} />
+        </ArgonBox>
+      </Card>
+    </ArgonBox>
   );
 }
 
