@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Argon Dashboard 2 MUI - v3.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-material-ui
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useMemo } from "react";
 
 // prop-types is a library for typechecking of props
@@ -22,7 +7,7 @@ import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 // @mui material components
-import { Box, Table as MuiTable, TextField } from "@mui/material";
+import { Box, Checkbox, Table as MuiTable, TextField } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
@@ -35,6 +20,7 @@ import ArgonTypography from "components/Argon/ArgonTypography";
 // Argon Dashboard 2 MUI base styles
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
+import UnderlineTextField from "components/Form/UnderlineTextField";
 
 function Table({ columns, rows }) {
   const { size, fontWeightBold } = typography;
@@ -79,72 +65,40 @@ function Table({ columns, rows }) {
   const renderRows = rows.map((row, key) => {
     const rowKey = `row-${key}`;
 
-    const tableRow = columns.map(({ name, align, type }) => {
+    const tableRow = columns.map(({ name, align }) => {
       let template;
-
-      if (Array.isArray(row[name])) {
-        template = (
-          <ArgonBox
-            key={uuidv4()}
-            component="td"
-            p={1}
-            sx={({ palette: { light } }) => ({
-              borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
-            })}
-          >
-            <ArgonBox display="flex" alignItems="center" py={0.5} px={1}>
-              <ArgonBox mr={2}>
-                <ArgonAvatar src={row[name][0]} name={row[name][1]} variant="rounded" size="sm" />
-              </ArgonBox>
-              <ArgonTypography variant="button" fontWeight="medium" sx={{ width: "max-content" }}>
-                {row[name][1]}
-              </ArgonTypography>
-            </ArgonBox>
-          </ArgonBox>
-        );
-
-      } else {
-        template = (
-          <ArgonBox
-            key={uuidv4()}
-            component="td"
-            width='20px '
-            p={1}
-            textAlign={align}
-            lineHeight={0.65}
-            sx={({ palette: { light } }) => ({
-              borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
-            })}
-          >
-            <ArgonTypography
-              variant="button"
-              fontWeight="regular"
-              color="secondary"
-              sx={{ display: "inline-block", width: "max-content" }}
-            >
-              {row[name]}
-            </ArgonTypography>
-          </ArgonBox>
-        );
+      let tableCell;
+      
+      if (row[name]['type'] === 'checkbox') {
+        tableCell = <Checkbox checked={row[name]['value']} />;
       }
 
-      // if (type != undefined && type === 'input') {
-      //   template = (
-      //     <ArgonBox
-      //       key={uuidv4()}
-      //       component="td"
-      //       p={0}
-      //       textAlign={align}
-      //       lineHeight={0.65}
-      //       sx={({ palette: { light } }) => ({
-      //         borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
-      //       })}
-      //     >
-      //       <TextField variant="outlined" defaultValue={row[name]} sx={{padding: 0, maxWidth: '150px'}}/>
-      //     </ArgonBox>
-          
-      //   );
-      // }
+      if (row[name]['type'] === 'text') {
+        tableCell = <UnderlineTextField initialValue={row[name]['value']} />;
+      }
+
+      template = (
+        <ArgonBox
+          key={uuidv4()}
+          component="td"
+          width='20px '
+          p={1}
+          textAlign={align}
+          lineHeight={0.65}
+          sx={({ palette: { light } }) => ({
+            borderBottom: row.hasBorder ? `${borderWidth[1]} solid ${light.main}` : null,
+          })}
+        >
+          <ArgonTypography
+            variant="button"
+            fontWeight="regular"
+            color="secondary"
+            sx={{ display: "inline-block", width: "max-content" }}
+          >
+            {tableCell}
+          </ArgonTypography>
+        </ArgonBox>
+      );
 
       return template;
     });
@@ -176,7 +130,7 @@ Table.defaultProps = {
 // Typechecking props for the Table
 Table.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
-  rows: PropTypes.arrayOf(PropTypes.object),
+  rows: PropTypes.any,
 };
 
 export default Table;

@@ -37,89 +37,14 @@ const actions = (
   </Icon>
 );
 
-const checkbox = (
-  <Checkbox />
-);
 
-const moneyTextField = (
- <></>
-);
-
-// const TransactionsTable = {
-//   columns: [
-//     { name: "checkbox", label: checkbox, align: "center" },
-//     { name: "description", label: "Descrição", align: "left" },
-//     { name: "amount", label: "Valor", align: "left", type: 'input' },
-//     { name: "installment", label: "Parcela", align: "left", type: 'input'},
-//     { name: "due_date", label: "Vencimento", align: "left", type: 'input' },
-//     { name: "payment_date", label: "Data pagamento", align: "left", type: 'input' },
-//     { name: "actions", label: "", align: "center" },
-//   ],
-
-//   rows: [
-//     {
-//       checkbox,
-//       description: [logoSpotify, "Spotift"],
-//       amount: moneyTextField,
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//     {
-//       checkbox,
-//       description: [logoInvesion, "Invesion"],
-//       amount: 'R$3333,55',
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//     {
-//       checkbox,
-//       description: [logoJira, "Jira"],
-//       amount: '1034.99',
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//     {
-//       checkbox,
-//       description: [logoSlack, "Slack"],
-//       amount: '1034.99',
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//     {
-//       checkbox,
-//       description: [logoWebDev, "Webdev"],
-//       amount: '1034.99',
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//     {
-//       checkbox,
-//       description: [logoXD, "Adobe XD"],
-//       amount: '1034.99',
-//       installment:'working',
-//       due_date: "info",
-//       payment_date: "R$2,500",
-//       actions,
-//     },
-//   ],
-// };
 
 const TransactionsTable = {
   columns: [
-    { name: "checkbox", label: checkbox, align: "center" },
+    { name: "checkbox", label: <Checkbox />, align: "center" },
     { name: "description", label: "Descrição", align: "left" },
     { name: "amount", label: "Valor", align: "left", type: 'input' },
-    { name: "installment", label: "Parcela", align: "left", type: 'input'},
+    { name: "installments", label: "Parcelas", align: "left", type: 'input'},
     { name: "due_date", label: "Vencimento", align: "left", type: 'input' },
     { name: "payment_date", label: "Data pagamento", align: "left", type: 'input' },
     { name: "actions", label: "", align: "center" },
@@ -127,15 +52,14 @@ const TransactionsTable = {
 
   rows: [
     {
-      checkbox,
-      description: <UnderlineTextField value={''} />,
-      amount: <UnderlineTextField value={''} />,
-      installment: <UnderlineTextField value={''} />,
-      due_date: <UnderlineTextField value={''} />,
-      payment_date: <UnderlineTextField value={''} />,
-      actions,
+      checkbox: {value: false, type: 'checkbox'},
+      description: {value: 'Texto', type: 'text'},
+      amount:{value: '1500.00', type: 'currency'},
+      installments: {value: '0', type: 'text'},
+      due_date: {value: '2024-01-01', type: 'date'},
+      payment_date: {value: '2024-01-01', type: 'currency'},
+      actions: {type: 'actions'},
     },
-    
   ],
 };
 
