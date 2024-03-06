@@ -48,6 +48,17 @@ const colors = {
   primary: {
     main: "#825EE4",
     focus: "#825EE4",
+    50: "#EEE9FB",
+    100: "#DDD3F8",
+    200: "#BBA8F0",
+    300: "#997CE9",
+    400: "#7750E2",
+    500: "#825EE4", //Same as main
+    600: "#441DAF",
+    700: "#331683",
+    800: "#220F57",
+    900: "#11072C",
+    950: "#EEE9FB",
   },
 
   secondary: {

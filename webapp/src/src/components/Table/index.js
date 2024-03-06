@@ -54,7 +54,7 @@ function Table({ columns, rows }) {
         fontSize={size.xxs}
         fontWeight={fontWeightBold}
         color="secondary"
-        opacity={0.7}
+
         sx={({ palette: { light } }) => ({ borderBottom: `${borderWidth[1]} solid ${light.main}` })}
       >
         {label}
@@ -70,7 +70,7 @@ function Table({ columns, rows }) {
       let tableCell;
       
       if (row[name]['type'] === 'checkbox') {
-        tableCell = <Checkbox checked={row[name]['value']} />;
+        tableCell = <Checkbox initialValue={row[name]['value']} />;
       }
 
       if (row[name]['type'] === 'text') {
