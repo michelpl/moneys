@@ -49,7 +49,7 @@ function Transactions() {
             },
           }}
         >
-          <Table columns={prCols} rows={prRows} />
+          <TransactionsTable />
         </ArgonBox>
       </Card>
     </ArgonBox>

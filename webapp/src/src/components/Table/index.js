@@ -108,13 +108,16 @@ function Table({ columns, rows }) {
 
   return useMemo(
     () => (
+      // <TableContainer>
+      //   <MuiTable>
+      //     <ArgonBox component="thead">
+      //       <TableRow>{renderColumns}</TableRow>
+      //     </ArgonBox>
+      //     <TableBody>{renderRows}</TableBody>
+      //   </MuiTable>
+      // </TableContainer>
       <TableContainer>
-        <MuiTable>
-          <ArgonBox component="thead">
-            <TableRow>{renderColumns}</TableRow>
-          </ArgonBox>
-          <TableBody>{renderRows}</TableBody>
-        </MuiTable>
+        
       </TableContainer>
     ),
     [columns, rows]
