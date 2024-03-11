@@ -52,13 +52,6 @@ export default function DataGridDemo() {
       <DataGrid
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
         pageSizeOptions={[5]}
         checkboxSelection
         disableRowSelectionOnClick
