@@ -1,67 +1,68 @@
-/* eslint-disable react/prop-types */
-// @mui material components
-import Icon from "@mui/material/Icon";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
 
-// Argon Dashboard 2 MUI components
-import ArgonBox from "components/Argon/ArgonBox";
-import ArgonTypography from "components/Argon/ArgonTypography";
-import ArgonProgress from "components/Argon/ArgonProgress";
+const columns = [
+  { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    width: 110,
+    editable: true,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+];
 
-// Images
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
-import logoInvesion from "assets/images/small-logos/logo-invision.svg";
-import logoJira from "assets/images/small-logos/logo-jira.svg";
-import logoSlack from "assets/images/small-logos/logo-slack.svg";
-import logoWebDev from "assets/images/small-logos/logo-webdev.svg";
-import logoXD from "assets/images/small-logos/logo-xd.svg";
-import Checkbox from '@mui/material/Checkbox';
-import { TextField } from "@mui/material";
-import UnderlineTextField from "components/Form/UnderlineTextField";
+const rows = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+];
 
-function Completion({ value, color }) {
+export default function DataGridDemo() {
   return (
-    <ArgonBox display="flex" alignItems="center">
-      <ArgonTypography variant="caption" color="text" fontWeight="medium">
-        {value}%&nbsp;
-      </ArgonTypography>
-      <ArgonBox width="8rem">
-        <ArgonProgress value={value} color={color} variant="gradient" label={false} />
-      </ArgonBox>
-    </ArgonBox>
+    <Box sx={{ height: 400, width: '100%', backgroundColor: '#fff' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5,
+            },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+        disableRowSelectionOnClick
+      />
+    </Box>
   );
 }
-
-const actions = (
-  <Icon sx={{ cursor: "pointer", fontWeight: "bold" }} fontSize="small">
-    more_vert
-  </Icon>
-);
-
-
-
-const TransactionsTable = {
-  columns: [
-    { name: "checkbox", label: <Checkbox />, align: "center" },
-    { name: "description", label: "Descrição", align: "left" },
-    { name: "amount", label: "Valor", align: "left", type: 'input' },
-    { name: "installments", label: "Parcelas", align: "left", type: 'input'},
-    { name: "due_date", label: "Vencimento", align: "left", type: 'input' },
-    { name: "payment_date", label: "Data pagamento", align: "left", type: 'input' },
-    { name: "actions", label: "", align: "center" },
-  ],
-
-  rows: [
-    {
-      checkbox: {value: false, type: 'checkbox'},
-      description: {value: 'Texto', type: 'text'},
-      amount:{value: '1500.00', type: 'currency'},
-      installments: {value: '0', type: 'text'},
-      due_date: {value: '2024-01-01', type: 'date'},
-      payment_date: {value: '2024-01-01', type: 'currency'},
-      actions: {type: 'actions'},
-    },
-  ],
-};
-
-
-export default TransactionsTable;

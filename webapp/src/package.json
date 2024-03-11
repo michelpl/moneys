@@ -12,6 +12,7 @@
     "@mui/material": "5.13.1",
     "@mui/styled-engine": "5.12.3",
     "@mui/x-data-grid": "^6.19.4",
+    "@mui/x-data-grid-generator": "^6.19.6",
     "@pathofdev/react-tag-input": "1.0.7",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",

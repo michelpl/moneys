@@ -1,7 +1,35 @@
 .underlineTextField.Mui-focused {
+ 
     border-bottom: 0.15rem solid #825EE4!important;
 }
 
 .underlineTextField:first-child {
     padding-left: 2px;
+    border:0;
+    box-shadow: 0;
 }
+
+.MuiDataGrid-withBorderColor {
+    border: 0!important;
+}
+
+.MuiDataGrid-editInputCell, .MuiDataGrid-cell:focus,.MuiDataGrid-cell--editing:focus-within {
+    outline: none!important;
+    border-left: 0!important;
+    border-bottom: 1px solid #825EE4!important;
+    border-right: 0!important;
+    offset-position: 0!important;
+    border-top: 0!important;
+    border-radius: 0!important;
+    box-shadow: none!important;
+}
+
+.MuiDataGrid-editInputCell input
+{
+    outline:none!important;
+    padding: 16px!important;
+    border:0!important;
+    outline-offset: 0!important;
+    box-shadow: none!important;
+}
+

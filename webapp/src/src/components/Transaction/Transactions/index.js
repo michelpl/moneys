@@ -1,59 +1,77 @@
-/**
-=========================================================
-* Argon Dashboard 2 MUI - v3.0.1
-=========================================================
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+import ArgonBox from 'components/Argon/ArgonBox';
+import { Card } from '@mui/material';
+import ArgonTypography from 'components/Argon/ArgonTypography';
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-material-ui
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+const columns = [
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    width: 150,
+    editable: true,
+  },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    width: 110,
+    editable: true,
+  },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    description: 'This column has a value getter and is not sortable.',
+    sortable: false,
+    width: 160,
+    valueGetter: (params) =>
+      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+  },
+];
 
-Coded by www.creative-tim.com
+const rows = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
+  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+];
 
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
-import Card from "@mui/material/Card";
-
-// Argon Dashboard 2 MUI components
-import ArgonBox from "components/Argon/ArgonBox";
-import ArgonTypography from "components/Argon/ArgonTypography";
-
-// Argon Dashboard 2 MUI examples
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
-import Table from "components/Table";
-
-// Data
-import TransactionsTable from "components/Transaction/Transactions/data/TransactionsTable";
-import { TextField } from "@mui/material";
-
-function Transactions() {
-  const { columns: prCols, rows: prRows } = TransactionsTable;
-
+export default function DataGridDemo() {
   return (
+
+
     <ArgonBox py={3}>
       <Card>
         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
           <ArgonTypography variant="h6">Entradas</ArgonTypography>
         </ArgonBox>
         <ArgonBox
-          sx={{
-            "& .MuiTableRow-root:not(:last-child)": {
-              "& td": {
-                borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                  `${borderWidth[1]} solid ${borderColor}`,
-              },
-            },
-          }}
+          
         >
-          <Table columns={prCols} rows={prRows} />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            disableRowSelectionOnClick
+            sx={{
+              boxShadow: 0,
+              border: 0,
+              borderColor:"#fff"
+            }}
+          />
         </ArgonBox>
       </Card>
     </ArgonBox>
   );
 }
-
-export default Transactions;
