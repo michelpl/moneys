@@ -6,6 +6,12 @@ import { Card } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
 import clsx from 'clsx';
 
+function cellDecoration(params) {
+  return clsx('super-app', {
+    empty: params.hasFocus !== true && (params.value === null || params.value === undefined || params.value === '')
+  });
+}
+
 const columns = [
   {
     field: 'description',
@@ -15,22 +21,18 @@ const columns = [
     sortable: true,
     editable: true,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
     field: 'amount',
     headerName: 'Valor',
     type: 'number',
-    width: 250,
+    width: 100,
     sortable: true,
     editable: true,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
@@ -41,9 +43,7 @@ const columns = [
     editable: true,
     width: 250,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
@@ -54,9 +54,7 @@ const columns = [
     width: 250,
     editable: true,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
@@ -67,22 +65,18 @@ const columns = [
     editable: true,
     width: 250,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
     field: 'categories',
     headerName: 'Categorias',
-    type: 'number',
+    type: 'text',
     sortable: true,
     width: 250,
     editable: true,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
   {
@@ -93,60 +87,103 @@ const columns = [
     sortable: true,
     editable: true,
     cellClassName: (params) => {
-      return clsx('super-app', {
-        empty: params.hasFocus !== true && (params.value === null || params.value === undefined)
-      });
+      return cellDecoration(params);
     },
   },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
+  {
+    id: 1,
+    description: 'Snow',
+    budget: '150.00',
+    installments: '1/5',
+    dueDate: '05/03/2024',
+    paymentDate: '05/03/2024',
+    usedBudget: '100.00',
+    notUsedBudget: '50.00',
+    paymentMethod: 'Pix',
+    categories: 'credit card, fixed',
+    status: 'paid',
+    comments: 'comments icon',
+    actions: 'edit button '
+  },
+  {
+    id: 2,
+    description: 'Snow',
+    budget: '150.00',
+    installments: '1/5',
+    dueDate: '05/03/2024',
+    paymentDate: '05/03/2024',
+    usedBudget: '100.00',
+    notUsedBudget: '50.00',
+    paymentMethod: 'Pix',
+    categories: 'credit card, fixed',
+    status: 'paid',
+    comments: 'comments icon',
+    actions: 'edit button '
+  },
+
+  {
+    id: 3,
+    description: 'Snow',
+    budget: '150.00',
+    installments: '1/5',
+    dueDate: '05/03/2024',
+    paymentDate: '05/03/2024',
+    usedBudget: '100.00',
+    notUsedBudget: '50.00',
+    paymentMethod: 'Pix',
+    categories: 'credit card, fixed',
+    status: 'paid',
+    comments: 'comments icon',
+    actions: 'edit button '
+  },
+
 
 ];
 
 export default function DataGridDemo() {
   return (
-
-
     <ArgonBox py={3}>
       <Card>
         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
           <ArgonTypography variant="h6">Entradas</ArgonTypography>
         </ArgonBox>
         <ArgonBox
-                sx={{
+          sx={{
 
-                  width: '100%',
-                  '& .super-app-theme--cell': {
-                    backgroundColor: 'rgba(224, 183, 60, 0.55)',
-                    color: '#1a3e72',
-                    fontWeight: '600',
-                  },
-                  '& .super-app.empty': {
-                    borderBottom: '1px solid !important',
-                    borderColor: '#dedede!important',
-                    color: '#1a3e72',
-                    fontWeight: '600',
-                  },
-                  '& .super-app.purpleUnderline': {
-                    
-                    borderColor: '#825EE4!important',
-                    border:2,
-                    color: '#1a3e72',
-                    fontWeight: '600',
-                  },
-                }}
+            width: '100%',
+            '& .super-app-theme--cell': {
+              backgroundColor: 'rgba(224, 183, 60, 0.55)',
+              color: '#1a3e72',
+              fontWeight: '600',
+            },
+            '& .super-app.empty': {
+              borderBottom: '1px solid !important',
+              borderColor: '#dedede!important',
+              color: '#1a3e72',
+              fontWeight: '600',
+            },
+            '& .super-app.purpleUnderline': {
+
+              borderColor: '#825EE4!important',
+              border: 2,
+              color: '#1a3e72',
+              fontWeight: '600',
+            },
+          }}
         >
           <DataGrid
+            checkboxSelection
             rows={rows}
             columns={columns}
             disableRowSelectionOnClick
-            
+            hideFooter
             sx={{
               boxShadow: 0,
               border: 0,
-              borderColor:"#fff"
+              borderColor: "#fff"
             }}
           />
         </ArgonBox>

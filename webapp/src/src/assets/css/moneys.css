@@ -24,6 +24,11 @@
     box-shadow: none!important;
 }
 
+.MuiDataGrid-root .MuiDataGrid-columnHeader, .MuiDataGrid-root .MuiDataGrid-cell{
+    padding: 0 10px!important;
+}
+
+
 .MuiDataGrid-editInputCell input
 {
     outline:none!important;
