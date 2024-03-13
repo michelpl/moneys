@@ -41,3 +41,7 @@
 .grey-underline {
     border: 0.15rem solid #c70505!important;
 }
+
+.MuiSvgIcon-root.cellIcon{
+    font-size: 24px!important;
+}
