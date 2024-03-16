@@ -36,6 +36,17 @@ const columns = [
     },
   },
   {
+    field: 'installments',
+    headerName: 'Parcelas',
+    type: 'text',
+    width: 250,
+    sortable: true,
+    editable: true,
+    cellClassName: (params) => {
+      return cellDecoration(params);
+    },
+  },
+  {
     field: 'paymentDate',
     headerName: 'Data de pagamento',
     type: 'text',
@@ -95,33 +106,33 @@ const columns = [
 const rows = [
   {
     id: 1,
-    description: 'Snow',
-    budget: '150.00',
-    installments: '1/5',
-    dueDate: '05/03/2024',
-    paymentDate: '05/03/2024',
-    usedBudget: '100.00',
-    notUsedBudget: '50.00',
-    paymentMethod: 'Pix',
-    categories: 'credit card, fixed',
-    status: 'paid',
-    comments: 'comments icon',
-    actions: 'edit button '
+    description: '',
+    budget: '',
+    installments: '',
+    dueDate: '',
+    paymentDate: '',
+    usedBudget: '1',
+    notUsedBudget: '',
+    paymentMethod: '',
+    categories: '',
+    status: '',
+    comments: '',
+    actions: ''
   },
   {
     id: 2,
-    description: 'Snow',
-    budget: '150.00',
-    installments: '1/5',
-    dueDate: '05/03/2024',
-    paymentDate: '05/03/2024',
-    usedBudget: '100.00',
-    notUsedBudget: '50.00',
-    paymentMethod: 'Pix',
-    categories: 'credit card, fixed',
-    status: 'paid',
-    comments: 'comments icon',
-    actions: 'edit button '
+    description: '',
+    budget: '',
+    installments: '',
+    dueDate: '',
+    paymentDate: '',
+    usedBudget: '1',
+    notUsedBudget: '',
+    paymentMethod: '',
+    categories: '',
+    status: '',
+    comments: '',
+    actions: ''
   },
 
   {

@@ -48,7 +48,7 @@ const checkbox = {
       },
 
       "&.Mui-focusVisible": {
-        border: `${borderWidth[2]} solid ${info.main} !important`,
+        border: `1px solid ${primary[200]} !important`,
       },
     },
 
