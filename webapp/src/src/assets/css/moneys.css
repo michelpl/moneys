@@ -74,3 +74,7 @@
 .grey-underline {
 
 }
+
+.MuiSvgIcon-root.cellIcon{
+    font-size: 24px!important;
+}
