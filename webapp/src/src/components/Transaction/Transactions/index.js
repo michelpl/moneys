@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import ArgonBox from 'components/Argon/ArgonBox';
-import { Button, Card } from '@mui/material';
+import { Card } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import CommentIcon from '@mui/icons-material/Comment';
 import clsx from 'clsx';
-import { grey } from '@mui/material/colors';
+import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 function cellDecoration(params) {
   return clsx('super-app', {
@@ -17,7 +19,9 @@ function cellDecoration(params) {
 
 function RenderNotesButton(props) {
   return (
-    <ChatBubbleOutlineOutlinedIcon className='cellIcon' sx={{color:'primary.main'}} />
+    <>
+      <CommentIcon className='cellIcon' sx={{ color: 'primary.main' }} />
+    </>
   );
 }
 
@@ -35,9 +39,20 @@ const columns = [
   },
   {
     field: 'amount',
-    headerName: 'Valor',
+    headerName: 'Verba planejada',
     type: 'number',
-    width: 100,
+    width: 120,
+    sortable: true,
+    editable: true,
+    cellClassName: (params) => {
+      return cellDecoration(params);
+    },
+  },
+  {
+    field: 'paidAmount',
+    headerName: 'Verba utilizada',
+    type: 'number',
+    width: 120,
     sortable: true,
     editable: true,
     cellClassName: (params) => {
@@ -48,7 +63,7 @@ const columns = [
     field: 'installments',
     headerName: 'Parcelas',
     type: 'text',
-    width: 250,
+    width: 70,
     sortable: true,
     editable: true,
     cellClassName: (params) => {
@@ -58,10 +73,10 @@ const columns = [
   {
     field: 'paymentDate',
     headerName: 'Data de pagamento',
-    type: 'text',
+    type: 'date',
     sortable: true,
     editable: true,
-    width: 250,
+    width: 150,
     cellClassName: (params) => {
       return cellDecoration(params);
     },
@@ -78,12 +93,13 @@ const columns = [
     },
   },
   {
-    field: 'paymentMethod',
-    headerName: 'Método de pagamento',
-    type: 'text',
-    sortable: true,
+    field: 'Método de pagamento',
+    type: 'singleSelect',
+    width: 120,
     editable: true,
-    width: 250,
+    valueOptions: ({ row }) => {
+        return ['', 'EU-resident', 'junior', 'Other'];
+    },
     cellClassName: (params) => {
       return cellDecoration(params);
     },
@@ -92,31 +108,40 @@ const columns = [
     field: 'categories',
     headerName: 'Categorias',
     type: 'text',
+    headerAlign: 'center',
     sortable: true,
     width: 150,
     editable: true,
     cellClassName: (params) => {
       return cellDecoration(params);
     },
-  },
-
-  {
-    field: 'notes',
-    headerName: 'Anotações',
-    width: 150,
-    renderCell: RenderNotesButton,
-    align: 'center'
   },
   {
     field: 'actions',
-    headerName: 'Ações',
-    type: 'text',
-    width: 250,
-    sortable: true,
-    editable: true,
-    cellClassName: (params) => {
-      return cellDecoration(params);
-    },
+    type: 'actions',
+    headerAlign: 'right',
+    width: 120,
+    getActions: (params) => [
+      <GridActionsCellItem
+        key={'del'}
+        icon={<RenderNotesButton />}
+        label="Delete"
+        onClick={(params.id) = {}}
+      />,
+      <GridActionsCellItem
+        key={'sec'}
+        icon={<CheckIcon color='success' />}
+        label="Pago / executado"
+        onClick={(params.id) = {}}
+      />,
+      <GridActionsCellItem
+        key={'file'}
+        icon={<DeleteIcon />}
+        label="Excluir"
+        onClick={(params.id) = {}}
+        showInMenu
+      />,
+    ],
   },
 ];
 
@@ -127,7 +152,7 @@ const rows = [
     budget: '',
     installments: '',
     dueDate: '',
-    paymentDate: '',
+    paymentDate: null,
     usedBudget: '1',
     notUsedBudget: '',
     paymentMethod: '',
@@ -142,7 +167,7 @@ const rows = [
     budget: '',
     installments: '',
     dueDate: '',
-    paymentDate: '',
+    paymentDate: null,
     usedBudget: '1',
     notUsedBudget: '',
     paymentMethod: '',
@@ -158,7 +183,7 @@ const rows = [
     budget: '150.00',
     installments: '1/5',
     dueDate: '05/03/2024',
-    paymentDate: '05/03/2024',
+    paymentDate: null,
     usedBudget: '100.00',
     notUsedBudget: '50.00',
     paymentMethod: 'Pix',
