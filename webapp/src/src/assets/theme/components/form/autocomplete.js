@@ -35,7 +35,7 @@ const autocomplete = {
       fontSize: size.sm,
       color: text.main,
       textAlign: "left",
-      backgroundColor: `${white.main} !important`,
+      backgroundColor: `${transparent.main} !important`,
       borderRadius: borderRadius.md,
     },
 

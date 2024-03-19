@@ -27,10 +27,10 @@ const input = {
   styleOverrides: {
     root: {
       display: "flex !important",
-      padding: `${pxToRem(8)} ${pxToRem(12)}`,
-      border: `${borderWidth[1]} solid ${inputColors.borderColor.main}`,
-      borderRadius: `${borderRadius.md} !important`,
 
+
+      borderRadius: `${borderRadius.md} !important`,
+      backgroundColor: 'lime!important',
       "& fieldset": {
         border: "none",
       },
@@ -39,10 +39,12 @@ const input = {
     input: {
       height: pxToRem(22),
       width: "max-content !important",
+      backgroundColor: 'lime!important',
     },
 
     inputSizeSmall: {
       height: pxToRem(14),
+      backgroundColor: 'lime!important',
     },
   },
 };
