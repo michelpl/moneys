@@ -1,16 +1,37 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
 import ArgonBox from 'components/Argon/ArgonBox';
-import { Card } from '@mui/material';
+import { Button, Card } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
 import CommentIcon from '@mui/icons-material/Comment';
 import clsx from 'clsx';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+import AddIcon from '@mui/icons-material/Add';
+import { randomId } from '@mui/x-data-grid-generator';
 
+function EditToolbar(props) {
+  const { setRows, setRowModesModel } = props;
+
+  const handleClick = () => {
+    const id = randomId();
+    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Add record
+      </Button>
+    </GridToolbarContainer>
+  );
+}
 
 
 
@@ -242,10 +263,16 @@ export default function DataGridDemo() {
             columns={columns}
             disableRowSelectionOnClick
             hideFooter
+            slots={{
+              toolbar: EditToolbar,
+            }}
+            slotProps={{
+              toolbar: { setRows, setRowModesModel },
+            }}
             sx={{
               boxShadow: 0,
               border: 0,
-              borderColor: "#fff"
+              borderColor: "#fff",
             }}
           />
         </ArgonBox>
