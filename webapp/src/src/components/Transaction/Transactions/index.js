@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
 
-import { DataGrid, GridActionsCellItem, GridToolbarContainer } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridFooter, GridFooterContainer, GridRowModes, GridToolbarContainer } from '@mui/x-data-grid';
 import ArgonBox from 'components/Argon/ArgonBox';
-import { Button, Card } from '@mui/material';
+import { Button, Card, Chip } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
 import CommentIcon from '@mui/icons-material/Comment';
 import clsx from 'clsx';
@@ -11,6 +11,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { randomId } from '@mui/x-data-grid-generator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage, faFlag } from '@fortawesome/free-regular-svg-icons'
+import { grey } from '@mui/material/colors';
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -20,42 +23,46 @@ function EditToolbar(props) {
     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'description' },
     }));
   };
 
   return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
-      </Button>
-    </GridToolbarContainer>
+
+      <GridFooterContainer sx={{padding:3}}>
+        <Button sx={{color: "primary.main" }}  onClick={handleClick}>
+          Adicionar linha
+        </Button>
+      </GridFooterContainer>
+
   );
 }
 
-
-
 export default function DataGridDemo() {
-  
+
   function cellDecoration(params) {
     return clsx('super-app', {
       empty: params.hasFocus !== true && (params.value === null || params.value === undefined || params.value === '')
     });
   }
-  
+
   function RenderNotesButton(props) {
     return (
       <>
-        <CommentIcon className='cellIcon' sx={{ color: 'primary.main' }} />
+        <FontAwesomeIcon icon={faMessage} style={{color: "#B197FC", height: "20px"}} />
       </>
     );
   }
-  
+
+  function RenderCategoryComponent() {
+    return (<Chip label="Cartão de crédito" />)
+  }
+
   const handleDeleteClick = (id) => () => {
     console.log(id);
     setRows(rows.filter((row) => row.id !== id));
   };
-  
+
   const columns = [
     {
       field: 'description',
@@ -115,7 +122,7 @@ export default function DataGridDemo() {
     {
       field: 'dueDate',
       headerName: 'Data de vencimento',
-      type: 'text',
+      type: 'date',
       sortable: true,
       width: 250,
       editable: true,
@@ -158,11 +165,11 @@ export default function DataGridDemo() {
           icon={<RenderNotesButton />}
           label="Delete"
           onClick={(params.id) = {}}
-          />,
-          <GridActionsCellItem
+        />,
+        <GridActionsCellItem
           key={'sec'}
-          icon={<CheckIcon color='success' />}
-          label="Pago / executado"
+          icon={<FontAwesomeIcon icon={faFlag} style={{height: "20px", color: grey[400]}}/>}
+          label="Valor em aberto"
           onClick={(params.id) = {}}
         />,
         <GridActionsCellItem
@@ -175,15 +182,15 @@ export default function DataGridDemo() {
       ],
     },
   ];
-  
+  const date = new Date(2024, '04', '02');
   const initialRows = [
     {
       id: 1,
       description: '',
       budget: '',
       installments: '',
-      dueDate: '',
-      paymentDate: null,
+      dueDate: date,
+      paymentDate: date,
       usedBudget: '1',
       notUsedBudget: '',
       paymentMethod: '',
@@ -197,8 +204,8 @@ export default function DataGridDemo() {
       description: '',
       budget: '',
       installments: '',
-      dueDate: '',
-      paymentDate: null,
+      dueDate: date,
+      paymentDate: date,
       usedBudget: '1',
       notUsedBudget: '',
       paymentMethod: '',
@@ -207,18 +214,18 @@ export default function DataGridDemo() {
       comments: '',
       actions: ''
     },
-    
+
     {
       id: 3,
       description: 'Snow',
       budget: '150.00',
       installments: '1/5',
-      dueDate: '05/03/2024',
-      paymentDate: null,
+      dueDate: date,
+      paymentDate: date,
       usedBudget: '100.00',
       notUsedBudget: '50.00',
       paymentMethod: 'Pix',
-      categories: 'credit card, fixed',
+      categories:'aaa',
       status: 'paid',
       notes: 3,
       actions: 'edit button '
@@ -229,13 +236,15 @@ export default function DataGridDemo() {
 
   return (
     <ArgonBox py={3}>
+
       <Card>
         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
           <ArgonTypography variant="h6">Entradas</ArgonTypography>
+          
         </ArgonBox>
+        
         <ArgonBox
           sx={{
-            
             width: '100%',
             '& .super-app-theme--cell': {
               backgroundColor: 'rgba(224, 183, 60, 0.55)',
@@ -262,12 +271,12 @@ export default function DataGridDemo() {
             rows={rows}
             columns={columns}
             disableRowSelectionOnClick
-            hideFooter
+            autoHeight={true}
             slots={{
-              toolbar: EditToolbar,
+              footer: EditToolbar,
             }}
             slotProps={{
-              toolbar: { setRows, setRowModesModel },
+              footer: { setRows, setRowModesModel },
             }}
             sx={{
               boxShadow: 0,
@@ -275,6 +284,7 @@ export default function DataGridDemo() {
               borderColor: "#fff",
             }}
           />
+
         </ArgonBox>
       </Card>
     </ArgonBox>
