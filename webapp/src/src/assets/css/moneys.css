@@ -57,6 +57,10 @@
     margin: 0 5px !important;
 }
 
+.MuiInput-root:before {
+    border: 0!important;
+}
+
 .MuiDataGrid-editInputCell,
 .MuiInputBase-input:hover {
     outline: none !important;

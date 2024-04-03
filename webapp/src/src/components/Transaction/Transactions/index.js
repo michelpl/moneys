@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-import * as React from 'react';
-
+import { useState } from 'react';
 import { DataGrid, GridActionsCellItem, GridFooter, GridFooterContainer, GridRowModes, GridToolbarContainer } from '@mui/x-data-grid';
 import ArgonBox from 'components/Argon/ArgonBox';
 import { Button, Card, Chip } from '@mui/material';
@@ -14,6 +13,8 @@ import { randomId } from '@mui/x-data-grid-generator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faFlag } from '@fortawesome/free-regular-svg-icons'
 import { grey } from '@mui/material/colors';
+import MyPopover from 'components/MyPopover';
+
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -28,17 +29,18 @@ function EditToolbar(props) {
   };
 
   return (
-
-      <GridFooterContainer sx={{padding:3}}>
-        <Button sx={{color: "primary.main" }}  onClick={handleClick}>
-          Adicionar linha
-        </Button>
-      </GridFooterContainer>
+    <GridFooterContainer sx={{ padding: 3 }}>
+      <Button sx={{ color: "primary.main" }} onClick={handleClick}>
+        Adicionar linha
+      </Button>
+    </GridFooterContainer>
 
   );
 }
 
 export default function DataGridDemo() {
+
+  const [displayPicker, setDisplayPicker] = useState('none')
 
   function cellDecoration(params) {
     return clsx('super-app', {
@@ -49,7 +51,7 @@ export default function DataGridDemo() {
   function RenderNotesButton(props) {
     return (
       <>
-        <FontAwesomeIcon icon={faMessage} style={{color: "#B197FC", height: "20px"}} />
+        <FontAwesomeIcon icon={faMessage} style={{ color: "#B197FC", height: "20px" }} />
       </>
     );
   }
@@ -64,6 +66,12 @@ export default function DataGridDemo() {
   };
 
   const columns = [
+    {
+      width: 50,
+      sortable: false,
+      headerAlign: 'left',
+      renderCell:  () => { return (<MyPopover />) }
+    },
     {
       field: 'description',
       headerName: 'Descrição',
@@ -168,7 +176,7 @@ export default function DataGridDemo() {
         />,
         <GridActionsCellItem
           key={'sec'}
-          icon={<FontAwesomeIcon icon={faFlag} style={{height: "20px", color: grey[400]}}/>}
+          icon={<FontAwesomeIcon icon={faFlag} style={{ height: "20px", color: grey[400] }} />}
           label="Valor em aberto"
           onClick={(params.id) = {}}
         />,
@@ -225,14 +233,14 @@ export default function DataGridDemo() {
       usedBudget: '100.00',
       notUsedBudget: '50.00',
       paymentMethod: 'Pix',
-      categories:'aaa',
+      categories: 'aaa',
       status: 'paid',
       notes: 3,
       actions: 'edit button '
     },
   ];
-  const [rows, setRows] = React.useState(initialRows);
-  const [rowModesModel, setRowModesModel] = React.useState({});
+  const [rows, setRows] = useState(initialRows);
+  const [rowModesModel, setRowModesModel] = useState({});
 
   return (
     <ArgonBox py={3}>
@@ -240,9 +248,9 @@ export default function DataGridDemo() {
       <Card>
         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
           <ArgonTypography variant="h6">Entradas</ArgonTypography>
-          
+
         </ArgonBox>
-        
+
         <ArgonBox
           sx={{
             width: '100%',
@@ -286,6 +294,7 @@ export default function DataGridDemo() {
           />
 
         </ArgonBox>
+        
       </Card>
     </ArgonBox>
   );
