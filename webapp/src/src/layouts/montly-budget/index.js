@@ -26,19 +26,7 @@ import ArgonTypography from "components/Argon/ArgonTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import DetailedStatisticsCard from "examples/Cards/StatisticsCards/DetailedStatisticsCard";
-import SalesTable from "examples/Tables/SalesTable";
-import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 
-// Argon Dashboard 2 MUI base styles
-import typography from "assets/theme/base/typography";
-
-// Data
-import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
-import salesTableData from "layouts/dashboard/data/salesTableData";
-import categoriesListData from "layouts/dashboard/data/categoriesListData";
-import transactionsListData from "layouts/montly-budget/data/transactionsListData";
-import { Card, Table } from "@mui/material";
 import Transactions from 'components/Transaction/Transactions'
 import { useArgonController, setLayout, setShowSidenav } from "context";
 import PropTypes from "prop-types";
@@ -47,8 +35,7 @@ import { useLocation } from "react-router-dom";
 
 function Default({ bgColor, ...rest }) {
   const [controller, dispatch] = useArgonController();
-  const { miniSidenav, darkMode } = controller;
-  const { size } = typography;
+  const { miniSidenav, showSidenav, darkMode } = controller;
   const background = darkMode && !bgColor ? "transparent" : bgColor;
   const { pathname } = useLocation();
 
@@ -57,13 +44,20 @@ function Default({ bgColor, ...rest }) {
     setShowSidenav(dispatch, false)
   }, [pathname]);
 
+  const setMarginLeft = () => {
+    if (showSidenav) {
+      return miniSidenav ? 0 : 274;
+    }
+    return 5;
+  }
+
   return (
     <ArgonBox
           sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
             p: 3,
 
             [breakpoints.up("xl")]: {
-              marginLeft: pxToRem(4),
+              marginLeft: pxToRem(setMarginLeft()),
               transition: transitions.create(["margin-left", "margin-right"], {
                 easing: transitions.easing.easeInOut,
                 duration: transitions.duration.standard,
@@ -85,12 +79,11 @@ function Default({ bgColor, ...rest }) {
       <Transactions ></Transactions>
       <Footer />
     </ArgonBox>
-  );
+  )
 }
 
 Default.propTypes = {
   bgColor: PropTypes.string,
 };
-
 
 export default Default;

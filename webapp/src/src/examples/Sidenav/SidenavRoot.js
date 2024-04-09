@@ -71,7 +71,7 @@ export default styled(Drawer)(({ theme, ownerState }) => {
       boxShadow: darkSidenav ? "none" : xxl,
       marginBottom: darkSidenav ? 0 : "inherit",
       left: "0",
-      width: pxToRem(96),
+      width: pxToRem(0),
       overflowX: "hidden",
       transform: "translateX(0)",
       transition: transitions.create(["width", "background-color"], {

@@ -4,11 +4,8 @@ import { DataGrid, GridActionsCellItem, GridFooter, GridFooterContainer, GridRow
 import ArgonBox from 'components/Argon/ArgonBox';
 import { Button, Card, Chip } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
-import CommentIcon from '@mui/icons-material/Comment';
 import clsx from 'clsx';
-import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import { randomId } from '@mui/x-data-grid-generator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faFlag } from '@fortawesome/free-regular-svg-icons'

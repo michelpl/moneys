@@ -49,10 +49,10 @@ import {
 
 // Argon Dashboard 2 MUI context
 import {
-  useArgonController,
-  setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
+    useArgonController,
+    setTransparentNavbar,
+    setMiniSidenav,
+    setOpenConfigurator, setShowSidenav,
 } from "context";
 
 // Images
@@ -92,7 +92,10 @@ function DashboardNavbar({ absolute, light, isMini, pageTitle }) {
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
-  const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
+  const handleMiniSidenav = () => {
+    setShowSidenav(dispatch, true)
+    setMiniSidenav(dispatch, !miniSidenav);
+  }
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);

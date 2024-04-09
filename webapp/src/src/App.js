@@ -135,9 +135,18 @@ export default function App() {
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
+            sx={({ breakpoints, transitions, functions: { pxToRem } }) => ({
+              p: 3,
+
+              [breakpoints.up("xl")]: {
+                marginLeft: pxToRem(100),
+                transition: transitions.create(["margin-left", "margin-right"], {
+                  easing: transitions.easing.easeInOut,
+                  duration: transitions.duration.standard,
+                }),
+              },
+            })}
           />
-          <Configurator />
-          {configsButton}
         </>
       )}
 
