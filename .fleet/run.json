@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "type": "docker-compose-up",
+            "name": "Docker-compose-up configuration",
+            "files": [
+                "./docker-compose.yml"
+            ],
+        },
+        {
+            "type": "command",
+            "name": "NPM Run",
+            "program": "docker",
+            "args": [
+                "exec",
+                "webapp",
+                "npm",
+                "start"
+            ],
+        },
+        {
+            "type": "browser",
+            "name": "Open browser",
+            "url": "http://localhost:3000",
+            "dependsOn": [
+                "Docker-compose-up configuration",
+                "NPM Run"
+            ],
+        },
+    ]
+}
