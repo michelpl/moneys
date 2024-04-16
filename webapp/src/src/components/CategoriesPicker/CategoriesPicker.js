@@ -1,51 +1,89 @@
 /* eslint-disable react/prop-types */
 import * as React from 'react';
-import Autocomplete, {autocompleteClasses} from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField';
-import Popper from '@mui/material/Popper';
-import {styled} from '@mui/material/styles';
+
+import Chip from '@mui/material/Chip';
+
+import {Dialog, DialogActions, DialogTitle, DialogContent, Stack, DialogContentText} from "@mui/material";
 import CategoryChip from "./CategoryChip";
+import Avatar from "@mui/material/Avatar";
 import {randomId} from "@mui/x-data-grid-generator";
+import Button from "@mui/material/Button";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import CategoryModal from "./CategoryModal";
 
-const StyledPopper = styled(Popper)({
-    [`& .${autocompleteClasses.listbox}`]: {
-        boxSizing: 'border-box',
-        backgroundColor: "#fff",
-        '& ul': {
-            padding: 0,
-            margin: 0,
-            backgroundColor: "#fff"
-        },
-    },
-});
 
-export default function CategoriesPicker() {
+export default function ChipsArray() {
+    const [dialogState, setDialogState] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setDialogState(true);
+    };
+
+    const handleCancel = () => {
+        setDialogState(false);
+    };
+
+    const handleOk = () => {
+        setDialogState(false);
+    };
+
+    const [chipData, setChipData] = React.useState([
+        {key: 0, label: 'Angular', backgroundColor: '#a54b4b', color: '#333', src: ''},
+        {key: 3, label: 'Gastos fixos', backgroundColor: '#d55bca', color: '#fff', img: 'logos/rico.png'},
+        {key: 4, label: 'Gastos Variáveis', backgroundColor: '#3f2172', color: '#fff', img: 'logos/nubank.png'},
+    ]);
+
+    const handleDelete = (chipToDelete) => () => {
+        setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+    };
+
+
     return (
-        <Autocomplete
-            multiple
-            id="tags-outlined"
-            noOptionsText="Sem opções restantes"
-            options={options}
-            PopperComponent={StyledPopper}
-            getOptionLabel={(option) => option.title}
-            //defaultValue={initialValueIndex}
-            filterSelectedOptions
-            renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                    <CategoryChip key={randomId()} data={option} tagProps={{...getTagProps({index})}} />
-                ))
-            }
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    sx={{width: '100%'}}
-                />
-            )}
-        />
+        <>
+            <Stack minWidth={'100%'} spacing={0.5} direction="row" useFlexGap flexWrap="wrap" onClick={handleClickOpen}>
+                {chipData.map((data) => {
+                    return (
+                        <Chip
+                            key={data.key}
+                            avatar={<Avatar alt={data.label} src={data.img}/>}
+                            color={'primary'}
+                            variant="filled"
+                            label={data.label}
+                            size="small"
+                            title={data.label}
+                            sx={{
+                                maxWidth: '180px',
+                                minWidth: '100px',
+                                overflow: 'hidden',
+                                backgroundColor: data.backgroundColor,
+                                color: data.color
+                            }}
+                            onDelete={handleDelete(data)}
+                        />
+                    );
+                })}
+            </Stack>
+            <Dialog
+                open={dialogState}
+                onClose={handleCancel}
+                PaperProps={{
+                    component: 'paper',
+                }}
+            >
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+
+                        <CategoryModal sx={{width: '400px'}}/>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCancel}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
+        </>
     );
 }
-
-const options = [
-    { key:randomId(), title: 'Gastos variáveis', backgroundColor: "#fc6b28", fontColor: "#fff", img: 'logos/rico.png'},
-    { key:randomId(), title: 'Gastos fixos', backgroundColor: "#fc6b28", fontColor: "#fff", img: 'logos/rico.png'}
-];

@@ -7,7 +7,7 @@ import {
 import {Chip, Typography} from '@mui/material';
 import Avatar from "@mui/material/Avatar";
 
-export default function CategoryChip({data, tagProps, key}) {
+export default function CategoryChip({data, tagProps}) {
     const theme = createTheme({
         palette: {
             primary: {
@@ -19,15 +19,15 @@ export default function CategoryChip({data, tagProps, key}) {
     return (
         <ThemeProvider theme={theme}>
             <Chip
-                key={key}
-                avatar={<Avatar alt={data.title} src={data.img}/>}
+                key={data.id}
+                avatar={<Avatar alt={data.label} src={data.img}/>}
                 color={'primary'}
                 variant="filled"
-                label={data.title}
+                label={data.label}
                 size="small"
-                title={data.title}
+                title={data.label}
                 {...tagProps}
-                sx={{maxWidth: '50px', minWidth: '20px', overflow: 'hidden'}}
+                sx={{maxWidth: '180px', minWidth: '20px', overflow: 'hidden'}}
             />
         </ThemeProvider>
     );

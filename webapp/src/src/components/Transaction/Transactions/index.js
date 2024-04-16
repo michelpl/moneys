@@ -167,7 +167,7 @@ export default function DataGridDemo() {
             sortable: true,
             width: 400,
             height: 180,
-            editable: true,
+            editable: false,
             renderCell: () => {
                 return (<CategoriesPicker/>)
             }
@@ -244,7 +244,7 @@ export default function DataGridDemo() {
             usedBudget: '100.00',
             notUsedBudget: '50.00',
             paymentMethod: 'Pix',
-            categories: 'aaa',
+            categories: '',
             status: 'paid',
             notes: 3,
             actions: 'edit button '
@@ -304,6 +304,7 @@ export default function DataGridDemo() {
                             }}
                         />
                     </ArgonBox>
+                    <CategoriesPicker />
                 </Card>
             </ArgonBox>
         </>
