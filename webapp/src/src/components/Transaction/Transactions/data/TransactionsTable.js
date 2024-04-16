@@ -49,13 +49,7 @@ const rows = [
 export default function DataGridDemo() {
   return (
     <Box sx={{ height: 400, width: '100%', backgroundColor: '#fff' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
+
     </Box>
   );
 }
