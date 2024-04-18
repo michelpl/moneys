@@ -4,7 +4,6 @@ import {useTheme, styled} from '@mui/material/styles';
 import Popper from '@mui/material/Popper';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import Autocomplete, {autocompleteClasses} from '@mui/material/Autocomplete';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -13,6 +12,7 @@ import Box from '@mui/material/Box';
 import {Chip} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
 
 const StyledAutocompletePopper = styled('div')(({theme}) => ({
     [`& .${autocompleteClasses.paper}`]: {
@@ -137,32 +137,51 @@ export default function CategoryModal() {
 
     return (
         <React.Fragment>
-            <Box sx={{width: '400px'}}>
+            <Box sx={{width: '400px', marginBottom: '20px'}}>
                 <Button disableRipple aria-describedby={id} onClick={handleClick} variant={'outlined'}>
                     <span>Selecionar</span>
                     <ManageSearchIcon/>
                 </Button>
+                <Box sx={{marginTop: '20px'}}>
+                    {value.map((label) => (
+                        <Chip
+                            key={label.key}
+                            avatar={<Avatar alt={label.name} src={label.img}/>}
+                            color={'primary'}
+                            variant="filled"
+                            label={label.name}
+                            size="small"
+                            title={label.name}
+                            sx={{
+                                maxWidth: '180px',
+                                minWidth: '100px',
+                                overflow: 'hidden',
+                                backgroundColor: label.backgroundColor,
+                                color: label.color
+                            }}
+
+                        />
+
+                    ))}
+                </Box>
                 <Divider />
-                {value.map((label) => (
-                    <Chip
-                        key={label.key}
-                        avatar={<Avatar alt={label.name} src={label.img}/>}
-                        color={'primary'}
-                        variant="filled"
-                        label={label.name}
-                        size="small"
-                        title={label.name}
-                        sx={{
-                            maxWidth: '180px',
-                            minWidth: '100px',
-                            overflow: 'hidden',
-                            backgroundColor: label.backgroundColor,
-                            color: label.color
-                        }}
+                <Box
+                    component="form"
+                    sx={{
+                        '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
 
-                    />
+                    <div>
 
-                ))}
+                        <TextField
+                            defaultValue="Nova categoria"
+                            variant="standard"
+                        />
+                    </div>
+                </Box>
             </Box>
             <StyledPopper id={id} open={open} anchorEl={anchorEl} placement="bottom-start">
                 <ClickAwayListener onClickAway={handleClose}>

@@ -6,12 +6,7 @@ import Chip from '@mui/material/Chip';
 import {Dialog, DialogActions, DialogTitle, DialogContent, Stack, DialogContentText} from "@mui/material";
 import CategoryChip from "./CategoryChip";
 import Avatar from "@mui/material/Avatar";
-import {randomId} from "@mui/x-data-grid-generator";
 import Button from "@mui/material/Button";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import CategoryModal from "./CategoryModal";
 
 
@@ -73,7 +68,7 @@ export default function ChipsArray() {
                     component: 'paper',
                 }}
             >
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>Categorias</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
 

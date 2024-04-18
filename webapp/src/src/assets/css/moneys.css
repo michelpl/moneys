@@ -23,7 +23,7 @@
     border: 1px !important;
 }
 
-.MuiDataGrid-editInputCell,
+
 .MuiDataGrid-cell:focus,
 .MuiDataGrid-cell--editing:focus-within,
 .MuiDataGrid-cell--editing {
@@ -60,8 +60,7 @@
     border: 0!important;
 }
 
-.MuiDataGrid-editInputCell,
-.MuiInputBase-input:hover {
+.MuiDataGrid-editInputCell{
     outline: none !important;
     padding: 0 !important;
     border: 0 !important;
@@ -76,4 +75,11 @@
 
 .MuiAutocomplete-root, .MuiAutocomplete-hasPopupIcon {
     width: 100%;
+}
+
+.outlinedInput {
+
+    box-shadow: #3d4852;
+    border-radius: 4px;
+    font-size: 12px;
 }
