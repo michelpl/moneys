@@ -28,6 +28,7 @@
     "prop-types": "15.8.1",
     "react": ">=16.8.0",
     "react-chartjs-2": "3.0.4",
+    "react-color": "^2.19.3",
     "react-countup": "6.4.2",
     "react-dom": ">=16.8.0",
     "react-github-btn": "1.4.0",

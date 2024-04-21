@@ -1,20 +1,22 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {useTheme, styled} from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import Popper from '@mui/material/Popper';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import DoneIcon from '@mui/icons-material/Done';
-import Autocomplete, {autocompleteClasses} from '@mui/material/Autocomplete';
+import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 import ButtonBase from '@mui/material/ButtonBase';
 import InputBase from '@mui/material/InputBase';
 import Box from '@mui/material/Box';
-import {Chip} from "@mui/material";
+import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
+import ColorPicker from 'components/ColorPicker/ColorPicker';
 
-const StyledAutocompletePopper = styled('div')(({theme}) => ({
+
+const StyledAutocompletePopper = styled('div')(({ theme }) => ({
     [`& .${autocompleteClasses.paper}`]: {
         boxShadow: 'none',
         margin: 0,
@@ -28,16 +30,15 @@ const StyledAutocompletePopper = styled('div')(({theme}) => ({
             minHeight: 'auto',
             alignItems: 'flex-start',
             padding: 8,
-            borderBottom: `1px solid  ${
-                theme.palette.mode === 'light' ? ' #eaecef' : '#30363d'
-            }`,
+            borderBottom: `1px solid  ${theme.palette.mode === 'light' ? ' #eaecef' : '#30363d'
+                }`,
             '&[aria-selected="true"]': {
                 backgroundColor: 'transparent',
             },
             [`&.${autocompleteClasses.focused}, &.${autocompleteClasses.focused}[aria-selected="true"]`]:
-                {
-                    backgroundColor: theme.palette.action.hover,
-                },
+            {
+                backgroundColor: theme.palette.action.hover,
+            },
         },
     },
     [`&.${autocompleteClasses.popperDisablePortal}`]: {
@@ -46,7 +47,7 @@ const StyledAutocompletePopper = styled('div')(({theme}) => ({
 }));
 
 function PopperComponent(props) {
-    const {disablePortal, anchorEl, open, ...other} = props;
+    const { disablePortal, anchorEl, open, ...other } = props;
     return <StyledAutocompletePopper {...other} />;
 }
 
@@ -56,11 +57,10 @@ PopperComponent.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
-const StyledPopper = styled(Popper)(({theme}) => ({
+const StyledPopper = styled(Popper)(({ theme }) => ({
     border: `1px solid ${theme.palette.mode === 'light' ? '#e1e4e8' : '#30363d'}`,
-    boxShadow: `0 8px 24px ${
-        theme.palette.mode === 'light' ? 'rgba(149, 157, 165, 0.2)' : 'rgb(1, 4, 9)'
-    }`,
+    boxShadow: `0 8px 24px ${theme.palette.mode === 'light' ? 'rgba(149, 157, 165, 0.2)' : 'rgb(1, 4, 9)'
+        }`,
     borderRadius: 6,
     width: 400,
     zIndex: theme.zIndex.modal,
@@ -68,12 +68,11 @@ const StyledPopper = styled(Popper)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#1c2128',
 }));
 
-const StyledInput = styled(InputBase)(({theme}) => ({
+const StyledInput = styled(InputBase)(({ theme }) => ({
     padding: 10,
     width: '100%',
-    borderBottom: `1px solid ${
-        theme.palette.mode === 'light' ? '#eaecef' : '#30363d'
-    }`,
+    borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#eaecef' : '#30363d'
+        }`,
     '& input': {
         borderRadius: 4,
         backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#0d1117',
@@ -82,17 +81,16 @@ const StyledInput = styled(InputBase)(({theme}) => ({
         border: `1px solid ${theme.palette.mode === 'light' ? '#eaecef' : '#30363d'}`,
         fontSize: 14,
         '&:focus': {
-            boxShadow: `0px 0px 0px 3px ${
-                theme.palette.mode === 'light'
+            boxShadow: `0px 0px 0px 3px ${theme.palette.mode === 'light'
                     ? 'rgba(3, 102, 214, 0.3)'
                     : 'rgb(12, 45, 107)'
-            }`,
+                }`,
             borderColor: theme.palette.mode === 'light' ? '#0366d6' : '#388bfd',
         },
     },
 }));
 
-const Button = styled(ButtonBase)(({theme}) => ({
+const Button = styled(ButtonBase)(({ theme }) => ({
     fontSize: 13,
     width: '100%',
     textAlign: 'left',
@@ -137,16 +135,16 @@ export default function CategoryModal() {
 
     return (
         <React.Fragment>
-            <Box sx={{width: '400px', marginBottom: '20px'}}>
+            <Box sx={{ width: '400px', marginBottom: '20px' }}>
                 <Button disableRipple aria-describedby={id} onClick={handleClick} variant={'outlined'}>
                     <span>Selecionar</span>
-                    <ManageSearchIcon/>
+                    <ManageSearchIcon />
                 </Button>
-                <Box sx={{marginTop: '20px'}}>
+                <Box sx={{ marginTop: '20px' }}>
                     {value.map((label) => (
                         <Chip
                             key={label.key}
-                            avatar={<Avatar alt={label.name} src={label.img}/>}
+                            avatar={<Avatar alt={label.name} src={label.img} />}
                             color={'primary'}
                             variant="filled"
                             label={label.name}
@@ -175,7 +173,7 @@ export default function CategoryModal() {
                 >
 
                     <div>
-
+                        <ColorPicker />
                         <TextField
                             defaultValue="Nova categoria"
                             variant="standard"
@@ -188,9 +186,8 @@ export default function CategoryModal() {
                     <div>
                         <Box
                             sx={{
-                                borderBottom: `1px solid ${
-                                    theme.palette.mode === 'light' ? '#eaecef' : '#30363d'
-                                }`,
+                                borderBottom: `1px solid ${theme.palette.mode === 'light' ? '#eaecef' : '#30363d'
+                                    }`,
                                 padding: '8px 10px',
                                 fontWeight: 600,
                             }}
@@ -220,49 +217,49 @@ export default function CategoryModal() {
                             PopperComponent={PopperComponent}
                             renderTags={() => null}
                             noOptionsText="Nenhuma encontrada"
-                            renderOption={(props, option, {selected}) => (
+                            renderOption={(props, option, { selected }) => (
                                 <>
-                                <li {...props}>
+                                    <li {...props}>
 
-                                    <Box
-                                        component={DoneIcon}
-                                        sx={{width: 17, height: 17, mr: '5px', ml: '-2px'}}
-                                        style={{
-                                            visibility: selected ? 'visible' : 'hidden',
-                                        }}
-                                    />
-                                    <Chip
-                                        key={option.key}
-                                        avatar={<Avatar alt={option.name} src={option.img}/>}
-                                        color={'primary'}
-                                        variant="filled"
-                                        label={option.name}
-                                        size="small"
-                                        title={option.name}
-                                        sx={{
-                                            maxWidth: '180px',
-                                            minWidth: '100px',
-                                            overflow: 'hidden',
-                                            backgroundColor: option.backgroundColor,
-                                            color: option.color
-                                        }}
+                                        <Box
+                                            component={DoneIcon}
+                                            sx={{ width: 17, height: 17, mr: '5px', ml: '-2px' }}
+                                            style={{
+                                                visibility: selected ? 'visible' : 'hidden',
+                                            }}
+                                        />
+                                        <Chip
+                                            key={option.key}
+                                            avatar={<Avatar alt={option.name} src={option.img} />}
+                                            color={'primary'}
+                                            variant="filled"
+                                            label={option.name}
+                                            size="small"
+                                            title={option.name}
+                                            sx={{
+                                                maxWidth: '180px',
+                                                minWidth: '100px',
+                                                overflow: 'hidden',
+                                                backgroundColor: option.backgroundColor,
+                                                color: option.color
+                                            }}
 
-                                    />
-                                    <Box
-                                        sx={{
-                                            flexGrow: 1,
-                                            '& span': {
-                                                color:
-                                                    theme.palette.mode === 'light' ? '#586069' : '#8b949e',
-                                            },
-                                        }}
-                                    >
+                                        />
+                                        <Box
+                                            sx={{
+                                                flexGrow: 1,
+                                                '& span': {
+                                                    color:
+                                                        theme.palette.mode === 'light' ? '#586069' : '#8b949e',
+                                                },
+                                            }}
+                                        >
 
-                                    </Box>
-                                    <Box>
-                                        <Button>Excluir</Button>
-                                    </Box>
-                                </li>
+                                        </Box>
+                                        <Box>
+                                            <Button>Excluir</Button>
+                                        </Box>
+                                    </li>
                                 </>
                             )}
                             options={[...labels].sort((a, b) => {
