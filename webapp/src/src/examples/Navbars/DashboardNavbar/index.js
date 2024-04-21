@@ -162,7 +162,7 @@ function DashboardNavbar({ absolute, light, isMini, pageTitle }) {
           <ArgonBox sx={(theme) => navbarRow(theme, { isMini })}>
             <ArgonBox pr={1}>
               <ArgonInput
-                placeholder="Type here..."
+                placeholder="Buscar..."
                 startAdornment={
                   <Icon fontSize="small" style={{ marginRight: "6px" }}>
                     search
