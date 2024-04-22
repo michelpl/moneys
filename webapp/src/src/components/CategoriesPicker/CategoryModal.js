@@ -14,6 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import ColorPicker from 'components/ColorPicker/ColorPicker';
+import ArgonTypography from 'components/Argon/ArgonTypography';
 
 
 const StyledAutocompletePopper = styled('div')(({ theme }) => ({
@@ -171,7 +172,10 @@ export default function CategoryModal() {
                     noValidate
                     autoComplete="off"
                 >
-
+                    <Divider />
+                    <ArgonTypography variant='p'>
+                        Criar categoria
+                    </ArgonTypography>
                     <div>
                         <ColorPicker />
                         <TextField
