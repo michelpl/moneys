@@ -71,7 +71,6 @@ export default function ChipsArray() {
                 <DialogTitle>Categorias</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-
                         <CategoryModal sx={{width: '400px'}}/>
                     </DialogContentText>
                 </DialogContent>

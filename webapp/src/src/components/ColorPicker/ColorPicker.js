@@ -7,6 +7,12 @@ import { Icon } from '@mui/material';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
+import {faMessage} from "@fortawesome/free-regular-svg-icons";
+import pxToRem from "../../assets/theme/functions/pxToRem";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEyeDropper} from "@fortawesome/free-solid-svg-icons";
+import IconButton from "@mui/material/IconButton";
+import rgba from "../../assets/theme/functions/rgba";
 
 const shapeStyles = { bgcolor: 'primary.main', width: 40, height: 40 };
 const shapeCircleStyles = { borderRadius: '50%' };
@@ -24,9 +30,6 @@ class ColorPicker extends React.Component {
             b: '228',
             a: '1',
         },
-        width: 40, 
-        height: 40,
-        borderRadius: '50%' 
     };
 
     handleClick = () => {
@@ -46,9 +49,13 @@ class ColorPicker extends React.Component {
         const styles = reactCSS({
             'default': {
                 color: {
-                    width: '24px',
-                    height: '24px',
-                    borderRadius: '2px',
+                    width: pxToRem(14),
+                    height: pxToRem(14),
+                    borderRadius: '50%',
+                    outline: '2px solid',
+                    outlineColor: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, 0.6)`,
+                    border: '1px solid #fff',
+                    padding: '5px',
                     background: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
                 },
                 swatch: {
@@ -75,19 +82,22 @@ class ColorPicker extends React.Component {
 
         return (
             <div>
-                <div style={styles.swatch} onClick={this.handleClick}>
-                    <div style={styles.color} />
-                </div>
                 <Stack spacing={3} direction="row">
-                    <Badge color="secondary" overlap="circular" badgeContent=" ">
-                        <Box component="span" sx={{ ...styles, borderRadius: "50%" }} />
-                    </Badge>
+                    <IconButton
+                        title={'Cor'}
+                        onClick={this.handleClick}
+                        aria-label="Select color"
+                        style={styles.color}
+                        sx={{
+                            height: styles.height,
+                    }}
+                    >
+                    </IconButton>
                 </Stack>
                 {this.state.displayColorPicker ? <div style={styles.popover}>
                     <div style={styles.cover} onClick={this.handleClose} />
                     <SketchPicker color={this.state.color} onChange={this.handleChange} />
                 </div> : null}
-
             </div>
         )
     }

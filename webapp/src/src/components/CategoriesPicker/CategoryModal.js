@@ -12,9 +12,8 @@ import Box from '@mui/material/Box';
 import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import TextField from "@mui/material/TextField";
-import ColorPicker from 'components/ColorPicker/ColorPicker';
 import ArgonTypography from 'components/Argon/ArgonTypography';
+import NewCategoryInput from "./NewCategoryInput";
 
 
 const StyledAutocompletePopper = styled('div')(({ theme }) => ({
@@ -177,11 +176,7 @@ export default function CategoryModal() {
                         Criar categoria
                     </ArgonTypography>
                     <div>
-                        <ColorPicker />
-                        <TextField
-                            defaultValue="Nova categoria"
-                            variant="standard"
-                        />
+                        <NewCategoryInput />
                     </div>
                 </Box>
             </Box>
@@ -258,7 +253,6 @@ export default function CategoryModal() {
                                                 },
                                             }}
                                         >
-
                                         </Box>
                                         <Box>
                                             <Button>Excluir</Button>
@@ -284,6 +278,7 @@ export default function CategoryModal() {
                                 />
                             )}
                         />
+                        <NewCategoryInput />
                     </div>
                 </ClickAwayListener>
             </StyledPopper>
