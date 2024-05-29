@@ -20,6 +20,7 @@ import {grey} from '@mui/material/colors';
 import MyPopover from 'components/MyPopover';
 import CategoriesPicker from "../../CategoriesPicker/CategoriesPicker";
 import pxToRem from "../../../assets/theme/functions/pxToRem";
+import MoneysDataGrid from "../../MoneysDataGrid/MoneysDataGrid";
 
 function EditToolbar(props) {
     const {setRows, setRowModesModel} = props;
@@ -282,6 +283,9 @@ export default function DataGridDemo() {
                     >
                         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <ArgonTypography variant="h6">Entradas</ArgonTypography>
+                        </ArgonBox>
+                        <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+                            <MoneysDataGrid />
                         </ArgonBox>
                     </ArgonBox>
                 </Card>
