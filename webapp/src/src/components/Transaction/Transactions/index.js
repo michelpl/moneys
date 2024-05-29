@@ -283,28 +283,7 @@ export default function DataGridDemo() {
                         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                             <ArgonTypography variant="h6">Entradas</ArgonTypography>
                         </ArgonBox>
-                        <DataGrid
-                            checkboxSelection
-                            rows={rows}
-                            columns={columns}
-                            disableRowSelectionOnClick
-                            autoHeight={true}
-                            getRowHeight={() => 'auto'}
-                            slots={{
-                                footer: EditToolbar,
-                            }}
-                            slotProps={{
-                                footer: {setRows, setRowModesModel},
-                            }}
-                            sx={{
-                                boxShadow: 0,
-                                border: 0,
-                                borderColor: "#fff",
-                                fontSize: pxToRem(12)
-                            }}
-                        />
                     </ArgonBox>
-                    <CategoriesPicker />
                 </Card>
             </ArgonBox>
         </>
