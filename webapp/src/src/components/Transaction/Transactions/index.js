@@ -18,7 +18,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMessage, faFlag} from '@fortawesome/free-regular-svg-icons'
 import {grey} from '@mui/material/colors';
 import MyPopover from 'components/MyPopover';
-import CategoriesPicker from "../../CategoriesPicker/CategoriesPicker";
 import pxToRem from "../../../assets/theme/functions/pxToRem";
 import MoneysDataGrid from "../../MoneysDataGrid/MoneysDataGrid";
 
@@ -169,9 +168,7 @@ export default function DataGridDemo() {
             width: 400,
             height: 180,
             editable: false,
-            renderCell: () => {
-                return (<CategoriesPicker/>)
-            }
+
         },
         {
             id: randomId(),

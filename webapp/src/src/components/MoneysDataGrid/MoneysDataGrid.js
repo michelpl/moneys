@@ -2,10 +2,12 @@
 import { AgGridReact } from 'ag-grid-react'; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
-import ArgonTypography from "../Argon/ArgonTypography";
-import ArgonBox from "../Argon/ArgonBox";
 import { useMemo, useState } from "react";
 import MoodEditor from "./MoodEditor";
+import ChipList from "../CategoriesPicker/ChipList";
+import { randomColor, randomId, randomJobTitle } from "@mui/x-data-grid-generator";
+import CategoriesPicker from "../CategoriesPicker/CategoriesPicker";
+import { Chip } from "@mui/material";
 
 const MoodRenderer = (props) => {
   const imageForMood = mood => 'https://www.ag-grid.com/example-assets/smileys/' + (mood === 'Happy' ? 'happy.png' : 'sad.png');
@@ -19,9 +21,86 @@ const MoodRenderer = (props) => {
 
 export default function MoneysDataGrid() {
   const [rowData, setRowData] = useState([
-    { make: "Tesla", model: "Model Y", price: 64950, electric: true, date: new Date('12/01/2022') },
-    { make: "Ford", model: "F-Series", price: 33850, electric: false, date: new Date() },
-    { make: "Toyota", model: "Corolla", price: 29600, electric: false, date: new Date() },
+    {
+      make: "Tesla",
+      model: "Model Y",
+      price: 64950,
+      electric: true,
+      date: new Date('12/01/2022'),
+      categories: [
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+      ]
+    },
+    {
+      make: "Ford",
+      model: "F-Series",
+      price: 33850,
+      electric: false,
+      date: new Date(),
+      categories: [
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+        }
+      ]
+    },
+    {
+      make: "Toyota",
+      model: "Corolla",
+      price: 29600,
+      electric: false,
+      date: new Date(),
+      categories: [
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+        {
+          id: randomId(),
+          label: randomJobTitle(),
+          color: randomColor(),
+        },
+      ]
+    },
   ]);
 
   const defaultColDef = useMemo(() => {
@@ -37,6 +116,7 @@ export default function MoneysDataGrid() {
     {
       field: "make",
       editable: true,
+      rowDrag: true
     },
     { field: "model" },
     { field: "price" },
@@ -46,6 +126,7 @@ export default function MoneysDataGrid() {
     },
     {
       field: "date" ,
+      headerName: 'Data de pagamento',
       cellEditor: "agDateCellEditor",
       editable:true,
       valueFormatter: (params) => {
@@ -57,7 +138,14 @@ export default function MoneysDataGrid() {
         return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
       },
     },
-    { field: "categories" },
+    {
+      field: "categories",
+      headerName: 'Categorias',
+      cellRenderer: ChipList,
+      cellEditor: CategoriesPicker,
+      cellEditorPopup: true,
+      editable: true,
+    },
     {
       field: "mood",
       headerName: "Custom Mood",
@@ -69,14 +157,15 @@ export default function MoneysDataGrid() {
   ]);
   return (<>
       <div
-        className="ag-theme-quartz" // applying the grid theme
-        style={{ height: 500, width: '100%' }} // the grid will fill the size of the parent container
+        className="ag-theme-quartz"
+        style={{ height: 400, width: '100%' }}
       >
         <AgGridReact
           rowData={rowData}
           columnDefs={colDefs}
           reactiveCustomComponents={true}
           defaultColDef={defaultColDef}
+          rowDragManaged={true}
         />
       </div>
   </>)
