@@ -5,7 +5,10 @@ import TextField from '@mui/material/TextField';
 import Popper from '@mui/material/Popper';
 import {styled} from '@mui/material/styles';
 import {randomId} from "@mui/x-data-grid-generator";
-import { Chip } from "@mui/material";
+import { Box, Chip, InputAdornment } from "@mui/material";
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Autocomplete() {
   return (
@@ -17,15 +20,28 @@ export default function Autocomplete() {
       freeSolo
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
-          <Chip sx={{backgroundColor: categories[index].backgroundColor}} key={randomId()} label={option} {...getTagProps({ index })} />
+          <Chip 
+            sx={{backgroundColor: categories[index].backgroundColor}} 
+            key={randomId()} 
+            label={option} 
+            {...getTagProps({ index })}
+            deleteIcon={
+                <ModeEditOutlineIcon fontSize="4px"/>
+            } 
+            
+          />
         ))
       }
       renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="filled"
-          placeholder="Buscar"
-        />
+        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+          <ManageSearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+          <TextField
+            {...params}
+            variant="filled"
+            placeholder="Buscar"
+            
+          />
+        </Box>
       )}
     />
   );
