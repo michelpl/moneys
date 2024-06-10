@@ -82,3 +82,7 @@
     border-radius: 4px;
     font-size: 12px;
 }
+
+.MuiListItemIcon-root {
+    min-width: 16px!important;
+}
