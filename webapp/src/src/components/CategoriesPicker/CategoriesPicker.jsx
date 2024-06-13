@@ -27,12 +27,12 @@ export default memo(({ value, onValueChange, stopEditing }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '25%',
+    width: '400px',
     bgcolor: 'background.paper',
     border: '1px solid #fff',
     borderRadius: '8px',
     boxShadow: 5,
-    p: 4,
+    p: 3,
   };
 
   const [open, setOpen] = React.useState(true);
@@ -50,7 +50,7 @@ export default memo(({ value, onValueChange, stopEditing }) => {
         Categorias
       </Typography>
       <Box mt={3}>
-        <Autocomplete />
+        <Autocomplete categorizedItem={'Descrição da transação'} />
       </Box>
     </Box>
   </Modal>);
