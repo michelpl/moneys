@@ -14,15 +14,10 @@ Coded by www.creative-tim.com
 */
 
 // Images
-import kal from "assets/images/kal-visuals-square.jpg";
-import marie from "assets/images/marie.jpg";
-import ivana from "assets/images/ivana-square.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+
 
 const profilesListData = [
   {
-    image: kal,
     name: "Sophie B.",
     description: "Hi! I need more information..",
     action: {
@@ -33,7 +28,6 @@ const profilesListData = [
     },
   },
   {
-    image: marie,
     name: "Anne Marie",
     description: "Awesome work, can you..",
     action: {
@@ -44,7 +38,6 @@ const profilesListData = [
     },
   },
   {
-    image: ivana,
     name: "Ivanna",
     description: "About files I can..",
     action: {
@@ -55,7 +48,6 @@ const profilesListData = [
     },
   },
   {
-    image: team4,
     name: "Peterson",
     description: "Have a great afternoon..",
     action: {
@@ -66,7 +58,6 @@ const profilesListData = [
     },
   },
   {
-    image: team3,
     name: "Nick Daniel",
     description: "Hi! I need more information..",
     action: {
