@@ -34,7 +34,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+import burceMars from "assets/images/logo-ct-dark.png";
 
 function Header() {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
