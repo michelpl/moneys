@@ -1,16 +1,5 @@
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
-import * as React from 'react';
-import MuiAutocomplete, {autocompleteClasses} from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField';
-import Popper from '@mui/material/Popper';
-import {styled} from '@mui/material/styles';
-import {randomId} from "@mui/x-data-grid-generator";
-import { Box, Chip, InputAdornment } from "@mui/material";
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-import ClearIcon from '@mui/icons-material/Clear';
-=======
+
 import * as React from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import List from "@mui/material/List";
@@ -28,7 +17,6 @@ import ArgonBox from "../Argon/ArgonBox";
 import ArgonInput from "../Argon/ArgonInput";
 import Icon from "@mui/material/Icon";
 import ArgonTypography from "../Argon/ArgonTypography";
->>>>>>> 6444c3eb5f7e0958449b129e52e20b04de20a455
 
 export default function Autocomplete({categorizedItem}) {
   const [checked, setChecked] = React.useState([0]);
@@ -46,46 +34,11 @@ export default function Autocomplete({categorizedItem}) {
     setChecked(newChecked);
   };
   return (
-<<<<<<< HEAD
-    <MuiAutocomplete
-      multiple
-      id="tags-filled"
-      options={categories.map((option) => option.label)}
-      defaultValue={[categories[13].label]}
-      freeSolo
-      renderTags={(value, getTagProps) =>
-        value.map((option, index) => (
-          <Chip 
-            sx={{backgroundColor: categories[index].backgroundColor}} 
-            key={randomId()} 
-            label={option} 
-            {...getTagProps({ index })}
-            deleteIcon={
-                <ModeEditOutlineIcon fontSize="4px"/>
-            } 
-            
-          />
-        ))
-      }
-      renderInput={(params) => (
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-          <ManageSearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-          <TextField
-            {...params}
-            variant="filled"
-            placeholder="Buscar"
-            
-          />
-        </Box>
-      )}
-    />
-  );
-=======
     <Box>
       <ArgonBox p={1} mb={2}>
         <ArgonBox mb={2} lineHeight={1}>
           <ArgonTypography variant="button" color="text" fontWeight="regular">
-            Adicionar categorias em: <strong>{categorizedItem}</strong>
+            !!!!!!!!!Adicionar categorias em: <strong>{categorizedItem}</strong>
           </ArgonTypography>
         </ArgonBox>
         <ArgonInput
@@ -143,7 +96,7 @@ export default function Autocomplete({categorizedItem}) {
         })}
       </List>
     </Box>);
->>>>>>> 6444c3eb5f7e0958449b129e52e20b04de20a455
+
 }
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const categories = [{
