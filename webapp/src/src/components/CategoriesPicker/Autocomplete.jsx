@@ -38,7 +38,7 @@ export default function Autocomplete({categorizedItem}) {
       <ArgonBox p={1} mb={2}>
         <ArgonBox mb={2} lineHeight={1}>
           <ArgonTypography variant="button" color="text" fontWeight="regular">
-            !!!!!!!!!Adicionar categorias em: <strong>{categorizedItem}</strong>
+            Adicionar categorias em: <strong>{categorizedItem}</strong>
           </ArgonTypography>
         </ArgonBox>
         <ArgonInput
