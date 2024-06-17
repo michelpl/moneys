@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import ColorPicker from "../ColorPicker/ColorPicker";
+import CustomizableChip from "../CustomizableChip/CustomizableChip";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Chip, FormControl, InputBase, TextField } from "@mui/material";
@@ -64,9 +64,6 @@ export default function Autocomplete({categorizedItem}) {
 
               secondaryAction={(
                 <>
-                  <IconButton edge="end" aria-label="comments" sx={{ color: value.backgroundColor, marginRight: "2px" }}>
-                    <ColorPicker />
-                  </IconButton>
                   <IconButton variant={'small'} edge="end" color={value.backgroundColor} aria-label="comments" sx={{ marginRight: "15px" }}>
                     <DeleteIcon />
                   </IconButton>
@@ -90,7 +87,9 @@ export default function Autocomplete({categorizedItem}) {
                     inputProps={{ "aria-labelledby": labelId }}
                   />
                 </ListItemIcon>
-                <Chip label={value.label} sx={{color: '#fff' ,backgroundColor: value.backgroundColor}} />
+                <IconButton edge="end" aria-label="comments" sx={{ color: value.backgroundColor, marginRight: "5px" }}>
+                    <CustomizableChip label={ value.label } />
+                </IconButton>
               </ListItemButton>
             </ListItem>);
         })}

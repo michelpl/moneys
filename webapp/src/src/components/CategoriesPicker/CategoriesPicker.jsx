@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/prop-types */
-
 import React, { memo, useRef, useState } from "react";
 import { Box, Modal } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -27,7 +25,7 @@ export default memo(({ value, onValueChange, stopEditing }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '400px',
+    width: '500px',
     bgcolor: 'background.paper',
     border: '1px solid #fff',
     borderRadius: '8px',
