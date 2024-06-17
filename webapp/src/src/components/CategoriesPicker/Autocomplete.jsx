@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CustomizableChip from "../CustomizableChip/CustomizableChip";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, Chip, FormControl, InputBase, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { Directions, SearchRounded } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 import ArgonBox from "../Argon/ArgonBox";
@@ -42,6 +42,7 @@ export default function Autocomplete({categorizedItem}) {
           </ArgonTypography>
         </ArgonBox>
         <ArgonInput
+          sx={{ border: '1px solid #dfdfdf', borderRadius: '8px' }}
           placeholder="Buscar"
           startAdornment={
             <Icon fontSize="small" style={{ marginRight: "6px" }}>
@@ -49,6 +50,7 @@ export default function Autocomplete({categorizedItem}) {
             </Icon>
           }
         />
+        <Divider />
       </ArgonBox>
       <List sx={{
         width: "100%", bgcolor: "background.paper", maxHeight: 300, overflowY: "auto", overflowX: "hidden",

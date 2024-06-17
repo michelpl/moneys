@@ -69,7 +69,6 @@ export default function CustomizableChip({ label }) {
           <div style={styles.cover} onClick={handleClose} />
           <SketchPicker color={state.color} onChange={handleChange} />
         </div> : null}
-
       </div>
     )
 }
