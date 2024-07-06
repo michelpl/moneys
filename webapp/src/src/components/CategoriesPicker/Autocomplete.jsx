@@ -10,13 +10,14 @@ import IconButton from "@mui/material/IconButton";
 import CustomizableChip from "../CustomizableChip/CustomizableChip";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box } from "@mui/material";
+import { Box, hexToRgb } from "@mui/material";
 import { Directions, SearchRounded } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 import ArgonBox from "../Argon/ArgonBox";
 import ArgonInput from "../Argon/ArgonInput";
 import Icon from "@mui/material/Icon";
 import ArgonTypography from "../Argon/ArgonTypography";
+import rgba from "assets/theme/functions/rgba";
 
 export default function Autocomplete({ categorizedItem }) {
 
@@ -65,7 +66,7 @@ export default function Autocomplete({ categorizedItem }) {
     label: "Impostos",
     id: "9f8f929d-89e0-4fb7-85a9-fb7ad7a7cf41",
     backgroundColor: "#2ecc71",
-  }, { label: "Seguros", id: "7e0af4b6-5419-4f4b-88fb-13be2c303042", backgroundColor: "#9b59b6" }, {
+  }, { label: "Seguros", id: "7e0af4b6-5419-4f4b-88fb-13be2c303042", backgroundColor: hexToRgb("#9b59b6") }, {
     label: "Outros",
     id: "efa7e567-51c2-4905-9186-d726df529d20",
     backgroundColor: "#f1c40f",
@@ -112,7 +113,7 @@ export default function Autocomplete({ categorizedItem }) {
             handleSearch(e.target.value)
           }}
         />
-        <Divider />
+        <Divider></Divider>
       </ArgonBox>
       <List sx={{
         width: "100%", bgcolor: "background.paper", maxHeight: 300, overflowY: "auto", overflowX: "hidden",
@@ -151,8 +152,13 @@ export default function Autocomplete({ categorizedItem }) {
                   inputProps={{ "aria-labelledby": labelId }}
                 />
               </ListItemIcon>
-              <IconButton edge="end" aria-label="comments" sx={{ color: value.backgroundColor, marginRight: "5px" }}>
-                <CustomizableChip label={value.label} />
+              <IconButton edge="end" aria-label="comments" sx={{ marginRight: "5px" }}>
+                <CustomizableChip label={value.label} initialColor={{
+      r: '241',
+      g: '102',
+      b: '19',
+      a: '1',
+    }} />
               </IconButton>
             </ListItemButton>
           </ListItem>);

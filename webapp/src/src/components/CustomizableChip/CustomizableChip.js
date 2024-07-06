@@ -7,15 +7,11 @@ import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import rgba from 'assets/theme/functions/rgba'
 import { Chip } from "@mui/material";
 
-export default function CustomizableChip({ label }) {
+export default function CustomizableChip({ label, initialColor }) {
+  // const color = useState();
   const [state, setState] = useState({
     displayColorPicker: false,
-    color: {
-      r: '241',
-      g: '112',
-      b: '19',
-      a: '1',
-    },
+    color: initialColor,
   });
 
   const handleClick = () => {
@@ -27,7 +23,7 @@ export default function CustomizableChip({ label }) {
   };
 
   const handleChange = (color) => {
-    console.log(color)
+    console.log(`${state.color.r}${state.color.g}${state.color.b}${state.color.a}`)
     setState({ color: color.rgb,  displayColorPicker: state.displayColorPicker })
   };
 
