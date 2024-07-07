@@ -41,31 +41,7 @@ export default function Autocomplete({ categorizedItem }) {
     label: "Lazer",
     id: "3f132a48-8aa3-46a4-8318-5d788bc8d2fb",
     backgroundColor: "#1abc9c",
-  }, {
-    label: "Telecomunicações",
-    id: "b929250e-bd56-40e7-93f1-2e102d1c2c9b",
-    backgroundColor: "#9b59b6",
-  }, { label: "Energia", id: "8ecf4d4a-3a58-4c7d-91c7-c7154e66dd38", backgroundColor: "#f1c40f" }, {
-    label: "Água",
-    id: "2b0498e7-f3d1-49bb-9a4b-0b0cb10ef5b7",
-    backgroundColor: "#2ecc71",
-  }, { label: "Internet", id: "86b6a7a7-b9c2-45f6-ba14-68e701ad5403", backgroundColor: "#9b59b6" }, {
-    label: "Roupa",
-    id: "e33b5ad1-56db-44b5-8b9f-d63de0d9e507",
-    backgroundColor: "#e74c3c",
-  }, {
-    label: "Entretenimento",
-    id: "b537e61f-8c9a-4434-9311-b260c9d9a25a",
-    backgroundColor: "#1abc9c",
-  }, {
-    label: "Investimentos",
-    id: "c684b40a-3a9a-4e11-90d8-1706f0d2b5fc",
-    backgroundColor: "#3498db",
-  }, { label: "Presentes", id: "d3731987-aa63-4486-84a3-3a94be8c4b88", backgroundColor: "#f1c40f" }, {
-    label: "Impostos",
-    id: "9f8f929d-89e0-4fb7-85a9-fb7ad7a7cf41",
-    backgroundColor: "#2ecc71",
-  }, { label: "Seguros", id: "7e0af4b6-5419-4f4b-88fb-13be2c303042", backgroundColor: "#9b59b6" }, {
+  },{ label: "Seguros", id: "7e0af4b6-5419-4f4b-88fb-13be2c303042", backgroundColor: "#9b59b6" }, {
     label: "Outros",
     id: "efa7e567-51c2-4905-9186-d726df529d20",
     backgroundColor: "#f1c40f",
