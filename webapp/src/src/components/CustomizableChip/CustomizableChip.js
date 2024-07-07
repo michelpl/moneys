@@ -22,7 +22,6 @@ export default function BasicPopover() {
 
 
  const handleChange = (color) => {
-  console.log(color);
     setState({ color: color.hex })
   };
 
