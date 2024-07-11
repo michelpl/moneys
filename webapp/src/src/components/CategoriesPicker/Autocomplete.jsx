@@ -128,7 +128,7 @@ export default function Autocomplete({ categorizedItem }) {
                 />
               </ListItemIcon>
               <IconButton edge="end" aria-label="comments" sx={{ color: value.backgroundColor, marginRight: "5px" }}>
-                <CustomizableChip label={value.label} />
+                <CustomizableChip label={value.label} initialColor={value.backgroundColor} />
               </IconButton>
             </ListItemButton>
           </ListItem>);

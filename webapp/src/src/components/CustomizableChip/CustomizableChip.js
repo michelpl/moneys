@@ -8,9 +8,9 @@ import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import { Chip, hexToRgb } from '@mui/material';
 import { SketchPicker } from 'react-color';
 
-export default function BasicPopover() {
+export default function CustomizableChip({initialColor, label}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [state, setState] = React.useState({color: '#e310f1'})
+  const [state, setState] = React.useState({color: initialColor})
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +31,7 @@ export default function BasicPopover() {
   return (
     <div>
       <FormatColorFillIcon sx={{ color: state.color, marginRight: '20px' }} onClick={handleClick} />
-      <Chip label={'TESTE'} sx={{ color: '#fff', backgroundColor: state.color }} />
+      <Chip size='small' label={label} sx={{ color: '#fff', backgroundColor: state.color }} />
 
       <Popover
         id={id}
@@ -47,7 +47,7 @@ export default function BasicPopover() {
           horizontal: 'left',
         }}
       >
-<SketchPicker color={hexToRgb(state.color)} onChange={ handleChange } />
+        <SketchPicker color={hexToRgb(state.color)} onChange={ handleChange } />
       </Popover>
     </div>
   )
