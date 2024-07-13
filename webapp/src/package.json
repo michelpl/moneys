@@ -23,7 +23,6 @@
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "ag-grid-react": "^32.0.2",
-    "ajv-validator": "^1.0.0",
     "chart.js": "3.9.1",
     "chroma-js": "2.4.2",
     "emoji-picker-react": "^4.9.2",
