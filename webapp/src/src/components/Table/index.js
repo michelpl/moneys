@@ -21,6 +21,7 @@ import ArgonTypography from "components/Argon/ArgonTypography";
 import typography from "assets/theme/base/typography";
 import borders from "assets/theme/base/borders";
 import UnderlineTextField from "components/Form/UnderlineTextField";
+import {randomId} from "@mui/x-data-grid-generator";
 
 function Table({ columns, rows }) {
   const { size, fontWeightBold } = typography;
@@ -43,7 +44,7 @@ function Table({ columns, rows }) {
 
     return (
       <ArgonBox
-        key={name}
+        key={randomId()}
         component="th"
         width={width || "auto"}
         pt={1.5}

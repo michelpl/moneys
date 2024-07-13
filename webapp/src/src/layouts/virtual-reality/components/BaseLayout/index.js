@@ -93,7 +93,7 @@ function BaseLayout({ children }) {
         </ArgonBox>
         <ArgonBox sx={baseLayoutContent}>
           <ArgonBox display={{ xs: "none", lg: "block" }}>
-            <Sidenav
+          <Sidenav
               color={sidenavColor}
               brand={darkSidenav || darkMode ? brand : brandDark}
               brandName="Moneys"

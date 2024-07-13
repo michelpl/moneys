@@ -45,10 +45,6 @@ import profilesListData from "layouts/profile/data/profilesListData";
 import homeDecor1 from "assets/images/home-decor-1.jpg";
 import homeDecor2 from "assets/images/home-decor-2.jpg";
 import homeDecor3 from "assets/images/home-decor-3.jpg";
-import team1 from "assets/images/team-1.jpg";
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
 const bgImage =
   "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg";
 
@@ -134,10 +130,10 @@ function Overview() {
                     label: "View Project",
                   }}
                   authors={[
-                    { image: team1, name: "Elena Morison" },
-                    { image: team2, name: "Ryan Milly" },
-                    { image: team3, name: "Nick Daniel" },
-                    { image: team4, name: "Peterson" },
+                    { name: "Elena Morison" },
+                    { name: "Ryan Milly" },
+                    { name: "Nick Daniel" },
+                    { name: "Peterson" },
                   ]}
                 />
               </Grid>
@@ -154,10 +150,10 @@ function Overview() {
                     label: "View Project",
                   }}
                   authors={[
-                    { image: team3, name: "Nick Daniel" },
-                    { image: team4, name: "Peterson" },
-                    { image: team1, name: "Elena Morison" },
-                    { image: team2, name: "Ryan Milly" },
+                    { name: "Nick Daniel" },
+                    { name: "Peterson" },
+                    { name: "Elena Morison" },
+                    { name: "Ryan Milly" },
                   ]}
                 />
               </Grid>
@@ -174,10 +170,10 @@ function Overview() {
                     label: "View Project",
                   }}
                   authors={[
-                    { image: team4, name: "Peterson" },
-                    { image: team3, name: "Nick Daniel" },
-                    { image: team2, name: "Ryan Milly" },
-                    { image: team1, name: "Elena Morison" },
+                    { name: "Peterson" },
+                    { name: "Nick Daniel" },
+                    { name: "Ryan Milly" },
+                    { name: "Elena Morison" },
                   ]}
                 />
               </Grid>

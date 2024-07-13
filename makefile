@@ -6,23 +6,23 @@ MYSQL_PASSWORD ?= root
 
 install:
 	cp webapi/src/.env.example webapi/src/.env
-	docker-compose build --no-cache
-	docker-compose up -d
-	docker-compose exec webapi composer update -vvv
-	docker-compose exec composer require mongodb/laravel-mongodb ^4.0.0
+	docker compose build --no-cache
+	docker compose up -d
+	docker compose exec webapi composer update -vvv
+	docker compose exec composer require mongodb/laravel-mongodb ^4.0.0
 
 mysql:
-	docker-compose exec db mysql -u root -p$(MYSQL_PASSWORD)
+	docker compose exec db mysql -u root -p$(MYSQL_PASSWORD)
 
 run:
-	docker-compose up -d
-	docker-compose exec webapp npm start
+	docker compose up -d
+	docker compose exec webapp npm start
 
 stop:
-	docker-compose down
+	docker compose down
 
 test:
-	docker-compose exec webapi php artisan test
+	docker compose exec webapi php artisan test
 
 show-logs:
 	echo "Showing logs...... \n " && tail -f src/storage/logs/laravel.log
@@ -50,24 +50,24 @@ webapp-permissions:
 	sudo chown -R root:${USER} webapp/src/public/
 
 webapi-bash:
-	docker-compose exec webapi bash
+	docker compose exec webapi bash
 
 webapp-bash:
-	docker-compose exec webapp /bin/ash
+	docker compose exec webapp /bin/ash
 
 artisan:
-	docker-compose exec webapi php artisan
+	docker compose exec webapi php artisan
 
 seed:
 	cp ./stocks.sql webapi/src/public/
-	docker-compose exec webapi php artisan db:seed --class=StockSeeder
+	docker compose exec webapi php artisan db:seed --class=StockSeeder
 	rm webapi/src/public/stocks.sql
 
 make npm:
-	docker-compose exec webapp npm
+	docker compose exec webapp npm
 
 make npm-build:
-	docker-compose exec webapp npm run build
+	docker compose exec webapp npm run build
 
 make npm-start:
-	docker-compose exec webapp npm start
+	docker compose exec webapp npm start

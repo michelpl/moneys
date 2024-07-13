@@ -5,14 +5,14 @@
 .underlineTextField:first-child {
     padding-left: 2px;
     border: 0;
-    box-shadow: 0;
+    box-shadow: none;
 }
 
 .MuiDataGrid-row {
     border: 0 !important;
-    max-height: 104px !important;
-    margin: 0px 0;
+    margin: 0 0;
     padding: 10px 0 !important;
+    height: auto !important;
 }
 
 .MuiDataGrid-row:hover {
@@ -23,7 +23,7 @@
     border: 1px !important;
 }
 
-.MuiDataGrid-editInputCell,
+
 .MuiDataGrid-cell:focus,
 .MuiDataGrid-cell--editing:focus-within,
 .MuiDataGrid-cell--editing {
@@ -34,14 +34,13 @@
     offset-position: 0 !important;
     border-top: 0 !important;
     border-radius: 0 !important;
-    height: 20px !important;
     box-shadow: none !important;
     background-color: transparent !important;
+    font-size: 12px !important;
 }
 
 .MuiDataGrid-cell {
-    min-height: 32px !important;
-    max-height: 22px !important;
+    min-height: 22px !important;
 }
 
 .MuiDataGrid-columnHeader.MuiDataGrid-withBorderColor,
@@ -61,10 +60,9 @@
     border: 0!important;
 }
 
-.MuiDataGrid-editInputCell,
-.MuiInputBase-input:hover {
+.MuiDataGrid-editInputCell{
     outline: none !important;
-    padding: 0px !important;
+    padding: 0 !important;
     border: 0 !important;
     outline-offset: 0 !important;
     box-shadow: none !important;
@@ -73,4 +71,18 @@
 
 .MuiSvgIcon-root.cellIcon {
     font-size: 24px !important;
+}
+
+.MuiAutocomplete-root, .MuiAutocomplete-hasPopupIcon {
+    width: 100%;
+}
+
+.outlinedInput {
+    box-shadow: #3d4852;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.MuiListItemIcon-root {
+    min-width: 16px!important;
 }

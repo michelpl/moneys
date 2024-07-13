@@ -35,13 +35,11 @@ const autocomplete = {
       fontSize: size.sm,
       color: text.main,
       textAlign: "left",
-      backgroundColor: `${transparent.main} !important`,
       borderRadius: borderRadius.md,
     },
 
     paper: {
-      boxShadow: "none",
-      backgroundColor: transparent.main,
+      boxShadow: "none"
     },
 
     option: {
@@ -81,12 +79,11 @@ const autocomplete = {
       alignItems: "center",
       height: "auto",
       padding: pxToRem(4),
-      backgroundColor: gradients.dark.state,
       color: white.main,
 
       "& .MuiChip-label": {
         lineHeight: 1.2,
-        padding: `0 ${pxToRem(10)} 0 ${pxToRem(4)}`,
+        padding: `1 ${pxToRem(10)} 0 ${pxToRem(4)}`,
       },
 
       "& .MuiSvgIcon-root, & .MuiSvgIcon-root:hover, & .MuiSvgIcon-root:focus": {

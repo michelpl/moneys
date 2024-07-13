@@ -28,7 +28,7 @@ const { borderRadius } = borders;
 const popover = {
   styleOverrides: {
     paper: {
-      backgroundColor: transparent.main,
+      backgroundColor: '#fff',
       boxShadow: lg,
       padding: pxToRem(8),
       borderRadius: borderRadius.lg,

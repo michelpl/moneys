@@ -22,11 +22,7 @@ import ArgonBox from "components/Argon/ArgonBox";
 import ArgonTypography from "components/Argon/ArgonTypography";
 import ArgonAvatar from "components/Argon/ArgonAvatar";
 
-// Images
-import team1 from "assets/images/team-1.jpg";
-import team2 from "assets/images/team-2.jpg";
-import team3 from "assets/images/team-3.jpg";
-import team4 from "assets/images/team-4.jpg";
+
 
 function Messages() {
   const messagesAvatarStyles = {
@@ -49,16 +45,13 @@ function Messages() {
         </ArgonTypography>
         <ArgonBox display="flex">
           <Tooltip title="2 New Messages" placement="top">
-            <ArgonAvatar src={team1} alt="team-1" size="sm" sx={messagesAvatarStyles} />
+            
           </Tooltip>
           <Tooltip title="1 New Messages" placement="top">
-            <ArgonAvatar src={team2} alt="team-2" size="sm" sx={messagesAvatarStyles} />
           </Tooltip>
           <Tooltip title="13 New Messages" placement="top">
-            <ArgonAvatar src={team3} alt="team-3" size="sm" sx={messagesAvatarStyles} />
           </Tooltip>
           <Tooltip title="7 New Messages" placement="top">
-            <ArgonAvatar src={team4} alt="team-4" size="sm" sx={messagesAvatarStyles} />
           </Tooltip>
         </ArgonBox>
       </ArgonBox>

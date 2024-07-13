@@ -40,6 +40,7 @@ import {
   useArgonController,
   setOpenConfigurator,
   setDarkSidenav,
+  setShowSidenav,
   setMiniSidenav,
   setFixedNavbar,
   setSidenavColor,
@@ -48,7 +49,7 @@ import {
 
 function Configurator() {
   const [controller, dispatch] = useArgonController();
-  const { openConfigurator, darkSidenav, miniSidenav, fixedNavbar, sidenavColor, darkMode } =
+  const { openConfigurator, darkSidenav, showSidenav, miniSidenav, fixedNavbar, sidenavColor, darkMode } =
     controller;
   const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
 
