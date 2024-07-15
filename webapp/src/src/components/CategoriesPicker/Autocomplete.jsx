@@ -21,8 +21,7 @@ import CategoryListItem from "./CategoryListItem";
 
 export default function Autocomplete({ categorizedItem }) {
 
-  // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-  const categories = [{
+  const [categories, setCategories] = useState([{
     label: "Despesas fixas",
     id: "23465633223",
     backgroundColor: "#FF5733",
@@ -41,7 +40,7 @@ export default function Autocomplete({ categorizedItem }) {
     id: "96c3c9e4-2917-4791-8772-0df3e3f6d0e6",
     backgroundColor: "#f1c40f",
   }
-  ];
+  ]);
 
   const [list, setList] = useState(categories);
   const [checked, setChecked] = useState([0]);
@@ -65,8 +64,9 @@ export default function Autocomplete({ categorizedItem }) {
   }
 
   const handleDelete = (itemId) => {
-    const filtered = list.filter(item => item.id !== itemId)
+    const filtered = categories.filter(item => item.id !== itemId)
     setList(filtered);
+    setCategories(filtered);
   }
 
   return (
