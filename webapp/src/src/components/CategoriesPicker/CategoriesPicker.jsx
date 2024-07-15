@@ -36,6 +36,27 @@ export default memo(({ value, onValueChange, stopEditing }) => {
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const categories = [
+  {
+    label: "Despesas fixas",
+    id: "23465633223",
+    backgroundColor: "#FF5733",
+  }, {
+    label: "Despesas variáveis",
+    id: "e759af68-6a10-4f0d-bf63-64f29a781ac1",
+    backgroundColor: "#3498db",
+  }, 
+  { 
+    label: "Alimentação", 
+    id: "1c3b1e56-c5d7-4cf1-ae58-ec5bc3f4a47a", 
+    backgroundColor: "#2ecc71" 
+  }, 
+  {
+    label: "Moradia",
+    id: "96c3c9e4-2917-4791-8772-0df3e3f6d0e6",
+    backgroundColor: "#f1c40f",
+  }
+  ];
 
   return (<Modal
     open={open}
@@ -48,7 +69,7 @@ export default memo(({ value, onValueChange, stopEditing }) => {
         Categorias
       </Typography>
       <Box mt={3}>
-        <Autocomplete categorizedItem={'Descrição da transação'} />
+        <Autocomplete data={categories} item={{description: 'Descrição do item'}} />
       </Box>
     </Box>
   </Modal>);
