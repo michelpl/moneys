@@ -15,7 +15,7 @@ const MoodRenderer = (props) => {
   const mood = useMemo(() => imageForMood(props.value), [props.value]);
 
   return (
-    <div className="mood-renderer"><img width="20px" src={mood}/></div>
+    <div className="mood-renderer"><img width="20px" src={mood} /></div>
   );
 }
 
@@ -30,17 +30,20 @@ export default function MoneysDataGrid() {
       categories: [
         {
           id: randomId(),
-          label: randomJobTitle(),
+          label: 'Teste',
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
       ]
@@ -55,25 +58,32 @@ export default function MoneysDataGrid() {
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
+          color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
+          color: randomColor(),
         }
       ]
     },
@@ -85,18 +95,21 @@ export default function MoneysDataGrid() {
       date: new Date(),
       categories: [
         {
-          id: randomId(),
-          label: randomJobTitle(),
+          label: "Despesas fixas",
+          id: "23465633223",
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
         {
           id: randomId(),
           label: randomJobTitle(),
+          backgroundColor: randomColor(),
           color: randomColor(),
         },
       ]
@@ -125,10 +138,10 @@ export default function MoneysDataGrid() {
       editable: true,
     },
     {
-      field: "date" ,
+      field: "date",
       headerName: 'Data de pagamento',
       cellEditor: "agDateCellEditor",
-      editable:true,
+      editable: true,
       valueFormatter: (params) => {
         if (!params.value) {
           return "";
@@ -156,17 +169,17 @@ export default function MoneysDataGrid() {
     },
   ]);
   return (<>
-      <div
-        className="ag-theme-quartz"
-        style={{ height: 400, width: '100%' }}
-      >
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={colDefs}
-          reactiveCustomComponents={true}
-          defaultColDef={defaultColDef}
-          rowDragManaged={true}
-        />
-      </div>
+    <div
+      className="ag-theme-quartz"
+      style={{ height: 400, width: '100%' }}
+    >
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={colDefs}
+        reactiveCustomComponents={true}
+        defaultColDef={defaultColDef}
+        rowDragManaged={true}
+      />
+    </div>
   </>)
 }
