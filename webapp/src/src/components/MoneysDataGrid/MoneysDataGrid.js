@@ -19,102 +19,8 @@ const MoodRenderer = (props) => {
   );
 }
 
-export default function MoneysDataGrid() {
-  const [rowData, setRowData] = useState([
-    {
-      make: "Tesla",
-      model: "Model Y",
-      price: 64950,
-      electric: true,
-      date: new Date('12/01/2022'),
-      categories: [
-        {
-          id: randomId(),
-          label: 'Teste',
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-      ]
-    },
-    {
-      make: "Ford",
-      model: "F-Series",
-      price: 33850,
-      electric: false,
-      date: new Date(),
-      categories: [
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        }
-      ]
-    },
-    {
-      make: "Toyota",
-      model: "Corolla",
-      price: 29600,
-      electric: false,
-      date: new Date(),
-      categories: [
-        {
-          label: "Despesas fixas",
-          id: "23465633223",
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-        {
-          id: randomId(),
-          label: randomJobTitle(),
-          backgroundColor: randomColor(),
-          color: randomColor(),
-        },
-      ]
-    },
-  ]);
+export default function MoneysDataGrid({columns, data}) {
+  const [rowData, setRowData] = useState(data);
 
   const defaultColDef = useMemo(() => {
     return {
@@ -125,49 +31,7 @@ export default function MoneysDataGrid() {
   }, []);
 
   // Column Definitions: Defines the columns to be displayed.
-  const [colDefs, setColDefs] = useState([
-    {
-      field: "make",
-      editable: true,
-      rowDrag: true
-    },
-    { field: "model" },
-    { field: "price" },
-    {
-      field: "electric",
-      editable: true,
-    },
-    {
-      field: "date",
-      headerName: 'Data de pagamento',
-      cellEditor: "agDateCellEditor",
-      editable: true,
-      valueFormatter: (params) => {
-        if (!params.value) {
-          return "";
-        }
-        const month = params.value.getMonth() + 1;
-        const day = params.value.getDate();
-        return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
-      },
-    },
-    {
-      field: "categories",
-      headerName: 'Categorias',
-      cellRenderer: ChipList,
-      cellEditor: CategoriesPicker,
-      cellEditorPopup: true,
-      editable: true,
-    },
-    {
-      field: "mood",
-      headerName: "Custom Mood",
-      cellRenderer: MoodRenderer,
-      cellEditor: MoodEditor,
-      cellEditorPopup: true,
-      editable: true,
-    },
-  ]);
+  const [colDefs, setColDefs] = useState(columns);
   return (<>
     <div
       className="ag-theme-quartz"

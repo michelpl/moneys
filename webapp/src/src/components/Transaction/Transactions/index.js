@@ -13,13 +13,15 @@ import {Button, Card, Chip} from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
 import clsx from 'clsx';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {randomId} from '@mui/x-data-grid-generator';
+import {randomColor, randomId, randomJobTitle} from '@mui/x-data-grid-generator';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMessage, faFlag} from '@fortawesome/free-regular-svg-icons'
 import {grey} from '@mui/material/colors';
 import MyPopover from 'components/MyPopover';
 import pxToRem from "../../../assets/theme/functions/pxToRem";
 import MoneysDataGrid from "../../MoneysDataGrid/MoneysDataGrid";
+import ChipList from 'components/CategoriesPicker/ChipList';
+import CategoriesPicker from 'components/CategoriesPicker/CategoriesPicker';
 
 function EditToolbar(props) {
     const {setRows, setRowModesModel} = props;
@@ -65,191 +67,138 @@ export default function DataGridDemo() {
         setRows(rows.filter((row) => row.id !== id));
     };
 
+    const data = [
+        {
+          make: "Tesla",
+          model: "Model Y",
+          price: 64950,
+          electric: true,
+          date: new Date('12/01/2022'),
+          categories: [
+            {
+              id: randomId(),
+              label: 'Teste',
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+          ]
+        },
+        {
+          make: "Ford",
+          model: "F-Series",
+          price: 33850,
+          electric: false,
+          date: new Date(),
+          categories: [
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            }
+          ]
+        },
+        {
+          make: "Toyota",
+          model: "Corolla",
+          price: 29600,
+          electric: false,
+          date: new Date(),
+          categories: [
+            {
+              label: "Despesas fixas",
+              id: "23465633223",
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+            {
+              id: randomId(),
+              label: randomJobTitle(),
+              backgroundColor: randomColor(),
+              color: randomColor(),
+            },
+          ]
+        },
+      ];
+
+
     const columns = [
         {
-            field: 'icon',
-            headerName: '',
-            id: randomId(),
-            key: randomId(),
-            width: 50,
-            sortable: false,
-            headerAlign: 'left',
-            renderCell: () => {
-                return (<MyPopover/>)
+          field: "make",
+          editable: true,
+          rowDrag: true
+        },
+        { field: "model" },
+        { field: "price" },
+        {
+          field: "electric",
+          editable: true,
+        },
+        {
+          field: "date",
+          headerName: 'Data de pagamento',
+          cellEditor: "agDateCellEditor",
+          editable: true,
+          valueFormatter: (params) => {
+            if (!params.value) {
+              return "";
             }
+            const month = params.value.getMonth() + 1;
+            const day = params.value.getDate();
+            return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
+          },
         },
         {
-            id: randomId(),
-            key: randomId(),
-            field: 'description',
-            headerName: 'Descrição',
-            type: 'text',
-            width: 250,
-            sortable: true,
-            editable: true,
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'amount',
-            headerName: 'Verba planejada',
-            type: 'number',
-            width: 150,
-            sortable: true,
-            editable: true,
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'paidAmount',
-            headerName: 'Verba utilizada',
-            type: 'number',
-            width: 120,
-            sortable: true,
-            editable: true,
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'paymentDate',
-            headerName: 'Data de pagamento',
-            type: 'date',
-            sortable: true,
-            editable: true,
-            width: 150,
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'dueDate',
-            headerName: 'Data de vencimento',
-            type: 'date',
-            sortable: true,
-            width: 150,
-            editable: true,
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'Método de pagamento',
-            type: 'singleSelect',
-            width: 50,
-            editable: true,
-            valueOptions: ({row}) => {
-                return ['', 'EU-resident', 'junior', 'Other'];
-            },
-            cellClassName: (params) => {
-                return cellDecoration(params);
-            },
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'categories',
-            headerName: 'Categorias',
-            type: 'text',
-            headerAlign: ' left',
-            sortable: true,
-            width: 400,
-            height: 180,
-            editable: false,
-
-        },
-        {
-            id: randomId(),
-            key: randomId(),
-            field: 'actions',
-            type: 'actions',
-            headerAlign: 'right',
-            width: 120,
-            getActions: (params) => [
-                <GridActionsCellItem
-                    key={'del'}
-                    icon={<RenderNotesButton/>}
-                    label="Delete"
-                    onClick={(params.id) = {}}
-                />,
-                <GridActionsCellItem
-                    key={'sec'}
-                    icon={<FontAwesomeIcon icon={faFlag} style={{height: "20px", color: grey[400]}}/>}
-                    label="Valor em aberto"
-                    onClick={(params.id) = {}}
-                />,
-                <GridActionsCellItem
-                    key={'file'}
-                    icon={<DeleteIcon/>}
-                    label="Excluir"
-                    onClick={handleDeleteClick(params.row.id)}
-                    showInMenu
-                />,
-            ],
-        },
-    ];
-    const date = new Date(2024, '04', '02');
-    const initialRows = [
-        {
-            id: 1,
-            description: '',
-            budget: '',
-            installments: '',
-            dueDate: date,
-            paymentDate: date,
-            usedBudget: '1',
-            notUsedBudget: '',
-            paymentMethod: '',
-            categories: '',
-            status: '',
-            comments: '',
-            actions: ''
-        },
-        {
-            id: 2,
-            description: '',
-            budget: '',
-            installments: '',
-            dueDate: date,
-            paymentDate: date,
-            usedBudget: '1',
-            notUsedBudget: '',
-            paymentMethod: '',
-            categories: '',
-            status: '',
-            comments: '',
-            actions: ''
-        },
-        {
-            id: 3,
-            description: 'Snow',
-            budget: '150.00',
-            installments: '1/5',
-            dueDate: date,
-            paymentDate: date,
-            usedBudget: '100.00',
-            notUsedBudget: '50.00',
-            paymentMethod: 'Pix',
-            categories: '',
-            status: 'paid',
-            notes: 3,
-            actions: 'edit button '
-        },
-    ];
-    const [rows, setRows] = useState(initialRows);
-    const [rowModesModel, setRowModesModel] = useState({});
+          field: "categories",
+          headerName: 'Categorias',
+          cellRenderer: ChipList,
+          cellEditor: CategoriesPicker,
+          cellEditorPopup: true,
+          editable: true,
+        }
+      ];
 
     return (
         <>
@@ -282,7 +231,7 @@ export default function DataGridDemo() {
                             <ArgonTypography variant="h6">Entradas</ArgonTypography>
                         </ArgonBox>
                         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                            <MoneysDataGrid />
+                            <MoneysDataGrid columns={columns} data={data} />
                         </ArgonBox>
                     </ArgonBox>
                 </Card>
