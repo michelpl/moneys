@@ -40,7 +40,8 @@ export default function MoneysDataGrid({columns, data}) {
       <AgGridReact
         rowData={rowData}
         columnDefs={colDefs}
-        reactiveCustomComponents={true}
+        undoRedoCellEditing={true}
+        undoRedoCellEditingLimit={20}
         defaultColDef={defaultColDef}
         rowDragManaged={true}
       />

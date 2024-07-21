@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {useState} from 'react';
+import { useState } from 'react';
 import {
     DataGrid,
     GridActionsCellItem,
@@ -9,14 +9,14 @@ import {
     GridToolbarContainer
 } from '@mui/x-data-grid';
 import ArgonBox from 'components/Argon/ArgonBox';
-import {Button, Card, Chip} from '@mui/material';
+import { Button, Card, Chip } from '@mui/material';
 import ArgonTypography from 'components/Argon/ArgonTypography';
 import clsx from 'clsx';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {randomColor, randomId, randomJobTitle} from '@mui/x-data-grid-generator';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faMessage, faFlag} from '@fortawesome/free-regular-svg-icons'
-import {grey} from '@mui/material/colors';
+import { randomColor, randomId, randomJobTitle } from '@mui/x-data-grid-generator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage, faFlag } from '@fortawesome/free-regular-svg-icons'
+import { grey } from '@mui/material/colors';
 import MyPopover from 'components/MyPopover';
 import pxToRem from "../../../assets/theme/functions/pxToRem";
 import MoneysDataGrid from "../../MoneysDataGrid/MoneysDataGrid";
@@ -24,20 +24,20 @@ import ChipList from 'components/CategoriesPicker/ChipList';
 import CategoriesPicker from 'components/CategoriesPicker/CategoriesPicker';
 
 function EditToolbar(props) {
-    const {setRows, setRowModesModel} = props;
+    const { setRows, setRowModesModel } = props;
 
     const handleClick = () => {
         const id = randomId();
-        setRows((oldRows) => [...oldRows, {key: randomId(), id, name: '', age: '', isNew: true}]);
+        setRows((oldRows) => [...oldRows, { key: randomId(), id, name: '', age: '', isNew: true }]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
-            [id]: {mode: GridRowModes.Edit, fieldToFocus: 'description'},
+            [id]: { mode: GridRowModes.Edit, fieldToFocus: 'description' },
         }));
     };
 
     return (
-        <GridFooterContainer sx={{padding: 3}}>
-            <Button sx={{color: "primary.main"}} onClick={handleClick}>
+        <GridFooterContainer sx={{ padding: 3 }}>
+            <Button sx={{ color: "primary.main" }} onClick={handleClick}>
                 Adicionar linha
             </Button>
         </GridFooterContainer>
@@ -57,7 +57,7 @@ export default function DataGridDemo() {
     function RenderNotesButton(props) {
         return (
             <>
-                <FontAwesomeIcon icon={faMessage} style={{color: "#B197FC", height: pxToRem(20)}}/>
+                <FontAwesomeIcon icon={faMessage} style={{ color: "#B197FC", height: pxToRem(20) }} />
             </>
         );
     }
@@ -69,136 +69,140 @@ export default function DataGridDemo() {
 
     const data = [
         {
-          make: "Tesla",
-          model: "Model Y",
-          price: 64950,
-          electric: true,
-          date: new Date('12/01/2022'),
-          categories: [
-            {
-              id: randomId(),
-              label: 'Teste',
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-          ]
+            order: 1,
+            description: "Salário com descrição bem grande mesmo",
+            amount: 129.9,
+            isPaid: true,
+            paymentDate: new Date('12/01/2022'),
+            dueDate: new Date('05/10/2007'),
+            categories: [
+                {
+                    id: randomId(),
+                    label: 'Teste',
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: randomId(),
+                    label: "Salário",
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
         },
         {
-          make: "Ford",
-          model: "F-Series",
-          price: 33850,
-          electric: false,
-          date: new Date(),
-          categories: [
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            }
-          ]
+            order: 1,
+            description: "Segunda entrada com descrição grande",
+            amount: 129.9,
+            isPaid: true,
+            paymentDate: new Date('12/01/2022'),
+            dueDate: new Date('05/10/2007'),
+            categories: [
+                {
+                    id: randomId(),
+                    label: 'Salário',
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                ,
+                {
+                    id: randomId(),
+                    label: 'Mais uma categoria',
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: randomId(),
+                    label: 'Outras entradas',
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
         },
-        {
-          make: "Toyota",
-          model: "Corolla",
-          price: 29600,
-          electric: false,
-          date: new Date(),
-          categories: [
-            {
-              label: "Despesas fixas",
-              id: "23465633223",
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-            {
-              id: randomId(),
-              label: randomJobTitle(),
-              backgroundColor: randomColor(),
-              color: randomColor(),
-            },
-          ]
-        },
-      ];
+        
+    ];
 
 
     const columns = [
         {
-          field: "make",
-          editable: true,
-          rowDrag: true
-        },
-        { field: "model" },
-        { field: "price" },
-        {
-          field: "electric",
-          editable: true,
+            field: "order",
+            headerName: 'Ordem',
+            type: "id",
+            editable: false,
+            rowDrag: true,
+            maxWidth:120
         },
         {
-          field: "date",
-          headerName: 'Data de pagamento',
-          cellEditor: "agDateCellEditor",
-          editable: true,
-          valueFormatter: (params) => {
-            if (!params.value) {
-              return "";
-            }
-            const month = params.value.getMonth() + 1;
-            const day = params.value.getDate();
-            return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
-          },
+            field: "description",
+            resizable: true,
+            headerName: "Descrição",
+            editable: true,
+            
         },
         {
-          field: "categories",
-          headerName: 'Categorias',
-          cellRenderer: ChipList,
-          cellEditor: CategoriesPicker,
-          cellEditorPopup: true,
-          editable: true,
+            field: "amount",
+            resizable: true,
+            headerName: "Valor",
+            editable: true,
+            maxWidth: 150,
+            
+        },
+        {
+            field: "isPaid",
+            headerName: "Pago?",
+            editable: true,
+            cellRenderer: 'agCheckboxCellRenderer',
+            cellEditor: 'agCheckboxCellEditor',
+            maxWidth: 100,
+            resizable: false
+        },
+        {
+            field: "paymentDate",
+            resizable: true,
+            headerName: 'Data do pagamento',
+            cellEditor: "agDateCellEditor",
+            editable: true,
+            maxWidth: 120,
+            valueFormatter: (params) => {
+                if (!params.value) {
+                    return "";
+                }
+                const month = params.value.getMonth() + 1;
+                const day = params.value.getDate();
+                return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
+            },
+        },
+        {
+            field: "dueDate",
+            headerName: 'Data de vencimento',
+            cellEditor: "agDateCellEditor",
+            resizable: true,
+            editable: true,
+            maxWidth: 120,
+            valueFormatter: (params) => {
+                if (!params.value) {
+                    return "";
+                }
+                const month = params.value.getMonth() + 1;
+                const day = params.value.getDate();
+                return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${params.value.getFullYear()}`;
+            },
+        },
+        {
+            field: "categories",
+            headerName: 'Categorias',
+            cellRenderer: ChipList,
+            resizable: true,
+            cellEditor: CategoriesPicker,
+            cellEditorPopup: true,
+            editable: true,
+        },
+        {
+            field: "actions",
+            headerName: 'Ações',
+            editable: false,
         }
-      ];
+    ];
 
     return (
         <>
