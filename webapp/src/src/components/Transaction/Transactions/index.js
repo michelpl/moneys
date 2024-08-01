@@ -45,7 +45,6 @@ function EditToolbar(props) {
 }
 
 export default function DataGridDemo() {
-
     const [displayPicker, setDisplayPicker] = useState('none')
 
     function cellDecoration(params) {
@@ -67,7 +66,7 @@ export default function DataGridDemo() {
         setRows(rows.filter((row) => row.id !== id));
     };
 
-    const data = [
+    const rows = [
         {
             order: 1,
             description: "Salário com descrição bem grande mesmo",
@@ -77,16 +76,10 @@ export default function DataGridDemo() {
             dueDate: new Date('05/10/2007'),
             categories: [
                 {
-                    id: randomId(),
+                    id: 1,
                     label: 'Teste',
-                    backgroundColor: randomColor(),
-                    color: randomColor(),
-                },
-                {
-                    id: randomId(),
-                    label: "Salário",
-                    backgroundColor: randomColor(),
-                    color: randomColor(),
+                    backgroundColor: "#fdefde",
+                    color: "#fdefde",
                 },
             ]
         },
@@ -99,35 +92,36 @@ export default function DataGridDemo() {
             dueDate: new Date('05/10/2007'),
             categories: [
                 {
-                    id: randomId(),
+                    id: 1,
                     label: 'Salário',
-                    backgroundColor: randomColor(),
-                    color: randomColor(),
+                    label: 'Teste',
+                    backgroundColor: "#ddd",
+                    color: "#ddd",
                 },
                 ,
                 {
-                    id: randomId(),
+                    id: 2,
                     label: 'Mais uma categoria',
-                    backgroundColor: randomColor(),
-                    color: randomColor(),
+                    label: 'Teste',
+                    backgroundColor: "#abcabc",
+                    color: "#abcabc",
                 },
                 {
-                    id: randomId(),
+                    id: 3,
                     label: 'Outras entradas',
-                    backgroundColor: randomColor(),
-                    color: randomColor(),
+                    label: 'Teste',
+                    backgroundColor: "#321fff",
+                    color: "#321fff",
                 },
             ]
         },
         
     ];
 
-
     const columns = [
         {
             field: "order",
             headerName: 'Ordem',
-            type: "id",
             editable: false,
             rowDrag: true,
             maxWidth:120
@@ -162,7 +156,6 @@ export default function DataGridDemo() {
             headerName: 'Data do pagamento',
             cellEditor: "agDateCellEditor",
             editable: true,
-            maxWidth: 120,
             valueFormatter: (params) => {
                 if (!params.value) {
                     return "";
@@ -178,7 +171,6 @@ export default function DataGridDemo() {
             cellEditor: "agDateCellEditor",
             resizable: true,
             editable: true,
-            maxWidth: 120,
             valueFormatter: (params) => {
                 if (!params.value) {
                     return "";
@@ -235,7 +227,7 @@ export default function DataGridDemo() {
                             <ArgonTypography variant="h6">Entradas</ArgonTypography>
                         </ArgonBox>
                         <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-                            <MoneysDataGrid columns={columns} data={data} />
+                            <MoneysDataGrid columns={columns} data={rows} />
                         </ArgonBox>
                     </ArgonBox>
                 </Card>
