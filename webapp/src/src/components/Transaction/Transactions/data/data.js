@@ -1,8 +1,8 @@
 import CategoriesPicker from "components/CategoriesPicker/CategoriesPicker";
 import ChipList from "components/CategoriesPicker/ChipList";
+import { useEffect } from "react";
 
 const getData = function() {
-    
     const rows = [
         {
             order: 1,
@@ -14,7 +14,7 @@ const getData = function() {
             categories: [
                 {
                     id: 1,
-                    label: 'Teste',
+                    label: 'Compras diversas',
                     backgroundColor: "#fdefde",
                     color: "#fdefde",
                 },
@@ -31,7 +31,6 @@ const getData = function() {
                 {
                     id: 1,
                     label: 'Salário',
-                    label: 'Teste',
                     backgroundColor: "#ddd",
                     color: "#ddd",
                 },
@@ -39,20 +38,17 @@ const getData = function() {
                 {
                     id: 2,
                     label: 'Mais uma categoria',
-                    label: 'Teste',
                     backgroundColor: "#abcabc",
                     color: "#abcabc",
                 },
                 {
                     id: 3,
                     label: 'Outras entradas',
-                    label: 'Teste',
                     backgroundColor: "#321fff",
                     color: "#321fff",
                 },
             ]
         },
-        
     ];
 
     const columns = [
@@ -134,7 +130,7 @@ const getData = function() {
     ];
     return {
         columns: columns,
-        data: rows
+        rows: rows
     };
 }
 
