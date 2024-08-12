@@ -1,3 +1,4 @@
+import { randomBoolean, randomColor, randomCommodity, randomCompanyName, randomDate, randomPrice, randomUnitPrice, randomUserName } from "@mui/x-data-grid-generator";
 import CategoriesPicker from "components/CategoriesPicker/CategoriesPicker";
 import ChipList from "components/CategoriesPicker/ChipList";
 import { useEffect } from "react";
@@ -15,13 +16,13 @@ const getData = function() {
                 {
                     id: 1,
                     label: 'Compras diversas',
-                    backgroundColor: "#fdefde",
+                    backgroundColor: "#abcd",
                     color: "#fdefde",
                 },
             ]
         },
         {
-            order: 1,
+            order: 2,
             description: "Segunda entrada com descrição grande",
             amount: 129.9,
             isPaid: true,
@@ -31,21 +32,189 @@ const getData = function() {
                 {
                     id: 1,
                     label: 'Salário',
-                    backgroundColor: "#ddd",
+                    backgroundColor: "#abcd",
                     color: "#ddd",
                 },
                 ,
                 {
                     id: 2,
                     label: 'Mais uma categoria',
-                    backgroundColor: "#abcabc",
+                    backgroundColor: "#abfff",
                     color: "#abcabc",
                 },
                 {
                     id: 3,
                     label: 'Outras entradas',
-                    backgroundColor: "#321fff",
+                    backgroundColor: "#321fefe",
                     color: "#321fff",
+                },
+            ]
+        },
+        {
+            order: 3,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
+        },
+        {
+            order: 4,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
+        },
+        {
+            order: 5,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
+        },
+        {
+            order: 6,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
+        },
+        {
+            order: 7,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+            ]
+        },
+        {
+            order: 8,
+            description: randomCompanyName(),
+            amount: randomUnitPrice(),
+            isPaid: randomBoolean(),
+            paymentDate: new Date(),
+            dueDate: new Date(),
+            categories: [
+                {
+                    id: 1,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 2,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
+                },
+                {
+                    id: 3,
+                    label: randomCommodity(),
+                    backgroundColor: randomColor(),
+                    color: randomColor(),
                 },
             ]
         },

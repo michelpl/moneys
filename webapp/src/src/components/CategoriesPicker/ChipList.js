@@ -11,7 +11,21 @@ export default memo(({ value, onValueChange, stopEditing }) => {
   const chipList = [];
 
   value.map((listItem) => {
-    chipList.push(<Chip size="small" key={listItem.id} label={listItem.label} />)
+    chipList.push(
+    <>
+      <Chip 
+        size="small" 
+        key={listItem.id} 
+        label={listItem.label}
+        title={listItem.label}
+        sx={{
+          backgroundColor: listItem.backgroundColor, 
+          color: listItem.color
+          }}
+      />
+      <span> </span>
+      </>
+  )
   });
 
   return (chipList);
