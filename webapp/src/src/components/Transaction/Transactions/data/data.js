@@ -1,12 +1,11 @@
 import { randomBoolean, randomColor, randomCommodity, randomCompanyName, randomDate, randomPrice, randomUnitPrice, randomUserName } from "@mui/x-data-grid-generator";
 import CategoriesPicker from "components/CategoriesPicker/CategoriesPicker";
 import ChipList from "components/CategoriesPicker/ChipList";
-import { useEffect } from "react";
+import {useCallback, useEffect} from "react";
 
 const getData = function() {
     const rows = [
         {
-            order: 1,
             description: "Salário com descrição bem grande mesmo",
             amount: 129.9,
             isPaid: true,
@@ -22,7 +21,6 @@ const getData = function() {
             ]
         },
         {
-            order: 2,
             description: "Segunda entrada com descrição grande",
             amount: 129.9,
             isPaid: true,
@@ -51,7 +49,6 @@ const getData = function() {
             ]
         },
         {
-            order: 3,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -79,7 +76,6 @@ const getData = function() {
             ]
         },
         {
-            order: 4,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -107,7 +103,6 @@ const getData = function() {
             ]
         },
         {
-            order: 5,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -135,7 +130,6 @@ const getData = function() {
             ]
         },
         {
-            order: 6,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -163,7 +157,6 @@ const getData = function() {
             ]
         },
         {
-            order: 7,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -191,7 +184,6 @@ const getData = function() {
             ]
         },
         {
-            order: 8,
             description: randomCompanyName(),
             amount: randomUnitPrice(),
             isPaid: randomBoolean(),
@@ -219,21 +211,13 @@ const getData = function() {
             ]
         },
     ];
-
     const columns = [
-        {
-            field: "order",
-            headerName: 'Ordem',
-            editable: false,
-            rowDrag: true,
-            maxWidth:120
-        },
         {
             field: "description",
             resizable: true,
             headerName: "Descrição",
             editable: true,
-            
+            rowDrag: true,
         },
         {
             field: "amount",
