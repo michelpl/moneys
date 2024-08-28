@@ -22,7 +22,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./webapp/src:/app:rw
+      - ./webapp/moneys/:/app:rw
   webapi:
     container_name: webapi
     deploy:
@@ -41,6 +41,6 @@ networks:
 
 #Docker volumes
 volumes:
-  webappsrc:
+  webapp:
   mongodata:
   
